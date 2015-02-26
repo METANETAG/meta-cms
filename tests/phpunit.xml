@@ -1,7 +1,7 @@
 <phpunit bootstrap="bootstrap.php" colors="true">
     <testsuites>
-        <testsuite name="tsfw-i18n">
-            <directory>tsfw-i18n</directory>
+        <testsuite name="meta-cms">
+            <directory>meta-cms</directory>
         </testsuite>
     </testsuites>
     
