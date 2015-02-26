@@ -7,8 +7,8 @@
     "license": "LGPL",
     "autoload": {
         "psr-4": {
-            "metanet\\": "src/ch/metanet/",
-            "timesplinter\\": "src/ch/timesplinter/"
+            "ch\\metanet\\": "src/ch/metanet/",
+            "ch\\timesplinter\\": "src/ch/timesplinter/"
         }
     },
     "authors": [
