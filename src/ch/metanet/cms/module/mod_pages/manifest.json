@@ -1,0 +1,33 @@
+{
+	"identifier": "mod_pages",
+	"version": "1.0.0",
+	"author": {
+		"name": "Pascal Muenst",
+		"website": "www.metanet.ch",
+		"email": "entwicklung@metanet.ch"
+	},
+	"name": {
+		"de": "Seiten",
+		"en": "Pages"
+	},
+	"description": {
+		"de": "Verwalten von Seiten",
+		"en": "Manage pages"
+	},
+
+	"rights": {
+		"MOD_PAGES_EDIT": {
+			"de": "Seiten erstellen/editieren",
+			"en": "Create/edit pages"
+		},
+
+		"MOD_PAGES_DELETE": {
+			"de": "Seiten löschen",
+			"en": "Delete pages"
+		}
+	},
+
+	"elements": {
+
+	}
+}

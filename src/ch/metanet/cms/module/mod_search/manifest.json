@@ -1,0 +1,34 @@
+{
+	"identifier": "mod_search",
+	"version": "1.0.0",
+	"author": {
+		"name": "Pascal Muenst",
+		"website": "www.metanet.ch",
+		"email": "entwicklung@metanet.ch"
+	},
+	"name": {
+		"de": "Suche",
+		"en": "Search"
+	},
+	"description": {
+		"de": "Ermöglicht es den Inhalt des CMS zu durchsuchen",
+		"en": "Provides the possiblity to search in content of the CMS"
+	},
+
+	"rights": {
+		"MOD_SEARCH_REBUILD_INDEX": {
+			"de": "Suchindex neu erstellen",
+			"en": "Rebuild search index"
+		}
+	},
+
+	"elements": {
+		"mod_news_box": {
+			"resources": [
+				"${settings}/modules/mod_news_box.config.json",
+				"${templates}/modules/mod_news_box.html"
+			],
+			"database": "mod_news_boxdatabase.sql"
+		}
+	}
+}

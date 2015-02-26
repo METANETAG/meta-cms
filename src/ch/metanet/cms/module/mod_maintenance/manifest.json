@@ -1,0 +1,21 @@
+{
+	"identifier": "mod_maintenance",
+	"version": "1.0.0",
+	"author": {
+		"name": "Pascal Muenst",
+		"website": "www.metanet.ch",
+		"email": "entwicklung@metanet.ch"
+	},
+	"name": {
+		"de": "Wartung",
+		"en": "Maintenance"
+	},
+	"description": {
+		"de": "Wartung des CMS und Auswertung von Statistiken",
+		"en": "Maintenance of the CMS and statistic information"
+	},
+
+	"rights": {
+		
+	}
+}

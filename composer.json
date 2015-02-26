@@ -1,0 +1,30 @@
+{
+    "name": "metanet/meta-cms",
+    "type": "library",
+    "description": "A very fast and flexible CMS based on the tsFramework",
+    "keywords": ["METAcms", "cms", "metanet"],
+    "homepage": "http://github.com/METANET/meta-cms",
+    "license": "LGPL",
+    "autoload": {
+        "psr-4": {
+            "metanet\\": "src/ch/metanet/",
+            "timesplinter\\": "src/ch/timesplinter/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pascal Muenst",
+            "email": "entwicklung@metanet.ch",
+            "homepage": "http://www.metanet.ch",
+            "role": "Developer"
+        }
+    ],
+	
+	"require": {
+		"php": ">=5.5.0"
+	},
+	
+    "require-dev": {
+        "phpunit/phpunit": "4.2.*"
+    }
+}

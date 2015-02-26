@@ -1,0 +1,12 @@
+{
+	"identifier": "mod_layout",
+	"name": {
+		"de": "Layout",
+		"en": "Layout"
+	},
+	"description": {
+		"de": "Einige gebräuchliche Layouts",
+		"en": "Some common layouts"
+	},
+	"elements": ["BorderLayout", "ColumnLayout", "FloatLayout"]
+}

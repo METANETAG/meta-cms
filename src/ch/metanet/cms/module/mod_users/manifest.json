@@ -1,0 +1,40 @@
+{
+	"identifier": "mod_users",
+	"version": "1.0.0",
+	"author": {
+		"name": "Pascal Muenst",
+		"website": "www.metanet.ch",
+		"email": "entwicklung@metanet.ch"
+	},
+	"name": {
+		"de": "Benutzer & Rechte",
+		"en": "Users & Rights"
+	},
+	"description": {
+		"de": "Verwalten von Benutzern und Rechtegruppen",
+		"en": "Manage users and right groups"
+	},
+
+	"rights": {
+		"MOD_USERS_OVERVIEW": {
+			"de": "Die Liste von allen registrierten Benutzern einsehen",
+			"en": "View a list with all registered accounts"
+		},
+		"MOD_USERS_DELETE_USER": {
+			"de": "Einen Benutzer löschen",
+			"en": "Delete a user account"
+		},
+		"MOD_USERS_DELETE_RIGHT_GROUP": {
+			"de": "Eine Rechtegruppe löschen",
+			"en": "Delete a right groups"
+		},
+		"MOD_USERS_EDIT_USER": {
+			"de": "Einen neuen Benutzer erfassen oder einen bestehenden editieren",
+			"en": "Create a new or edit an existing one"
+		},
+		"MOD_USERS_EDIT_RIGHT_GROUP": {
+			"de": "Eine neue Rechtegruppe erstellen oder eine bestehenden editeren",
+			"en": "Create a new right group or edit an existing one"
+		}
+	}
+}

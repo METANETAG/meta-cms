@@ -1,0 +1,49 @@
+{
+	"identifier": "mod_navigation",
+	"version": "1.0.0",
+	"author": {
+		"name": "Pascal Muenst",
+		"website": "www.metanet.ch",
+		"email": "entwicklung@metanet.ch"
+	},
+	"name": {
+		"de": "Navigation",
+		"en": "Navigation"
+	},
+	"description": {
+		"de": "Verwalten verschiedener Navigationen die auf der Seite als Navigation selbst oder Breadcrumb platziert werden können",
+		"en": "Manage multiple navigations for the site and place them either as navigation itself or as bradcrumb on it"
+	},
+
+	"rights": {
+		"MOD_NAV_EDIT_ENTRIES": {
+			"de": "Navigationen erstellen/editieren",
+			"en": "Create/edit navigations entries"
+		},
+
+		"MOD_NAV_DELETE_ENTRIES": {
+			"de": "Navigationseinträge löschen",
+			"en": "Delete navigations entries"
+		},
+
+		"MOD_NAV_EDIT_NAVIGATIONS": {
+			"de": "Navigationen erstellen/editieren",
+			"en": "Create/edit navigations"
+		},
+
+		"MOD_NAV_DELETE_NAVIGATIONS": {
+			"de": "Navigationen löschen",
+			"en": "Delete navigations"
+		}
+	},
+
+	"elements": {
+		"element_nav": {
+			"resources": [
+				"${settings}/modules/mod_news_box.config.json",
+				"${templates}/modules/mod_news_box.html"
+			],
+			"database": "mod_news_boxdatabase.sql"
+		}
+	}
+}

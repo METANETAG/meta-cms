@@ -1,0 +1,166 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Last-Translator: Pascal Muenst\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Root access"
+msgstr "Root-Zugriff"
+
+msgid "Accounts"
+msgstr "Konten"
+
+msgid "Users & Rights"
+msgstr "Benutzer & Rechte"
+
+msgid "new user"
+msgstr "neuer Benutzer"
+
+msgid "view"
+msgstr "ansehen"
+
+msgid "delete"
+msgstr "löschen"
+
+msgid "Rightgroups"
+msgstr "Rechtegruppen"
+
+msgid "new rightgroup"
+msgstr "neue Rechtegruppe"
+
+msgid "Create rightgroup"
+msgstr "Rechtegruppe anlegen"
+
+msgid "Create"
+msgstr "speichern"
+
+msgid "required"
+msgstr "erforderlich"
+
+msgid "Key"
+msgstr "Key"
+
+msgid "Please insert a group name"
+msgstr "Bitte fülle einen Gruppen-Name ein"
+
+msgid "Please insert a group key"
+msgstr "Bitte fülle einen Gruppen-Key ein"
+
+msgid "This group has root rights"
+msgstr "Die Gruppe hat Root-Zugriff"
+
+msgid "Rights"
+msgstr "Rechte"
+
+msgid "Edit rightgroup"
+msgstr "Rechte-Gruppe editieren"
+
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+msgid "The right group has been deleted successfully"
+msgstr "Die Rechtegruppe wurde erfolgreich gelöscht"
+
+msgid "Username"
+msgstr "Benutzername"
+
+msgid "E-mail"
+msgstr "E-Mail"
+
+msgid "Last login"
+msgstr "Letzte Anmeldung"
+
+msgid "Wrong logins"
+msgstr "Falsche Anmeldungen"
+
+msgid "Confirmed"
+msgstr "Bestätigt"
+
+msgid "Right groups"
+msgstr "Rechtegruppen"
+
+msgid "never"
+msgstr "niemals"
+
+msgid "not yet"
+msgstr "noch nicht"
+
+msgid "Account"
+msgstr "Benutzerkonto"
+
+msgid "please choose"
+msgstr "bitte wählen"
+
+msgid "yes"
+msgstr "ja"
+
+msgid "General information"
+msgstr "Allgemeine Informationen"
+
+msgid "edit"
+msgstr "ändern"
+
+msgid "E-Mail"
+msgstr "E-Mail"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Registered"
+msgstr "Registriert"
+
+msgid "Please insert a username"
+msgstr "Bitte fülle einen Benutzernamen ein"
+
+msgid "Please insert an e-mail address"
+msgstr "Bitte fülle eine E-Mail Adresse ein"
+
+msgid "Please insert a valid e-mail address"
+msgstr "Bitte fülle eine gültige E-Mail Adresse ein"
+
+msgid "This account is active"
+msgstr "Dieses Benutzerkonto ist aktiv"
+
+msgid "Edit user"
+msgstr "Benutzer editieren"
+
+msgid "There were errors during submitting the form"
+msgstr "Beim Übermitteln des Formulars sind Fehler aufgetreten"
+
+msgid "The user information has been updated successfully"
+msgstr "Der Benutzer wurde erfolgreich aktualisiert"
+
+msgid "Create new user"
+msgstr "Konto erstellen"
+
+msgid "Hi,You've gotten a new account to scatter stuff at this website in all directions.To log you in you have to choose a strong password for your new account.Please visit this link for that: %s"
+msgstr ""
+
+msgid "The user has been created successfully"
+msgstr "Das Benutzerkonto wurde erfolgreich erstellt"
+
+msgid "The account has been deleted successfully"
+msgstr "Das Benutzerkonto wurde erfolgreich gelöscht"
+
+msgid "Right group"
+msgstr "Rechtegruppe"
+
+msgid "From"
+msgstr "Von"
+
+msgid "To"
+msgstr "Bis"
+
+msgid "indeterminate"
+msgstr "unbestimmt"
+
+msgid "The right group has been added"
+msgstr "Die Rechtegruppe wurde hinzugefügt"
+
+msgid "The right group has been removed"
+msgstr "Die Rechtegruppe wurde entfernt"
