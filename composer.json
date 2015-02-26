@@ -3,7 +3,7 @@
     "type": "library",
     "description": "A very fast and flexible CMS based on the tsFramework",
     "keywords": ["METAcms", "cms", "metanet"],
-    "homepage": "http://github.com/METANET/meta-cms",
+    "homepage": "http://github.com/METANETAG/meta-cms",
     "license": "LGPL",
     "autoload": {
         "psr-4": {
