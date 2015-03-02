@@ -33,7 +33,7 @@ use ch\timesplinter\core\HttpResponse;
 use ch\timesplinter\core\RequestHandler;
 use ch\timesplinter\core\Route;
 use ch\timesplinter\core\RouteUtils;
-use ch\timesplinter\db\DBException;
+use timesplinter\tsfw\db\DBException;
 use ch\timesplinter\formhelper\FormHelper;
 use ch\timesplinter\common\StringUtils;
 use ch\metanet\cms\common\CmsView;

@@ -4,8 +4,197 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5e6ddf661b6b0b45e6792e6dcee1545b",
-    "packages": [],
+    "hash": "a2a138be9d82331ea7ceb2789d4c8483",
+    "packages": [
+        {
+            "name": "timesplinter/ts-framework",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TiMESPLiNTER/tsFramework.git",
+                "reference": "02fbae0adefb3b57de3b05606a4f083e5ae2a01d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/02fbae0adefb3b57de3b05606a4f083e5ae2a01d",
+                "reference": "02fbae0adefb3b57de3b05606a4f083e5ae2a01d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "timesplinter/tsfw-common": "0.1.*",
+                "timesplinter/tsfw-template": "1.0.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ch\\timesplinter\\": "src/ch/timesplinter/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Pascal Muenst",
+                    "email": "dev@timesplinter.ch",
+                    "homepage": "http://www.timesplinter.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A very fast and simple to use framework written in PHP.",
+            "homepage": "https://github.com/TiMESPLiNTER/tsFramework",
+            "keywords": [
+                "framework",
+                "tsFramework",
+                "tsfw"
+            ],
+            "time": "2015-03-01 14:18:12"
+        },
+        {
+            "name": "timesplinter/tsfw-common",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TiMESPLiNTER/tsfw-common.git",
+                "reference": "f6a49d1a6cec1001cb5c2bd19b1eb0719b181bff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-common/zipball/f6a49d1a6cec1001cb5c2bd19b1eb0719b181bff",
+                "reference": "f6a49d1a6cec1001cb5c2bd19b1eb0719b181bff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "timesplinter\\": "src/timesplinter/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Pascal Muenst",
+                    "email": "dev@timesplinter.ch",
+                    "homepage": "http://www.timesplinter.ch",
+                    "role": "Company"
+                }
+            ],
+            "description": "PHP library to abstract common tasks with strings, array, etc.",
+            "homepage": "http://github.com/TiMESPLiNTER/tsfw-common",
+            "keywords": [
+                "common",
+                "tsfw"
+            ],
+            "time": "2015-03-01 00:20:33"
+        },
+        {
+            "name": "timesplinter/tsfw-db",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TiMESPLiNTER/tsfw-db.git",
+                "reference": "f36e98cd881b758bc509a21179627904a3a067dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-db/zipball/f36e98cd881b758bc509a21179627904a3a067dd",
+                "reference": "f36e98cd881b758bc509a21179627904a3a067dd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ch\\": "lib/ch/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Pascal Muenst",
+                    "email": "dev@timesplinter.ch",
+                    "homepage": "http://www.timesplinter.ch",
+                    "role": "Company"
+                }
+            ],
+            "description": "PHP library which extends PDO",
+            "homepage": "http://github.com/TiMESPLiNTER/tsfw-db",
+            "keywords": [
+                "db",
+                "mysql",
+                "php"
+            ],
+            "time": "2015-02-27 11:37:27"
+        },
+        {
+            "name": "timesplinter/tsfw-template",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TiMESPLiNTER/tsfw-template.git",
+                "reference": "0bbcd2355bce5d78d79feae3ec0f2f2170ac9104"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-template/zipball/0bbcd2355bce5d78d79feae3ec0f2f2170ac9104",
+                "reference": "0bbcd2355bce5d78d79feae3ec0f2f2170ac9104",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "timesplinter/tsfw-common": "0.1.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "timesplinter\\": "src/timesplinter/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Pascal Muenst",
+                    "email": "dev@timesplinter.ch",
+                    "homepage": "http://www.timesplinter.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP library to render templates with custom tags",
+            "homepage": "http://github.com/TiMESPLiNTER/tsfw-template",
+            "keywords": [
+                "custom tags",
+                "template",
+                "template engine",
+                "tsfw"
+            ],
+            "time": "2015-03-01 01:20:27"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
@@ -804,7 +993,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "timesplinter/ts-framework": 20,
+        "timesplinter/tsfw-db": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

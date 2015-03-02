@@ -9,7 +9,7 @@ use ch\metanet\cms\controller\common\BackendController;
 use ch\metanet\cms\model\PageModel;
 use ch\metanet\cms\controller\common\FrontendController;
 use ch\timesplinter\common\ArrayUtils;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use \stdClass;
 
 /**

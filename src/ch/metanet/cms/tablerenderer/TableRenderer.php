@@ -3,7 +3,7 @@
 namespace ch\metanet\cms\tablerenderer;
 
 use ch\timesplinter\common\StringUtils;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use timesplinter\tsfw\i18n\common\AbstractTranslator;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace ch\metanet\cms\common;
 
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use ch\metanet\cms\common\CmsElement;
 
 /**

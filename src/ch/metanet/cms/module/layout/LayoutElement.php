@@ -6,7 +6,7 @@ use ch\metanet\cms\common\CmsElement;
 use ch\metanet\cms\common\CmsElementSettingsLoadable;
 use ch\metanet\cms\common\CMSException;
 use ch\metanet\cms\controller\common\FrontendController;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

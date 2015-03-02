@@ -1,7 +1,7 @@
 <?php
 
 namespace ch\metanet\cms\tablerenderer;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

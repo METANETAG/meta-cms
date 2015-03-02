@@ -8,7 +8,7 @@ use ch\metanet\cms\common\CmsView;
 use ch\metanet\cms\controller\common\FrontendController;
 use ch\timesplinter\common\StringUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use stdClass;
 
 /**

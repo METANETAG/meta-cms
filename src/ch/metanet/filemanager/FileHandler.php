@@ -9,7 +9,7 @@
 namespace ch\metanet\filemanager;
 
 use ch\timesplinter\core\FrameworkLoggerFactory;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 class FileHandler
 {

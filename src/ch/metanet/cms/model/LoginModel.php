@@ -3,8 +3,8 @@
 namespace ch\metanet\cms\model;
 
 use ch\metanet\cms\common\CMSException;
-use ch\timesplinter\db\DB;
-use ch\timesplinter\db\DBException;
+use timesplinter\tsfw\db\DB;
+use timesplinter\tsfw\db\DBException;
 
 /**
  * @author Pascal Muenst

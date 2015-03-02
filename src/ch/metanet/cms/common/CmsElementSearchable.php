@@ -5,7 +5,7 @@ namespace ch\metanet\cms\common;
 
 use ch\metanet\cms\controller\common\BackendController;
 use ch\metanet\cms\controller\common\CmsController;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use stdClass;
 
 /**

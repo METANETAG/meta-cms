@@ -4,7 +4,7 @@ namespace ch\metanet\cms\common;
 
 use ch\timesplinter\auth\AuthHandlerDB;
 use ch\timesplinter\core\SessionHandler;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

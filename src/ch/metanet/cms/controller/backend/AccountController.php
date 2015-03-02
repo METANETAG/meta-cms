@@ -18,7 +18,7 @@ use ch\timesplinter\core\HttpRequest;
 use ch\timesplinter\core\HttpResponse;
 use ch\timesplinter\core\RequestHandler;
 use ch\timesplinter\core\Route;
-use ch\timesplinter\db\DBException;
+use timesplinter\tsfw\db\DBException;
 use ch\timesplinter\formhelper\FormHelper;
 use ch\timesplinter\mailer\MailFactory;
 use \DateTime;

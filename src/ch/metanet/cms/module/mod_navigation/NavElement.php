@@ -8,7 +8,7 @@ use ch\metanet\cms\controller\common\BackendController;
 use ch\metanet\cms\controller\common\FrontendController;
 use ch\metanet\cms\module\mod_navigation\events\SubNavLoadedEvent;
 use ch\metanet\cms\module\mod_navigation\model\NavigationModel;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use \stdClass;
 
 /**

@@ -4,7 +4,7 @@ namespace ch\metanet\cms\module\mod_maintenance\frontend;
 
 use ch\metanet\cms\common\CmsModuleFrontendController;
 use ch\metanet\cms\event\PageNotFoundEvent;
-use ch\timesplinter\db\DBException;
+use timesplinter\tsfw\db\DBException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

@@ -7,7 +7,7 @@ use ch\metanet\cms\common\CmsElement;
 use ch\metanet\cms\common\CmsElementSettingsLoadable;
 use ch\metanet\cms\common\CmsPage;
 use ch\metanet\cms\module\layout\LayoutElement;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

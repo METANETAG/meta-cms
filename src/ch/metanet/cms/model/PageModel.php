@@ -6,9 +6,9 @@ use ch\metanet\cms\common\CmsAuthHandlerDB;
 use ch\metanet\cms\common\CmsPage;
 use ch\metanet\cms\common\CmsRoute;
 use ch\metanet\cms\common\CmsTemplate;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use ch\timesplinter\core\Route;
-use ch\timesplinter\db\DBMySQL;
+use timesplinter\tsfw\db\DBMySQL;
 
 /**
  * @author Pascal Muenst

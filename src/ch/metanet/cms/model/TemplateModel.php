@@ -8,7 +8,7 @@
 
 namespace ch\metanet\cms\model;
 
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 class TemplateModel extends Model {
 	public function __construct(DB $db) {

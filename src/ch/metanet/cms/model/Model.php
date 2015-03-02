@@ -9,7 +9,7 @@
 
 namespace ch\metanet\cms\model;
 
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 class Model {
 	protected $db;

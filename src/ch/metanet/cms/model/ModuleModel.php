@@ -9,7 +9,7 @@ use ch\metanet\cms\common\CmsElementSettingsLoadable;
 use ch\metanet\cms\module\layout\LayoutElement;
 use ch\timesplinter\common\JsonUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

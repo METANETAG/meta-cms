@@ -2,7 +2,7 @@
 
 
 namespace ch\metanet\cms\searchengine;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 
 /**

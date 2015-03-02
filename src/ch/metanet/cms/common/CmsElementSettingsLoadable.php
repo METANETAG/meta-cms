@@ -5,7 +5,7 @@ namespace ch\metanet\cms\common;
 use ch\metanet\cms\controller\common\BackendController;
 use ch\timesplinter\common\JsonUtils;
 use ch\timesplinter\common\StringUtils;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

@@ -3,7 +3,7 @@
 
 namespace ch\metanet\cms\common;
 use ch\timesplinter\common\SimpleXMLUtils;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use sqlparser\PHPSQLParser;
 
 

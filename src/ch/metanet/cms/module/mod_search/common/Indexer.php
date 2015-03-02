@@ -5,7 +5,7 @@ namespace ch\metanet\cms\module\mod_search\common;
 use ch\timesplinter\common\JsonUtils;
 use ch\timesplinter\core\Core;
 use ch\timesplinter\core\FrameworkUtils;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use ZendSearch\Lucene\Analysis\Analyzer\Analyzer;
 use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8\CaseInsensitive;
 use ZendSearch\Lucene\Lucene;

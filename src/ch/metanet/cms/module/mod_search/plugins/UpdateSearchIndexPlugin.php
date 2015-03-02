@@ -15,7 +15,7 @@ use ch\metanet\cms\module\layout\LayoutElement;
 use ch\metanet\cms\module\mod_search\model\SearchModel;
 use ch\timesplinter\common\JsonUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use ZendSearch\Lucene\Document;
 use ZendSearch\Lucene\Index\Term;
 use ZendSearch\Lucene\Lucene;

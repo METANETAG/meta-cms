@@ -10,10 +10,10 @@ use ch\metanet\cms\model\PageModel;
 use ch\metanet\cms\module\layout\LayoutElement;
 use ch\metanet\cms\module\mod_core\TextElement;
 use ch\timesplinter\common\JsonUtils;
-use ch\timesplinter\db\DBException;
+use timesplinter\tsfw\db\DBException;
 use ch\timesplinter\template\TemplateEngine;
 use ch\metanet\cms\common\CmsView;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

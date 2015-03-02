@@ -21,7 +21,7 @@ use ch\timesplinter\core\HttpRequest;
 use ch\timesplinter\core\HttpResponse;
 use ch\metanet\cms\tablerenderer\TableRenderer;
 use ch\timesplinter\core\RequestHandler;
-use ch\timesplinter\db\DB;
+use timesplinter\tsfw\db\DB;
 use ch\timesplinter\formhelper\FormHelper;
 use ZendSearch\Lucene\Lucene;
 

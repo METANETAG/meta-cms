@@ -4,9 +4,9 @@ namespace ch\metanet\cms\common;
 
 use ch\timesplinter\common\StringUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
-use ch\timesplinter\db\DBListener;
-use ch\timesplinter\db\DB;
-use ch\timesplinter\db\DBException;
+use timesplinter\tsfw\db\DBListener;
+use timesplinter\tsfw\db\DB;
+use timesplinter\tsfw\db\DBException;
 use \PDOStatement;
 use ch\metanet\cms\common\CMSException;
 
