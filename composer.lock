@@ -69,12 +69,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsFramework.git",
-                "reference": "ba867429dca753d7960bee88c2bc472491370bbc"
+                "reference": "0f55dd396ee0607bd4ba77d8bef495e617dbfa28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/ba867429dca753d7960bee88c2bc472491370bbc",
-                "reference": "ba867429dca753d7960bee88c2bc472491370bbc",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/0f55dd396ee0607bd4ba77d8bef495e617dbfa28",
+                "reference": "0f55dd396ee0607bd4ba77d8bef495e617dbfa28",
                 "shasum": ""
             },
             "require": {
@@ -110,27 +110,27 @@
                 "tsFramework",
                 "tsfw"
             ],
-            "time": "2015-03-02 07:54:06"
+            "time": "2015-03-02 08:18:50"
         },
         {
             "name": "timesplinter/tsfw-common",
-            "version": "v0.1.0",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-common.git",
-                "reference": "299bf51708b10f5356723976e1c4788c8ca44910"
+                "reference": "669e248230c8e4a3f8fc9c95f65bc2b2cc96957a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-common/zipball/299bf51708b10f5356723976e1c4788c8ca44910",
-                "reference": "299bf51708b10f5356723976e1c4788c8ca44910",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-common/zipball/669e248230c8e4a3f8fc9c95f65bc2b2cc96957a",
+                "reference": "669e248230c8e4a3f8fc9c95f65bc2b2cc96957a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "4.2.*"
             },
             "type": "library",
             "autoload": {
@@ -156,7 +156,7 @@
                 "common",
                 "tsfw"
             ],
-            "time": "2014-07-23 08:29:50"
+            "time": "2015-03-02 07:49:54"
         },
         {
             "name": "timesplinter/tsfw-db",
@@ -204,21 +204,21 @@
         },
         {
             "name": "timesplinter/tsfw-i18n",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-i18n.git",
-                "reference": "feceab4d1fa4ecb2082475d3cb9deadfcf78e9ed"
+                "reference": "d1cb66bb3c58bf89dc35e4ad6461e2f249e16938"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-i18n/zipball/feceab4d1fa4ecb2082475d3cb9deadfcf78e9ed",
-                "reference": "feceab4d1fa4ecb2082475d3cb9deadfcf78e9ed",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-i18n/zipball/d1cb66bb3c58bf89dc35e4ad6461e2f249e16938",
+                "reference": "d1cb66bb3c58bf89dc35e4ad6461e2f249e16938",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
-                "timesplinter/tsfw-common": "0.1.0"
+                "timesplinter/tsfw-common": "0.1.*"
             },
             "require-dev": {
                 "phpunit/phpunit": "4.2.*"
@@ -249,20 +249,20 @@
                 "tsFramework",
                 "tsfw"
             ],
-            "time": "2014-12-16 12:05:42"
+            "time": "2015-03-02 08:24:03"
         },
         {
             "name": "timesplinter/tsfw-template",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-template.git",
-                "reference": "0bbcd2355bce5d78d79feae3ec0f2f2170ac9104"
+                "reference": "711bd0f0f5da37f82973ae15da76c2f61444a937"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-template/zipball/0bbcd2355bce5d78d79feae3ec0f2f2170ac9104",
-                "reference": "0bbcd2355bce5d78d79feae3ec0f2f2170ac9104",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-template/zipball/711bd0f0f5da37f82973ae15da76c2f61444a937",
+                "reference": "711bd0f0f5da37f82973ae15da76c2f61444a937",
                 "shasum": ""
             },
             "require": {
@@ -298,7 +298,7 @@
                 "template engine",
                 "tsfw"
             ],
-            "time": "2015-03-01 01:20:27"
+            "time": "2015-03-02 08:17:11"
         }
     ],
     "packages-dev": [
