@@ -22,13 +22,24 @@
 	
 	"require": {
 		"php": ">=5.5.0",
+		"wikimedia/composer-merge-plugin": "1.0.*",
 		"timesplinter/ts-framework": "@dev",
+		"timesplinter/tsfw-i18n": "0.1.*",
+		"metanet/form-handler": "1.2.*",
+		"maxakawizard/po-parser": "@dev",
 		"timesplinter/tsfw-db": "@dev",
-		"symfony/event-dispatcher": "2.5.*",
-		"timesplinter/tsfw-i18n": "0.1.*"
+		"symfony/event-dispatcher": "2.5.*"
 	},
 	
 	"require-dev": {
 	    "phpunit/phpunit": "4.2.*"
+	},
+	
+	"extra": {
+		"merge-plugin": {
+			"include": [
+				"src/ch/metanet/cms/module/*/composer.json"
+			]
+		}
 	}
 }

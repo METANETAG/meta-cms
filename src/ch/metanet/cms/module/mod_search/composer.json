@@ -1,0 +1,7 @@
+{
+	"name": "metanet/meta-cms-search",
+	
+	"require": {
+		"zendframework/zendsearch": "@dev"
+	}
+}
