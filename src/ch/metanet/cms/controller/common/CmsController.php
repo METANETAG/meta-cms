@@ -18,8 +18,8 @@ use ch\timesplinter\core\HttpRequest;
 use ch\timesplinter\core\HttpResponse;
 use ch\timesplinter\core\Route;
 use timesplinter\tsfw\db\DBConnect;
-use timesplinter\tsfw\db\DBFactory;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use timesplinter\tsfw\db\DBMySQL;
 use timesplinter\tsfw\i18n\common\AbstractTranslator;
 use timesplinter\tsfw\i18n\common\Localizer;
 use timesplinter\tsfw\i18n\gettext\GetTextTranslator;
@@ -71,7 +71,7 @@ abstract class CmsController extends FrameworkController
 		$this->translator = $this->getTranslator($this->core->getSiteRoot() . 'locale' . DIRECTORY_SEPARATOR);
 		$this->translator->bindTextDomain('backend', 'UTF-8');
 		
-		$this->db = DBFactory::getNewInstance($dbSettings->type, new DBConnect(
+		$this->db = new DBMySQL($dbSettings->type, new DBConnect(
 			$dbSettings->host,
 			$dbSettings->database,
 			$dbSettings->user,

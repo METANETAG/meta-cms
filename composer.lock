@@ -164,12 +164,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-db.git",
-                "reference": "05a70cb4ddf7ca0716d97e1c6b7600cfbb4dbdd8"
+                "reference": "915f341542473236c4af91acb41371bc1ab35f71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-db/zipball/05a70cb4ddf7ca0716d97e1c6b7600cfbb4dbdd8",
-                "reference": "05a70cb4ddf7ca0716d97e1c6b7600cfbb4dbdd8",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-db/zipball/915f341542473236c4af91acb41371bc1ab35f71",
+                "reference": "915f341542473236c4af91acb41371bc1ab35f71",
                 "shasum": ""
             },
             "require": {
@@ -200,7 +200,7 @@
                 "mysql",
                 "php"
             ],
-            "time": "2015-03-02 07:06:05"
+            "time": "2015-03-02 07:19:37"
         },
         {
             "name": "timesplinter/tsfw-i18n",
