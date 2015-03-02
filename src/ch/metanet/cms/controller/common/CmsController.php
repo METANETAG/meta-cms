@@ -71,7 +71,7 @@ abstract class CmsController extends FrameworkController
 		$this->translator = $this->getTranslator($this->core->getSiteRoot() . 'locale' . DIRECTORY_SEPARATOR);
 		$this->translator->bindTextDomain('backend', 'UTF-8');
 		
-		$this->db = new DBMySQL($dbSettings->type, new DBConnect(
+		$this->db = new DBMySQL(new DBConnect(
 			$dbSettings->host,
 			$dbSettings->database,
 			$dbSettings->user,
