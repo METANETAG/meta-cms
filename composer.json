@@ -23,11 +23,11 @@
 	"require": {
 		"php": ">=5.5.0",
 		"wikimedia/composer-merge-plugin": "1.0.*",
-		"timesplinter/ts-framework": "@dev",
+		"timesplinter/ts-framework": "0.2.*",
 		"timesplinter/tsfw-i18n": "0.1.*",
+		"timesplinter/tsfw-db": "1.0.*",
 		"metanet/form-handler": "1.2.*",
 		"maxakawizard/po-parser": "@dev",
-		"timesplinter/tsfw-db": "@dev",
 		"symfony/event-dispatcher": "2.5.*"
 	},
 	

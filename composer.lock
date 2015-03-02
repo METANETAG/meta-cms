@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3dabeed5eb897d1f66997b83768407c5",
+    "hash": "5f844f4ed01969fb98fc0e94d545c1e2",
     "packages": [
         {
             "name": "maxakawizard/po-parser",
@@ -154,7 +154,7 @@
         },
         {
             "name": "timesplinter/ts-framework",
-            "version": "dev-master",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsFramework.git",
@@ -249,7 +249,7 @@
         },
         {
             "name": "timesplinter/tsfw-db",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-db.git",
@@ -1319,9 +1319,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "timesplinter/ts-framework": 20,
         "maxakawizard/po-parser": 20,
-        "timesplinter/tsfw-db": 20,
         "zendframework/zendsearch": 20
     },
     "prefer-stable": false,
