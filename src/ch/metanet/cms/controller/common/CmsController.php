@@ -17,6 +17,7 @@ use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpRequest;
 use ch\timesplinter\core\HttpResponse;
 use ch\timesplinter\core\Route;
+use timesplinter\tsfw\db\DB;
 use timesplinter\tsfw\db\DBConnect;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use timesplinter\tsfw\db\DBMySQL;
@@ -404,7 +405,7 @@ abstract class CmsController extends FrameworkController
 	protected abstract function renderTemplate($tplFile, array $tplVars = array());
 
 	/**
-	 * @return \ch\timesplinter\db\DB
+	 * @return DB
 	 */
 	public function getDB()
 	{
@@ -412,7 +413,7 @@ abstract class CmsController extends FrameworkController
 	}
 
 	/**
-	 * @return CmsAuthHandlerDB|\ch\timesplinter\auth\AuthHandlerDB
+	 * @return CmsAuthHandlerDB
 	 */
 	public function getAuth()
 	{
