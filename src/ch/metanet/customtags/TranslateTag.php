@@ -2,8 +2,8 @@
 
 namespace ch\metanet\customtags;
 
-use ch\timesplinter\htmlparser\ElementNode;
-use ch\timesplinter\htmlparser\TextNode;
+use timesplinter\tsfw\htmlparser\ElementNode;
+use timesplinter\tsfw\htmlparser\TextNode;
 use timesplinter\tsfw\template\TagInline;
 use timesplinter\tsfw\template\TagNode;
 use timesplinter\tsfw\template\TemplateEngine;

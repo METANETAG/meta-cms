@@ -2,11 +2,11 @@
 
 namespace ch\metanet\customtags;
 
-use timesplinter\tsfw\template\TemplateEngine;
+use timesplinter\tsfw\htmlparser\ElementNode;
+use timesplinter\tsfw\htmlparser\HtmlAttribute;
 use timesplinter\tsfw\template\TagNode;
+use timesplinter\tsfw\template\TemplateEngine;
 use timesplinter\tsfw\template\TemplateTag;
-use ch\timesplinter\htmlparser\ElementNode;
-use ch\timesplinter\htmlparser\HtmlAttribute;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

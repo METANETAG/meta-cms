@@ -3,11 +3,11 @@
 
 namespace ch\metanet\customtags;
 
-use ch\timesplinter\htmlparser\TextNode;
-use ch\timesplinter\htmlparser\ElementNode;
-use timesplinter\tsfw\template\TemplateTag;
+use timesplinter\tsfw\htmlparser\ElementNode;
+use timesplinter\tsfw\htmlparser\TextNode;
 use timesplinter\tsfw\template\TagNode;
 use timesplinter\tsfw\template\TemplateEngine;
+use timesplinter\tsfw\template\TemplateTag;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
@@ -20,22 +20,21 @@ class FormComponentTag extends TemplateTag implements TagNode
 		$tplEngine->checkRequiredAttrs($node, array('form', 'name'));
 
 		// DATA
-		$formHandler = $tplEngine->getSelectorAsPHPStr($node->getAttribute('form')->value);
-		$fieldName = $node->getAttribute('name')->value;
-
-		// Generate
-		$textContent = null;
-
-		$fieldGetterCall = $formHandler . '->getComponent(\'' . $fieldName . '\')';
-		$html = '<?php echo ' . $fieldGetterCall . '->render(); ?>';
-
 		$newNode = new TextNode($tplEngine->getDomReader());
-		$newNode->content = $html;
+		$newNode->content = '<?= ' . self::class . '::render(\'' . $node->getAttribute('form')->value . '\', \'' . $node->getAttribute('name')->value . '\', $this); ?>';
 
 		$node->parentNode->insertBefore($newNode, $node);
 		$node->parentNode->removeNode($node);
 	}
-
+	
+	public static function render($formSelector, $componentName, TemplateEngine $tplEngine)
+	{
+		$callback = array($tplEngine->getDataFromSelector($formSelector), 'getComponent');
+		$component = call_user_func($callback, $componentName);
+		
+		return call_user_func(array($component, 'render'));
+	}
+	
 	/**
 	 * @return string
 	 */
