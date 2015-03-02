@@ -4,10 +4,10 @@ namespace ch\metanet\customtags;
 
 use ch\timesplinter\htmlparser\ElementNode;
 use ch\timesplinter\htmlparser\TextNode;
-use ch\timesplinter\template\TagInline;
-use ch\timesplinter\template\TagNode;
-use ch\timesplinter\template\TemplateEngine;
-use ch\timesplinter\template\TemplateTag;
+use timesplinter\tsfw\template\TagInline;
+use timesplinter\tsfw\template\TagNode;
+use timesplinter\tsfw\template\TemplateEngine;
+use timesplinter\tsfw\template\TemplateTag;
 use timesplinter\tsfw\i18n\common\AbstractTranslator;
 
 /**

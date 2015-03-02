@@ -8,7 +8,7 @@ use ch\metanet\cms\common\CmsView;
 use ch\metanet\cms\controller\common\BackendController;
 use ch\metanet\cms\model\PageModel;
 use ch\metanet\cms\controller\common\FrontendController;
-use ch\timesplinter\common\ArrayUtils;
+use timesplinter\tsfw\common\ArrayUtils;
 use timesplinter\tsfw\db\DB;
 use \stdClass;
 

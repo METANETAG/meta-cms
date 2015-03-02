@@ -9,7 +9,7 @@ use ch\metanet\cms\module\mod_news\model\NewsModel;
 use ch\metanet\cms\module\mod_search\common\CmsSearchHighlighter;
 use ch\metanet\cms\module\mod_search\common\Indexer;
 use ch\metanet\cms\module\mod_search\model\SearchModel;
-use ch\timesplinter\common\JsonUtils;
+use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpResponse;

@@ -5,7 +5,7 @@ namespace ch\metanet\cms\controller\backend;
 use ch\metanet\cms\backend\DashboardWidget;
 use ch\metanet\cms\controller\common\BackendController;
 use ch\metanet\cms\model\DashboardWidgetModel;
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 use ch\timesplinter\core\HttpResponse;
 
 

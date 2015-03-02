@@ -2,7 +2,7 @@
 
 namespace ch\metanet\cms\tablerenderer;
 
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 use timesplinter\tsfw\db\DB;
 use timesplinter\tsfw\i18n\common\AbstractTranslator;
 

@@ -15,7 +15,7 @@ use ch\metanet\cms\tablerenderer\DateColumnDecorator;
 use ch\metanet\cms\tablerenderer\FileSizeColumnDecorator;
 use ch\metanet\cms\tablerenderer\LinkColumnDecorator;
 use ch\metanet\cms\tablerenderer\RewriteColumnDecorator;
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpRequest;
 use ch\timesplinter\core\HttpResponse;

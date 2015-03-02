@@ -2,7 +2,7 @@
 
 namespace ch\metanet\cms\common;
 
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use timesplinter\tsfw\db\DBListener;
 use timesplinter\tsfw\db\DB;

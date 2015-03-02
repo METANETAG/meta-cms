@@ -3,8 +3,8 @@
 
 namespace ch\metanet\cms\common;
 
-use ch\timesplinter\template\TemplateCacheStrategy;
-use ch\timesplinter\template\TemplateEngine;
+use timesplinter\tsfw\template\TemplateCacheStrategy;
+use timesplinter\tsfw\template\TemplateEngine;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

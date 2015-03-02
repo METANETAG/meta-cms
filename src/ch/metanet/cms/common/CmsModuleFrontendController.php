@@ -3,7 +3,7 @@
 namespace ch\metanet\cms\common;
 
 use ch\metanet\cms\controller\common\FrontendController;
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpResponse;

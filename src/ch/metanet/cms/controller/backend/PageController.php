@@ -35,10 +35,10 @@ use ch\timesplinter\core\Route;
 use ch\timesplinter\core\RouteUtils;
 use timesplinter\tsfw\db\DBException;
 use ch\timesplinter\formhelper\FormHelper;
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 use ch\metanet\cms\common\CmsView;
 use ch\metanet\cms\common\CmsUtils;
-use ch\timesplinter\template\DirectoryTemplateCache;
+use timesplinter\tsfw\template\DirectoryTemplateCache;
 use \DateTime;
 
 /**

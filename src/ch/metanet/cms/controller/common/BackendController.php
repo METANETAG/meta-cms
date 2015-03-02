@@ -12,7 +12,7 @@ use ch\timesplinter\core\HttpResponse;
 use ch\timesplinter\core\RequestHandler;
 use ch\timesplinter\core\Route;
 use ch\metanet\cms\common\CmsView;
-use ch\timesplinter\template\DirectoryTemplateCache;
+use timesplinter\tsfw\template\DirectoryTemplateCache;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

@@ -3,8 +3,8 @@
 namespace ch\metanet\cms\common;
 
 use ch\metanet\cms\controller\common\BackendController;
-use ch\timesplinter\common\JsonUtils;
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\JsonUtils;
+use timesplinter\tsfw\common\StringUtils;
 use timesplinter\tsfw\db\DB;
 
 /**

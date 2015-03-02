@@ -6,7 +6,7 @@ use ch\metanet\cms\common\CmsElement;
 use ch\metanet\cms\common\CmsView;
 use ch\metanet\cms\controller\common\FrontendController;
 use timesplinter\tsfw\db\DB;
-use ch\timesplinter\template\TemplateEngine;
+use timesplinter\tsfw\template\TemplateEngine;
 use stdClass;
 
 /**

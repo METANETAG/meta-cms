@@ -11,7 +11,7 @@ use ch\metanet\cms\tablerenderer\CallbackColumnDecorator;
 use ch\metanet\cms\tablerenderer\Column;
 use ch\metanet\cms\tablerenderer\LinkColumnDecorator;
 use ch\metanet\cms\tablerenderer\TableRenderer;
-use ch\timesplinter\common\JsonUtils;
+use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\Core;
 use ch\timesplinter\core\HttpRequest;
 use ch\timesplinter\core\HttpResponse;
@@ -19,7 +19,7 @@ use ch\timesplinter\core\RequestHandler;
 use ch\timesplinter\core\Route;
 use ch\timesplinter\formhelper\FormHelper;
 use ch\metanet\cms\common\CmsUtils;
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 
 /**
  * The route controller handles installed modules

@@ -10,7 +10,7 @@ use ch\metanet\cms\controller\common\BackendController;
 use ch\metanet\cms\model\ElementModel;
 use ch\metanet\cms\model\ModuleModel;
 use ch\metanet\cms\model\PageModel;
-use ch\timesplinter\common\JsonUtils;
+use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\Core;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use ch\timesplinter\core\HttpException;

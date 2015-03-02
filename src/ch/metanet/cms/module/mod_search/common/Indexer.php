@@ -2,7 +2,7 @@
 
 
 namespace ch\metanet\cms\module\mod_search\common;
-use ch\timesplinter\common\JsonUtils;
+use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\Core;
 use ch\timesplinter\core\FrameworkUtils;
 use timesplinter\tsfw\db\DB;

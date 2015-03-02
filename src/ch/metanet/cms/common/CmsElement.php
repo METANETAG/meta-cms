@@ -3,16 +3,13 @@
 namespace ch\metanet\cms\common;
 
 use \ArrayObject;
-use ch\metanet\cms\common\CMSException;
 use ch\metanet\cms\controller\common\BackendController;
 use ch\metanet\cms\controller\common\FrontendController;
 use ch\metanet\cms\model\PageModel;
 use ch\metanet\cms\module\layout\LayoutElement;
 use ch\metanet\cms\module\mod_core\TextElement;
-use ch\timesplinter\common\JsonUtils;
+use timesplinter\tsfw\common\JsonUtils;
 use timesplinter\tsfw\db\DBException;
-use ch\timesplinter\template\TemplateEngine;
-use ch\metanet\cms\common\CmsView;
 use timesplinter\tsfw\db\DB;
 
 /**
@@ -56,7 +53,7 @@ abstract class CmsElement
 	 */
 	public function render(FrontendController $frontendController, CmsView $view)
 	{
-		return $view->render($this->identifier . '.html', $this->tplVars);
+		return $view->render($this->identifier . '.html', (array)$this->tplVars);
 	}
 
 	public function remove(DB $db)

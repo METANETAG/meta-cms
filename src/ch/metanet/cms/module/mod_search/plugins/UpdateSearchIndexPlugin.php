@@ -13,7 +13,7 @@ use ch\metanet\cms\model\PageModel;
 use ch\metanet\cms\model\RouteModel;
 use ch\metanet\cms\module\layout\LayoutElement;
 use ch\metanet\cms\module\mod_search\model\SearchModel;
-use ch\timesplinter\common\JsonUtils;
+use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use timesplinter\tsfw\db\DB;
 use ZendSearch\Lucene\Document;

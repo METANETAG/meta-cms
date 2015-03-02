@@ -5,9 +5,9 @@ namespace ch\metanet\customtags;
 
 use ch\timesplinter\htmlparser\TextNode;
 use ch\timesplinter\htmlparser\ElementNode;
-use ch\timesplinter\template\TemplateTag;
-use ch\timesplinter\template\TagNode;
-use ch\timesplinter\template\TemplateEngine;
+use timesplinter\tsfw\template\TemplateTag;
+use timesplinter\tsfw\template\TagNode;
+use timesplinter\tsfw\template\TemplateEngine;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>

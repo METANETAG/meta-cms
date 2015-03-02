@@ -7,7 +7,7 @@ use ch\metanet\cms\common\CmsElement;
 use ch\metanet\cms\common\CMSException;
 use ch\metanet\cms\common\CmsElementSettingsLoadable;
 use ch\metanet\cms\module\layout\LayoutElement;
-use ch\timesplinter\common\JsonUtils;
+use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use timesplinter\tsfw\db\DB;
 

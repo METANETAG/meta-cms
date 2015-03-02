@@ -2,9 +2,9 @@
 
 namespace ch\metanet\customtags;
 
-use ch\timesplinter\template\TemplateEngine;
-use ch\timesplinter\template\TagNode;
-use ch\timesplinter\template\TemplateTag;
+use timesplinter\tsfw\template\TemplateEngine;
+use timesplinter\tsfw\template\TagNode;
+use timesplinter\tsfw\template\TemplateTag;
 use ch\timesplinter\htmlparser\ElementNode;
 use ch\timesplinter\htmlparser\HtmlAttribute;
 

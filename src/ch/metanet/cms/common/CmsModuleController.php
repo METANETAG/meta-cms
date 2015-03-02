@@ -4,7 +4,7 @@ namespace ch\metanet\cms\common;
 
 use ch\metanet\cms\controller\common\CmsController;
 use ch\metanet\cms\model\ModuleModel;
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpResponse;
 

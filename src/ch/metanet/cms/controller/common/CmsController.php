@@ -10,7 +10,7 @@ use ch\metanet\cms\locale\PoParser;
 use ch\metanet\cms\locale\PoWriter;
 use ch\metanet\cms\model\ModuleModel;
 use ch\timesplinter\auth\AuthHandlerDB;
-use ch\timesplinter\common\JsonUtils;
+use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\controller\FrameworkController;
 use ch\timesplinter\core\Core;
 use ch\timesplinter\core\HttpException;

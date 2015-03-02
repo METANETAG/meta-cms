@@ -6,7 +6,7 @@ use ch\metanet\cms\common\CmsElement;
 use ch\metanet\cms\common\CmsElementSortable;
 use ch\metanet\cms\common\CmsView;
 use ch\metanet\cms\controller\common\FrontendController;
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use timesplinter\tsfw\db\DB;
 use stdClass;

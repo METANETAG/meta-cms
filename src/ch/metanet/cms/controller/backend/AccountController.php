@@ -12,7 +12,7 @@ use ch\metanet\cms\tablerenderer\BooleanColumnDecorator;
 use ch\metanet\cms\tablerenderer\Column;
 use ch\metanet\cms\tablerenderer\TableRenderer;
 use ch\timesplinter\auth\AuthHandlerFactory;
-use ch\timesplinter\common\JsonUtils;
+use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\Core;
 use ch\timesplinter\core\HttpRequest;
 use ch\timesplinter\core\HttpResponse;

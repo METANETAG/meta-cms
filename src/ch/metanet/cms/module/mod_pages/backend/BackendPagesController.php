@@ -25,7 +25,7 @@ use ch\metanet\cms\tablerenderer\TableRenderer;
 use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\RequestHandler;
 use ch\timesplinter\formhelper\FormHelper;
-use ch\timesplinter\common\StringUtils;
+use timesplinter\tsfw\common\StringUtils;
 use ch\metanet\cms\tablerenderer\EmptyValueColumnDecorator;
 
 /**
