@@ -4,20 +4,77 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a2a138be9d82331ea7ceb2789d4c8483",
+    "hash": "dfbc3245965ee0380965056459e54153",
     "packages": [
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "v2.5.10",
+            "target-dir": "Symfony/Component/EventDispatcher",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/EventDispatcher.git",
+                "reference": "af6eb6a9a1a3b411facfd8e7e3f82a6be7919c04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/af6eb6a9a1a3b411facfd8e7e3f82a6be7919c04",
+                "reference": "af6eb6a9a1a3b411facfd8e7e3f82a6be7919c04",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/config": "~2.0,>=2.0.5",
+                "symfony/dependency-injection": "~2.0,>=2.0.5,<2.6.0",
+                "symfony/stopwatch": "~2.3"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "http://symfony.com",
+            "time": "2015-01-29 18:20:43"
+        },
         {
             "name": "timesplinter/ts-framework",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsFramework.git",
-                "reference": "02fbae0adefb3b57de3b05606a4f083e5ae2a01d"
+                "reference": "c09af63e64c9faddbe4f2aba368183daf352b8ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/02fbae0adefb3b57de3b05606a4f083e5ae2a01d",
-                "reference": "02fbae0adefb3b57de3b05606a4f083e5ae2a01d",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/c09af63e64c9faddbe4f2aba368183daf352b8ed",
+                "reference": "c09af63e64c9faddbe4f2aba368183daf352b8ed",
                 "shasum": ""
             },
             "require": {
@@ -53,27 +110,27 @@
                 "tsFramework",
                 "tsfw"
             ],
-            "time": "2015-03-01 14:18:12"
+            "time": "2015-03-02 07:12:05"
         },
         {
             "name": "timesplinter/tsfw-common",
-            "version": "v0.1.1",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-common.git",
-                "reference": "f6a49d1a6cec1001cb5c2bd19b1eb0719b181bff"
+                "reference": "299bf51708b10f5356723976e1c4788c8ca44910"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-common/zipball/f6a49d1a6cec1001cb5c2bd19b1eb0719b181bff",
-                "reference": "f6a49d1a6cec1001cb5c2bd19b1eb0719b181bff",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-common/zipball/299bf51708b10f5356723976e1c4788c8ca44910",
+                "reference": "299bf51708b10f5356723976e1c4788c8ca44910",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.2.*"
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
@@ -99,7 +156,7 @@
                 "common",
                 "tsfw"
             ],
-            "time": "2015-03-01 00:20:33"
+            "time": "2014-07-23 08:29:50"
         },
         {
             "name": "timesplinter/tsfw-db",
@@ -107,12 +164,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-db.git",
-                "reference": "f36e98cd881b758bc509a21179627904a3a067dd"
+                "reference": "05a70cb4ddf7ca0716d97e1c6b7600cfbb4dbdd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-db/zipball/f36e98cd881b758bc509a21179627904a3a067dd",
-                "reference": "f36e98cd881b758bc509a21179627904a3a067dd",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-db/zipball/05a70cb4ddf7ca0716d97e1c6b7600cfbb4dbdd8",
+                "reference": "05a70cb4ddf7ca0716d97e1c6b7600cfbb4dbdd8",
                 "shasum": ""
             },
             "require": {
@@ -121,7 +178,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "ch\\": "lib/ch/"
+                    "timesplinter\\": "lib/timesplinter/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -143,7 +200,56 @@
                 "mysql",
                 "php"
             ],
-            "time": "2015-02-27 11:37:27"
+            "time": "2015-03-02 07:06:05"
+        },
+        {
+            "name": "timesplinter/tsfw-i18n",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TiMESPLiNTER/tsfw-i18n.git",
+                "reference": "feceab4d1fa4ecb2082475d3cb9deadfcf78e9ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-i18n/zipball/feceab4d1fa4ecb2082475d3cb9deadfcf78e9ed",
+                "reference": "feceab4d1fa4ecb2082475d3cb9deadfcf78e9ed",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "timesplinter/tsfw-common": "0.1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "timesplinter\\": "src/timesplinter/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Pascal Muenst",
+                    "email": "dev@timesplinter.ch",
+                    "homepage": "http://www.timesplinter.ch",
+                    "role": "Company"
+                }
+            ],
+            "description": "PHP library to handle i18n (internationalization) of applications more easy",
+            "homepage": "http://github.com/TiMESPLiNTER/tsfw-i18n",
+            "keywords": [
+                "i18n",
+                "internationalization",
+                "tsFramework",
+                "tsfw"
+            ],
+            "time": "2014-12-16 12:05:42"
         },
         {
             "name": "timesplinter/tsfw-template",
