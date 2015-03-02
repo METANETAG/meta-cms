@@ -69,12 +69,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsFramework.git",
-                "reference": "c09af63e64c9faddbe4f2aba368183daf352b8ed"
+                "reference": "ba867429dca753d7960bee88c2bc472491370bbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/c09af63e64c9faddbe4f2aba368183daf352b8ed",
-                "reference": "c09af63e64c9faddbe4f2aba368183daf352b8ed",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/ba867429dca753d7960bee88c2bc472491370bbc",
+                "reference": "ba867429dca753d7960bee88c2bc472491370bbc",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +110,7 @@
                 "tsFramework",
                 "tsfw"
             ],
-            "time": "2015-03-02 07:12:05"
+            "time": "2015-03-02 07:54:06"
         },
         {
             "name": "timesplinter/tsfw-common",
