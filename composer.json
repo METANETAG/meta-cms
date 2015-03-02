@@ -35,6 +35,13 @@
 	    "phpunit/phpunit": "4.2.*"
 	},
 	
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "http://github.com/TiMESPLiNTER/PoParser"
+		}
+	],
+	
 	"extra": {
 		"merge-plugin": {
 			"include": [

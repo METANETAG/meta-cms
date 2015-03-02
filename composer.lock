@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5f844f4ed01969fb98fc0e94d545c1e2",
+    "hash": "61fb592798d6314b20784e1c65c25276",
     "packages": [
         {
             "name": "maxakawizard/po-parser",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/MAXakaWIZARD/PoParser.git",
-                "reference": "75dd4056c25fbdbf46c5bffbf069fae685dfc475"
+                "url": "https://github.com/TiMESPLiNTER/PoParser.git",
+                "reference": "6a7e92134a2dcd50c5e9121be8ad2f08114b57b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MAXakaWIZARD/PoParser/zipball/75dd4056c25fbdbf46c5bffbf069fae685dfc475",
-                "reference": "75dd4056c25fbdbf46c5bffbf069fae685dfc475",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/PoParser/zipball/6a7e92134a2dcd50c5e9121be8ad2f08114b57b8",
+                "reference": "6a7e92134a2dcd50c5e9121be8ad2f08114b57b8",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +29,6 @@
                     "PoParser": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -47,7 +46,10 @@
                 "l10n",
                 "po"
             ],
-            "time": "2014-08-13 10:28:05"
+            "support": {
+                "source": "https://github.com/TiMESPLiNTER/PoParser/tree/master"
+            },
+            "time": "2014-12-16 11:44:55"
         },
         {
             "name": "metanet/form-handler",
