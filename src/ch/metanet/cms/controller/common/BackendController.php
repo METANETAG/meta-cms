@@ -12,6 +12,7 @@ use ch\timesplinter\core\HttpResponse;
 use ch\timesplinter\core\RequestHandler;
 use ch\timesplinter\core\Route;
 use ch\metanet\cms\common\CmsView;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use timesplinter\tsfw\template\DirectoryTemplateCache;
 
 /**
@@ -71,15 +72,17 @@ class BackendController extends CmsController
 
 	private function isProtected()
 	{
-		$controllerName = $this->route->controllerClass;
+		$routeCallback = $this->route->methods[$this->httpRequest->getRequestMethod()];
+		
+		$controllerName = $routeCallback->controllerClass;
 		$refClass = new \ReflectionClass($controllerName);
 		
-		if($refClass->implementsInterface('ch\metanet\cms\common\BackendControllerUnprotected') === false)
+		if($refClass->implementsInterface(BackendControllerUnprotected::class) === false)
 			return true;
 
 		/** @var BackendControllerUnprotected $controllerName */
 		
-		$controllerMethod = $this->route->controllerMethod;
+		$controllerMethod = $routeCallback->controllerMethod;
 		$unprotectedMethods = $controllerName::getUnprotectedMethods();
 		
 		return (count($unprotectedMethods) > 0 && in_array($controllerMethod, $unprotectedMethods) === false);
@@ -102,13 +105,13 @@ class BackendController extends CmsController
 	protected function loadNeededModules()
 	{
 		$moduleModel = new ModuleModel($this->db);
-
+		
 		foreach($moduleModel->getAllModules() as $module) {
 			if(
 				$module->backendcontroller === null ||
 				class_exists($module->backendcontroller) === false ||
 				($implementedInterfaces = class_implements($module->backendcontroller)) === false ||
-				in_array('Symfony\Component\EventDispatcher\EventSubscriberInterface', $implementedInterfaces) === false
+				in_array(EventSubscriberInterface::class, $implementedInterfaces) === false
 			) continue;
 
 			$moduleControllerInstance =  new $module->backendcontroller($this, $module->name);
