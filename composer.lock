@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/PoParser.git",
-                "reference": "6a7e92134a2dcd50c5e9121be8ad2f08114b57b8"
+                "reference": "129abc3b59a88557951ea4f6e3f5c70808a6d649"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/PoParser/zipball/6a7e92134a2dcd50c5e9121be8ad2f08114b57b8",
-                "reference": "6a7e92134a2dcd50c5e9121be8ad2f08114b57b8",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/PoParser/zipball/129abc3b59a88557951ea4f6e3f5c70808a6d649",
+                "reference": "129abc3b59a88557951ea4f6e3f5c70808a6d649",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
             "support": {
                 "source": "https://github.com/TiMESPLiNTER/PoParser/tree/master"
             },
-            "time": "2014-12-16 11:44:55"
+            "time": "2015-03-02 13:35:36"
         },
         {
             "name": "metanet/form-handler",
@@ -205,16 +205,16 @@
         },
         {
             "name": "timesplinter/tsfw-common",
-            "version": "v0.1.2",
+            "version": "v0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-common.git",
-                "reference": "669e248230c8e4a3f8fc9c95f65bc2b2cc96957a"
+                "reference": "66899be4956da416eacddda8fad1de5785155be7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-common/zipball/669e248230c8e4a3f8fc9c95f65bc2b2cc96957a",
-                "reference": "669e248230c8e4a3f8fc9c95f65bc2b2cc96957a",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-common/zipball/66899be4956da416eacddda8fad1de5785155be7",
+                "reference": "66899be4956da416eacddda8fad1de5785155be7",
                 "shasum": ""
             },
             "require": {
@@ -247,7 +247,7 @@
                 "common",
                 "tsfw"
             ],
-            "time": "2015-03-02 07:49:54"
+            "time": "2015-03-02 14:14:51"
         },
         {
             "name": "timesplinter/tsfw-db",
