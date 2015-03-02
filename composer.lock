@@ -156,16 +156,16 @@
         },
         {
             "name": "timesplinter/ts-framework",
-            "version": "v0.2.0",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsFramework.git",
-                "reference": "0f55dd396ee0607bd4ba77d8bef495e617dbfa28"
+                "reference": "6e8ca7211279adf0e478642eda3afbc6f7af46ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/0f55dd396ee0607bd4ba77d8bef495e617dbfa28",
-                "reference": "0f55dd396ee0607bd4ba77d8bef495e617dbfa28",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/6e8ca7211279adf0e478642eda3afbc6f7af46ed",
+                "reference": "6e8ca7211279adf0e478642eda3afbc6f7af46ed",
                 "shasum": ""
             },
             "require": {
@@ -201,7 +201,7 @@
                 "tsFramework",
                 "tsfw"
             ],
-            "time": "2015-03-02 08:18:50"
+            "time": "2015-03-02 14:17:17"
         },
         {
             "name": "timesplinter/tsfw-common",
@@ -251,16 +251,16 @@
         },
         {
             "name": "timesplinter/tsfw-db",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-db.git",
-                "reference": "2faa99f91d75cc0eecc7b69c9e7259c13995688f"
+                "reference": "c015270a824e17a7a628ca2c78d643b094109709"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-db/zipball/2faa99f91d75cc0eecc7b69c9e7259c13995688f",
-                "reference": "2faa99f91d75cc0eecc7b69c9e7259c13995688f",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-db/zipball/c015270a824e17a7a628ca2c78d643b094109709",
+                "reference": "c015270a824e17a7a628ca2c78d643b094109709",
                 "shasum": ""
             },
             "require": {
@@ -291,7 +291,7 @@
                 "mysql",
                 "php"
             ],
-            "time": "2015-03-02 12:09:21"
+            "time": "2015-03-02 15:27:04"
         },
         {
             "name": "timesplinter/tsfw-i18n",
