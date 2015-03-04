@@ -507,7 +507,7 @@ class BackendUsersController extends CmsModuleBackendController
 		
 		$this->form = new MetanetForm();
 		$this->form->setInputData(array_merge($_POST, $_GET));
-
+		
 		$fldName = new InputField('name', 'Name');
 		$fldName->setValue($userData->getUsername());
 		$fldName->addRule(new RequiredRule($this->translator->_d('backend', 'Please insert a username')));
