@@ -251,16 +251,16 @@
         },
         {
             "name": "timesplinter/tsfw-db",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-db.git",
-                "reference": "c015270a824e17a7a628ca2c78d643b094109709"
+                "reference": "d897d3d3a3d761a0f4fc9aa20426429d0aad1d92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-db/zipball/c015270a824e17a7a628ca2c78d643b094109709",
-                "reference": "c015270a824e17a7a628ca2c78d643b094109709",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-db/zipball/d897d3d3a3d761a0f4fc9aa20426429d0aad1d92",
+                "reference": "d897d3d3a3d761a0f4fc9aa20426429d0aad1d92",
                 "shasum": ""
             },
             "require": {
@@ -291,7 +291,7 @@
                 "mysql",
                 "php"
             ],
-            "time": "2015-03-02 15:27:04"
+            "time": "2015-03-04 14:31:46"
         },
         {
             "name": "timesplinter/tsfw-i18n",
