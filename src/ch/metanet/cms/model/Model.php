@@ -1,20 +1,29 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Pascal
- * Date: 22.03.13
- * Time: 14:02
- * To change this template use File | Settings | File Templates.
- */
 
 namespace ch\metanet\cms\model;
 
 use timesplinter\tsfw\db\DB;
 
-class Model {
+/**
+ * @author Pascal Muenst <entwicklung@metanet.ch>
+ * @copyright Copyright (c) 2013 by METANET AG, www.metanet.ch
+ */
+class Model
+{
 	protected $db;
 
-	public function __construct(DB $db) {
+	public function __construct(DB $db)
+	{
 		$this->db = $db;
+	}
+
+	protected static function setLockedProperty($obj, $value, $property)
+	{
+		$refClass = new \ReflectionClass($obj);
+		$propertyID = $refClass->getProperty($property);
+
+		$propertyID->setAccessible(true);
+		$propertyID->setValue($obj, $value);
+		$propertyID->setAccessible(false);
 	}
 }
