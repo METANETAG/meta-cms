@@ -3,13 +3,13 @@
 namespace ch\metanet\cms\module\mod_users\backend;
 
 use ch\metanet\cms\common\CmsBackendMessage;
+use ch\metanet\cms\common\CmsForm;
 use ch\metanet\cms\common\CmsModuleBackendController;
 use ch\metanet\cms\controller\common\BackendController;
 use ch\metanet\cms\model\Login;
 use ch\metanet\cms\model\LoginModel;
 use ch\metanet\cms\model\RightGroup;
 use ch\metanet\cms\model\RightGroupModel;
-use ch\metanet\cms\module\mod_metanet_orders\forms\MetanetForm;
 use ch\metanet\cms\tablerenderer\BooleanColumnDecorator;
 use ch\metanet\cms\tablerenderer\CallbackColumnDecorator;
 use ch\metanet\cms\tablerenderer\Column;
@@ -35,7 +35,7 @@ class BackendUsersController extends CmsModuleBackendController
 {
 	protected $loginModel;
 	protected $rightGroupModel;
-	/** @var MetanetForm|null */
+	/** @var CmsForm|null */
 	protected $form;
 	protected $translator;
 	protected $translatorTableRenderer;
@@ -505,7 +505,7 @@ class BackendUsersController extends CmsModuleBackendController
 			$rightGroups[$rg->getID()] = $rg->getGroupName();
 		}
 		
-		$this->form = new MetanetForm();
+		$this->form = new CmsForm();
 		$this->form->setInputData(array_merge($_POST, $_GET));
 		
 		$fldName = new InputField('name', 'Name');
@@ -539,7 +539,7 @@ class BackendUsersController extends CmsModuleBackendController
 	 */
 	protected function prepareEditRightGroupForm(RightGroup $rightGroup)
 	{
-		if($this->form instanceof MetanetForm)
+		if($this->form instanceof CmsForm)
 			return;
 		
 		$lang = $this->cmsController->getLocaleHandler()->getLanguage();
@@ -562,7 +562,7 @@ class BackendUsersController extends CmsModuleBackendController
 			$options[isset($mod->manifest_content->name->$lang) ? $mod->manifest_content->name->$lang : $mod->manifest_content->name->en] = $optionsTemp;
 		}
 		
-		$this->form = new MetanetForm();
+		$this->form = new CmsForm();
 		$this->form->setInputData(array_merge($_POST, $_GET));
 		
 		$fldName = new InputField('name', 'Name');
