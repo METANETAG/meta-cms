@@ -17,7 +17,7 @@ class Model
 		$this->db = $db;
 	}
 
-	protected static function setLockedProperty($obj, $value, $property)
+	protected static function setLockedProperty($obj, $property, $value)
 	{
 		$refClass = new \ReflectionClass($obj);
 		$propertyID = $refClass->getProperty($property);
