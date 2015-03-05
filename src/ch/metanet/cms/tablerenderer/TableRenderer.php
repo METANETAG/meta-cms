@@ -9,7 +9,6 @@ use timesplinter\tsfw\i18n\common\AbstractTranslator;
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
 class TableRenderer
 {
@@ -41,9 +40,11 @@ class TableRenderer
 	protected $keywords;
 	protected $keywordStr;
 	protected $reorder;
-	
+
 	/** @var AbstractTranslator */
 	protected $translator;
+
+	protected $ajaxUri;
 
 	/**
 	 * @param string $tableName
@@ -70,13 +71,13 @@ class TableRenderer
 
 		if(($orderByStr = StringUtils::afterLast($sqlQuery, 'ORDER BY')) !== null) {
 			$res = preg_split('/\s+/ims', $orderByStr, -1, PREG_SPLIT_NO_EMPTY);
-			
+
 			$this->orderBy = array(
 				'column' => $res[0],
 				'sort' => isset($res[1]) ? $res[1] : 'ASC'
 			);
 		}
-		
+
 		$this->columns = null;
 		$this->options = null;
 		$this->db = $db;
@@ -89,13 +90,13 @@ class TableRenderer
 	 * @param array $sqlParams The params for the SQL query of the renderer
 	 *
 	 * @return string The rendered HTML table
-	 * 
+	 *
 	 * @throws \Exception
 	 */
 	public function display(array $sqlParams = array())
 	{
 		$this->appendTableActions();
-		
+
 		$textSearch = array();
 		$filterForm = false;
 
@@ -111,7 +112,7 @@ class TableRenderer
 
 			if($c->getFilterable()->type === 'text') {
 				$keywordGroupQueryStr = null;
-				
+
 				foreach($this->keywords as $k) {
 					$compareWord = 'LIKE';
 					$prefix = ' OR ';
@@ -126,32 +127,32 @@ class TableRenderer
 						$prefix = ' AND ';
 					}
 
-					$keywordGroupQueryStr .= (($keywordGroupQueryStr !== null)?$prefix:null) . $c->getSQLColumn() . " " . $compareWord . " ?";
+					$keywordGroupQueryStr .= (($keywordGroupQueryStr !== null)?$prefix:null) . ($c->getSortSelector() === null ? $c->getSQLColumn() : $c->getSortSelector()) . " " . $compareWord . " ?";
 					$sqlParams[] = '%' . $k . '%';
 				}
 
 				if($keywordGroupQueryStr === null)
 					continue;
-				
+
 				$textSearch[] = '(' . $keywordGroupQueryStr . ')';
 			}
 		}
-		
+
 		$hasColumnFilter = false;
 		$columnFilterHtml = '<tr class="column-filters">';
 		$columnFilterSql = array();
-		
+
 		foreach($this->columns as $c) {
 			if($c->getColumnFilter() === null) {
 				$columnFilterHtml .= '<th class="no-filter">&nbsp;</th>';
 				continue;
 			}
-			
+
 			$selection = isset($_SESSION['table'][$this->tableName]['filter'][$c->getColumnFilter()->getFilterName()]) ? $_SESSION['table'][$this->tableName]['filter'][$c->getColumnFilter()->getFilterName()] : null;
-			
+
 			$hasColumnFilter = true;
 			$columnFilterHtml .= '<th>' . $c->getColumnFilter()->renderHtml($selection) . '</th>';
-			
+
 			if(($filterSql = $c->getColumnFilter()->renderSql($c->getSortSelector() !== null ? $c->getSortSelector() : $c->getSQLColumn(), $selection)) !== null) {
 				$columnFilterSql[] = $filterSql;
 				$sqlParams = array_merge($sqlParams, (array)$selection);
@@ -161,17 +162,17 @@ class TableRenderer
 		if($this->options !== null) {
 			$columnFilterHtml .= "\t\t<th class=\"no-filter\">&nbsp;</th>\n";
 		}
-		
+
 		$columnFilterHtml .= '</tr>';
 
 		$searchHtml = null;
 		$filterInfo = null;
-		
+
 		if($filterForm === true)
 			$searchHtml = '<div class="table-data-search"><input type="hidden" name="table" value="' . $this->tableName . '"><input type="text" name="filter[keywords]" value="' . str_replace('"', '&quot;', $this->keywordStr) . '" placeholder="' . $this->getText('Keywords') . '"><button type="submit">' . $this->getText('Go') . '</button></div>';
 
 		$whereConds = array();
-		
+
 		if(count($textSearch) > 0) {
 			$whereConds[] = '(' . implode(' OR ', $textSearch) . ')';
 
@@ -185,15 +186,15 @@ class TableRenderer
 
 		if($this->filtersApplied)
 			$filterInfo .= ' (<a href="?table=' . $this->tableName . '&amp;resetfilters">' . $this->getText('reset filters') . '</a>)';
-		
+
 		// filter
 		foreach($columnFilterSql as $filterSql) {
 			$whereConds[] = '(' . $filterSql . ')';
 		}
-		
+
 		if(count($whereConds) > 0)
 			$this->sqlQuery .= ' WHERE ' . implode(' AND ', $whereConds);
-		
+
 		if($this->sortable !== null) {
 			$this->sqlQuery .= ' ORDER BY ' . $this->sortable['sort'];
 		} elseif($this->orderBy !== null && isset($this->columns[$this->orderBy['column']]) === true) {
@@ -202,10 +203,10 @@ class TableRenderer
 
 		if(preg_match('/[\s\)]+FROM(?![^\(]*\)).*/ims', $this->sqlQuery, $fromMatches) === 0)
 			throw new \Exception('No FROM found in query: ' . $this->sqlQuery);
-		
+
 		$this->stmnt = $this->db->prepare("SELECT COUNT(*) total_records " . $fromMatches[0]);
 		$this->stmntLimited = $this->db->prepare($this->sqlQuery . " LIMIT ?,?");
-		
+
 		$res = $this->db->select($this->stmnt, $sqlParams);
 		$entriesCount = $res[0]->total_records;
 
@@ -219,20 +220,22 @@ class TableRenderer
 
 		$resLimited = $this->db->select($this->stmntLimited, $sqlParams);
 
+		$dataUriAttr = $this->ajaxUri !==  null ? ' class="table-renderer-ajax" data-uri="' . $this->ajaxUri . '"' : null;
 
-
-		$tableHtml = '<div id="' . $this->tableName . '"><form method="post" action="?table=' . $this->tableName . '#' . $this->tableName . '" class="' . $this->cssClass .  '-filters">';
+		$tableHtml = '<div id="' . $this->tableName . '" ' . $dataUriAttr . '><form method="post" action="?table=' . $this->tableName . '#' . $this->tableName . '" class="' . $this->cssClass .  '-filters">';
 
 		/*if($entriesCount <= 0)
 			return $tableHtml . $searchHtml . '<p class="' . $this->cssClass . '-info">' . $this->getText('No entries found.') . $filterInfo . '</p>';*/
 
 		if($this->columns === null)
 			$this->columns = $this->getColumnsByQuery($res);
-		
+
 		$tableHtml .= $searchHtml;
 
 		// PAGINATION
 		$numPages = ceil($entriesCount / $this->pageLimit);
+
+		$tableHtml .= '<div class="table-pagination-wrapper">';
 
 		if($numPages > 1) {
 			$tableHtml .= '<ul class="' . $this->cssClass . '-pagination">';
@@ -245,15 +248,17 @@ class TableRenderer
 			$tableHtml .= '</ul>';
 		}
 
+		$tableHtml .= '</div>';
+
 		if($this->displayInfo === true) {
-				$tableHtml .= "<p class=\"" . $this->cssClass . "-info\">" . sprintf($this->getText('There is <b>%d</b> entry.', 'There are <b>%d</b> entries.', $entriesCount), $entriesCount) . $filterInfo . "</p>\n";
+			$tableHtml .= "<p class=\"" . $this->cssClass . "-info\">" . sprintf($this->getText('There is <b>%d</b> entry.', 'There are <b>%d</b> entries.', $entriesCount), $entriesCount) . $filterInfo . "</p>\n";
 		}
 
 		$tableHtml .= "<table class=\"" . $this->cssClass . "\">\n\t<thead>\n\t<tr>\n";
 
 		if($this->selectable === true)
 			$tableHtml .= "\t\t<th class=\"header-selectable\">&nbsp;</th>\n";
-		
+
 		if($this->reorder === true)
 			$tableHtml .= "\t\t<th class=\"header-reorder\">&nbsp;</th>\n";
 
@@ -261,18 +266,18 @@ class TableRenderer
 			/** @var Column $col */
 			if($col->isHidden() === true)
 				continue;
-			
+
 			if($this->sortable === null && $col->isSortable()) {
 				$sortStr = ($this->orderBy !== null && $this->orderBy['column'] == $col->getSQLColumn() && $this->orderBy['sort'] == 'ASC') ? 'DESC' : 'ASC';
 
 				$sortClass = null;
 				$sortFontIcon = '<i class="fa fa-sort"></i>';
-				
+
 				if($this->orderBy !== null && $this->orderBy['column'] == $col->getSQLColumn()) {
 					$sortFontIcon = '<i class="fa ' . ($this->orderBy['sort'] === 'ASC' ? 'fa-caret-up' : 'fa-caret-down') . '"></i>';
 					$sortClass = ' class="active-' . strtolower($this->orderBy['sort']) . '"';
 				}
-				
+
 				$label = '<a href="?table=' . $this->tableName . '&amp;sort=' . $col->getSQLColumn() . '-' . $sortStr . '#' . $this->tableName . '"' . $sortClass . '>' .  $col->getLabel() . $sortFontIcon . '</a>';
 			} else {
 				$label = $col->getLabel();
@@ -284,10 +289,10 @@ class TableRenderer
 		if($this->options !== null) {
 			$tableHtml .= "\t\t<th>&nbsp;</th>\n";
 		}
-		
+
 		$tableHtml .= '</tr>';
-		
-		if($hasColumnFilter) 
+
+		if($hasColumnFilter)
 			$tableHtml .= $columnFilterHtml;
 
 		$sortableClass = ($this->sortable !== null)?' class="sortable-table"':null;
@@ -316,7 +321,7 @@ class TableRenderer
 			if($this->selectable === true) {
 				$tableHtml .= '<td class="selectable" style="vertical-align: middle;"><input type="checkbox" value="" name="' . $this->tableName . '[]"></td>';
 			}
-			
+
 			if($this->reorder === true) {
 				$tableHtml .= '<td class="reorder"><span>' . $this->getText('move') . '</span></td>';
 			}
@@ -345,13 +350,13 @@ class TableRenderer
 
 						$k = str_replace(array('/','(',')'),array('\/','\(','\)'),$k);
 
-							// regex look behind if we're not in a html tag
+						// regex look behind if we're not in a html tag
 						$value = preg_replace('/(?![^<]*>)(' . $k . ')/ims', '<span class="' . $this->cssClass . '-highlighted">$1</span>', $value);
 					}
 				}
-				
+
 				$cssClassesAttr = (count($col->getCssClasses()) > 0)?' class="' . implode(' ', $col->getCssClasses()) . '"':null;
-				
+
 				$tableHtml .= "\t\t<td" . $cssClassesAttr . ">" . $value . "</td>\n";
 			}
 
@@ -370,30 +375,39 @@ class TableRenderer
 
 		return $tableHtml . '</form></div>';
 	}
-	
+
 	protected function appendTableActions()
 	{
 		$tableSort = null;
 		$tablePage = null;
+		$tableFilters = null;
 		$tableResetFilters = false;
-		
+
+		$inputData = $_GET + $_POST;
+
 		if(isset($_SESSION['table'][$this->tableName]) === true) {
 			if(isset($_SESSION['table'][$this->tableName]['sort']))
 				$tableSort = $_SESSION['table'][$this->tableName]['sort'];
 
 			if(isset($_SESSION['table'][$this->tableName]['page']))
 				$tablePage = $_SESSION['table'][$this->tableName]['page'];
+
+			if(isset($_SESSION['table'][$this->tableName]['filter']))
+				$tableFilters = $_SESSION['table'][$this->tableName]['filter'];
 		}
 
-		if(isset($_GET['table']) && $_GET['table'] == $this->tableName) {
-			if(isset($_GET['sort']))
-				$tableSort = $_SESSION['table'][$this->tableName]['sort'] = strip_tags($_GET['sort']);
+		if(isset($inputData['table']) && $inputData['table'] == $this->tableName) {
+			if(isset($inputData['sort']))
+				$tableSort = $_SESSION['table'][$this->tableName]['sort'] = strip_tags($inputData['sort']);
 
-			if(isset($_GET['page']))
-				$tablePage = $_SESSION['table'][$this->tableName]['page'] = strip_tags($_GET['page']);
+			if(isset($inputData['page']))
+				$tablePage = $_SESSION['table'][$this->tableName]['page'] = strip_tags($inputData['page']);
 
-			if(isset($_GET['resetfilters']) || (isset($_GET['filter']) && strlen($_GET['filter']) === 0))
+			if(isset($inputData['resetfilters']) || (isset($_GET['filter']) && strlen($inputData['filter']) === 0))
 				$tableResetFilters = true;
+
+			if(isset($inputData['filter']))
+				$tableFilters = $_SESSION['table'][$this->tableName]['filter'] = $inputData['filter'];
 		}
 
 		if($tableSort !== null) {
@@ -411,32 +425,24 @@ class TableRenderer
 			$this->currentPage = $tablePage;
 		}
 
-		if($tableResetFilters === true && isset($_SESSION['table'][$this->tableName]['filter']) === true) {
-			unset($_SESSION['table'][$this->tableName]['filter']);
+		if($tableFilters !== null) {
+			if(isset($tableFilters['keywords']) === true) {
+				$this->keywordStr = $tableFilters['keywords'];
+				$this->keywords = $this->parseKeywords($tableFilters['keywords']);
+				$this->filtersApplied = true;
+			}
+
+			foreach($this->columns as $c) {
+				if($c->getColumnFilter() === null)
+					continue;
+
+				if(isset($tableFilters[$c->getColumnFilter()->getFilterName()]) === false)
+					continue;
+			}
 		}
 
-		if((isset($_GET['table']) && $_GET['table'] == $this->tableName) || isset($_SESSION['table'][$this->tableName])) {
-			// TODO move that out of here
-
-			// Filters
-			if((isset($_POST['filter']) /*&& strlen($_GET['filter']) > 0*/) || isset($_SESSION['table'][$this->tableName]['filter'])) {
-				if(isset($_POST['filter']))
-					$_SESSION['table'][$this->tableName]['filter'] = $_POST['filter'];
-				
-				if(isset($_SESSION['table'][$this->tableName]['filter']['keywords']) === true) {
-					$this->keywordStr = $_SESSION['table'][$this->tableName]['filter']['keywords'];
-					$this->keywords = $this->parseKeywords($_SESSION['table'][$this->tableName]['filter']['keywords']);
-					$this->filtersApplied = true;
-				}
-				
-				foreach($this->columns as $c) {
-					if($c->getColumnFilter() === null)
-						continue;
-					
-					if(isset($_SESSION['table'][$this->tableName]['filter'][$c->getColumnFilter()->getFilterName()]) === false)
-						continue;
-				}
-			}
+		if($tableResetFilters === true && isset($_SESSION['table'][$this->tableName]['filter']) === true) {
+			unset($_SESSION['table'][$this->tableName]['filter']);
 		}
 	}
 
@@ -522,6 +528,9 @@ class TableRenderer
 
 	public function setDefaultOrder(Column $column)
 	{
+		if(isset($_SESSION['table'][$this->tableName]['sort']) === true)
+			return;
+
 		$this->orderBy = array(
 			'column' => $column->getSQLColumn(),
 			'sort' => $column->getSort()
@@ -565,15 +574,15 @@ class TableRenderer
 
 		return $cleanedMatches;
 	}
-	
+
 	protected function getText($msgId, $msgIdPlural = null, $n = 0)
 	{
 		if($this->translator instanceof AbstractTranslator === false)
 			return ($msgIdPlural === null || $n == 1) ? $msgId : $msgIdPlural;
-		
+
 		return $this->translator->_d('table_renderer', $msgId, $msgIdPlural, $n);
 	}
-	
+
 	public function setDefaultOrderBy($column, $sort)
 	{
 		$this->orderBy = array(
@@ -588,8 +597,16 @@ class TableRenderer
 	public function setTranslator(AbstractTranslator $translator)
 	{
 		$translator->bindTextDomain('table_renderer', 'UTF-8');
-		
+
 		$this->translator = $translator;
+	}
+
+	/**
+	 * @param string $ajaxUri
+	 */
+	public function setAjaxUri($ajaxUri)
+	{
+		$this->ajaxUri = $ajaxUri;
 	}
 }
 
