@@ -181,11 +181,11 @@ class TableRenderer
 			foreach($this->keywords as $k)
 				$keywordsHtml[] = '<span class="' . $this->cssClass .  '-keyword">' . $k . '</span>';
 
-			$filterInfo = ' (' . $this->getText('Result is filtered by keywords') . ': ' . implode(null, $keywordsHtml);
+			$filterInfo = ' (' . $this->getText('Result is filtered by keywords') . ': ' . implode(null, $keywordsHtml) . ')';
 		}
 
 		if($this->filtersApplied)
-			$filterInfo .= ' (<a href="?table=' . $this->tableName . '&amp;resetfilters">' . $this->getText('reset filters') . '</a>)';
+			$filterInfo .= ' (<a href="?table=' . $this->tableName . '&amp;resetfilters" class="table-reset-filters">' . $this->getText('reset filters') . '</a>)';
 
 		// filter
 		foreach($columnFilterSql as $filterSql) {
@@ -425,6 +425,11 @@ class TableRenderer
 			$this->currentPage = $tablePage;
 		}
 
+		if($tableResetFilters === true && isset($_SESSION['table'][$this->tableName]['filter']) === true) {
+			$tableFilters = null;
+			unset($_SESSION['table'][$this->tableName]['filter']);
+		}
+		
 		if($tableFilters !== null) {
 			if(isset($tableFilters['keywords']) === true) {
 				$this->keywordStr = $tableFilters['keywords'];
@@ -439,10 +444,6 @@ class TableRenderer
 				if(isset($tableFilters[$c->getColumnFilter()->getFilterName()]) === false)
 					continue;
 			}
-		}
-
-		if($tableResetFilters === true && isset($_SESSION['table'][$this->tableName]['filter']) === true) {
-			unset($_SESSION['table'][$this->tableName]['filter']);
 		}
 	}
 
