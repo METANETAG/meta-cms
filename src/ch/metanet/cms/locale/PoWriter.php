@@ -17,7 +17,9 @@ class PoWriter implements PoWriterInterface
 		if(is_dir($dirPath) === false)
 			mkdir($dirPath, 0777, true);
 
-		$f = @fopen($filePath, 'wb');
+		if(($f = @fopen($filePath, 'wb')) === false)
+			return;
+		
 		$entriesCount = count($entries);
 		$counter = 0;
 

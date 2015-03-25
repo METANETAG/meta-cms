@@ -203,7 +203,7 @@ class TableRenderer
 
 		if(preg_match('/[\s\)]+FROM(?![^\(]*\)).*/ims', $this->sqlQuery, $fromMatches) === 0)
 			throw new \Exception('No FROM found in query: ' . $this->sqlQuery);
-
+		
 		$this->stmnt = $this->db->prepare("SELECT COUNT(*) total_records " . $fromMatches[0]);
 		$this->stmntLimited = $this->db->prepare($this->sqlQuery . " LIMIT ?,?");
 
