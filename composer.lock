@@ -205,16 +205,16 @@
         },
         {
             "name": "timesplinter/tsfw-common",
-            "version": "v0.1.3",
+            "version": "v0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-common.git",
-                "reference": "66899be4956da416eacddda8fad1de5785155be7"
+                "reference": "30107cbc93bfcba3df3145bcb6fd3b96666dd3d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-common/zipball/66899be4956da416eacddda8fad1de5785155be7",
-                "reference": "66899be4956da416eacddda8fad1de5785155be7",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-common/zipball/30107cbc93bfcba3df3145bcb6fd3b96666dd3d3",
+                "reference": "30107cbc93bfcba3df3145bcb6fd3b96666dd3d3",
                 "shasum": ""
             },
             "require": {
@@ -247,7 +247,7 @@
                 "common",
                 "tsfw"
             ],
-            "time": "2015-03-02 14:14:51"
+            "time": "2015-03-08 15:52:16"
         },
         {
             "name": "timesplinter/tsfw-db",
@@ -344,16 +344,16 @@
         },
         {
             "name": "timesplinter/tsfw-template",
-            "version": "v1.0.1",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-template.git",
-                "reference": "711bd0f0f5da37f82973ae15da76c2f61444a937"
+                "reference": "ba248286c2e91a6c5c1c953bdb7b7e76c40345a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-template/zipball/711bd0f0f5da37f82973ae15da76c2f61444a937",
-                "reference": "711bd0f0f5da37f82973ae15da76c2f61444a937",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-template/zipball/ba248286c2e91a6c5c1c953bdb7b7e76c40345a5",
+                "reference": "ba248286c2e91a6c5c1c953bdb7b7e76c40345a5",
                 "shasum": ""
             },
             "require": {
@@ -389,7 +389,7 @@
                 "template engine",
                 "tsfw"
             ],
-            "time": "2015-03-02 08:17:11"
+            "time": "2015-03-06 14:12:40"
         },
         {
             "name": "wikimedia/composer-merge-plugin",
@@ -434,17 +434,17 @@
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "2.3.4",
+            "version": "2.3.7",
             "target-dir": "Zend/Stdlib",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendStdlib.git",
-                "reference": "280e4ee6a8fea96b3de00a39174758b4002a7358"
+                "reference": "3f6e2416183d4879a983680e1165f14164b262f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/Component_ZendStdlib/zipball/280e4ee6a8fea96b3de00a39174758b4002a7358",
-                "reference": "280e4ee6a8fea96b3de00a39174758b4002a7358",
+                "url": "https://api.github.com/repos/zendframework/Component_ZendStdlib/zipball/3f6e2416183d4879a983680e1165f14164b262f4",
+                "reference": "3f6e2416183d4879a983680e1165f14164b262f4",
                 "shasum": ""
             },
             "require": {
@@ -483,7 +483,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2015-01-14 16:44:17"
+            "time": "2015-03-12 16:55:53"
         },
         {
             "name": "zendframework/zendsearch",
@@ -1272,21 +1272,24 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.6.4",
+            "version": "v2.6.5",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "60ed7751671113cf1ee7d7778e691642c2e9acd8"
+                "reference": "0cd8e72071e46e15fc072270ae39ea1b66b10a9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/60ed7751671113cf1ee7d7778e691642c2e9acd8",
-                "reference": "60ed7751671113cf1ee7d7778e691642c2e9acd8",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/0cd8e72071e46e15fc072270ae39ea1b66b10a9d",
+                "reference": "0cd8e72071e46e15fc072270ae39ea1b66b10a9d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
             },
             "type": "library",
             "extra": {
@@ -1315,7 +1318,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-25 04:39:26"
+            "time": "2015-03-12 10:28:44"
         }
     ],
     "aliases": [],
