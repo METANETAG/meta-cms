@@ -83,7 +83,14 @@ class FileHandler
 		);
 	}
 
-	public function getAllFiles($order, $keyword = null, $categories = null)
+	/**
+	 * @param array $order
+	 * @param array|null $keyword
+	 * @param string|null $categories
+	 *
+	 * @return File[]
+	 */
+	public function getAllFiles(array $order, $keyword = null, $categories = null)
 	{
 		$condStr = array();
 		$params = array();
@@ -116,6 +123,11 @@ class FileHandler
 		return $files;
 	}
 
+	/**
+	 * @param int $fileID
+	 *
+	 * @return File|null
+	 */
 	public function getFileByID($fileID)
 	{
 		$stmntFile = $this->db->prepare("

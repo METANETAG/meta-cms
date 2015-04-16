@@ -28,7 +28,8 @@
 		"timesplinter/tsfw-db": "1.0.*",
 		"metanet/form-handler": "1.2.*",
 		"maxakawizard/po-parser": "@dev",
-		"symfony/event-dispatcher": "2.5.*"
+		"symfony/event-dispatcher": "2.5.*",
+		"weotch/phpthumb": "1.0.*"
 	},
 	
 	"require-dev": {

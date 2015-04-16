@@ -161,19 +161,19 @@ class FileManager
 				/*if($this->filter['keyword'] !== null && strpos($file->filename, $this->filter['keyword']) === false)
 					continue;*/
 
-				if($types !== null && !in_array($file->filetype, $types))
+				if($types !== null && !in_array($file->getType(), $types))
 					continue;
 				
-				$fileType = $this->fileManager->getDirForMimeType($file->filetype);
+				$fileType = $this->fileManager->getDirForMimeType($file->getType());
 
 				if($fileType === 'image') {
-					$serverPath = $this->rootDir .  'image/' . $file->filenamesys;
+					$serverPath = $this->rootDir .  'image/' . $file->getNameSys();
 
 					if(file_exists($serverPath) === false)
 						continue;
 
-					$thumbPath = $thumbDir . $file->filenamesys . '.jpg';
-					$imgPath = '/files/' . $fileType . '/' . $file->filenamesys . '/' . $file->filename;
+					$thumbPath = $thumbDir . $file->getNameSys() . '.jpg';
+					$imgPath = '/files/' . $fileType . '/' . $file->getNameSys() . '/' . $file->getName();
 					
 					if(file_exists($thumbPath) === false) {
 						// create thumb
@@ -181,14 +181,14 @@ class FileManager
 						$thumbnailer->adaptiveResize(175,175)->save($thumbPath);
 					}
 					
-					$imgSize = ($file->otherinfo !== null)?str_replace(';', 'x', $file->otherinfo) . ', ':null;
-					$imgTitle = $file->filename . ' (' . $imgSize . $file->filetype . ', ' . number_format(round($file->filesize/1024,2),2) . ' KB)';
-					$html .= '<li><a href="' . $imgPath .'" class="img js-open" title="' . $imgTitle . '"><img src="/backend/filemanager/thumb/' . $file->filenamesys . '.jpg" alt="' . $imgTitle . '"></a><a class="delete js-delete" href="?delete=' . $file->ID . '">löschen</a></li>';
+					$imgSize = ($file->getOtherInfo() !== null)?str_replace(';', 'x', $file->getOtherInfo()) . ', ':null;
+					$imgTitle = $file->getName() . ' (' . $imgSize . $file->getType() . ', ' . number_format(round($file->getSize()/1024,2),2) . ' KB)';
+					$html .= '<li><a href="' . $imgPath .'" class="img js-open" title="' . $imgTitle . '"><img src="/backend/filemanager/thumb/' . $file->getNameSys() . '.jpg" alt="' . $imgTitle . '"></a><a class="delete js-delete" href="?delete=' . $file->getID() . '">löschen</a></li>';
 				} else {
-					$iconFile = isset($typeIcons[$file->filetype])?$typeIcons[$file->filetype]:'/images/icon-file.png';
+					$iconFile = isset($typeIcons[$file->getType()]) ? $typeIcons[$file->getType()] : '/images/icon-file.png';
 
-					$fileTitle = $file->filename . ' (' . $file->filetype . ', ' . number_format(round($file->filesize/1024,2),2) . ' KB)';
-					$html .= '<li><a href="/files/' . $fileType . '/' . $file->filenamesys . '/' . $file->filename .'" class="img js-open" title="' . $fileTitle . '"><img src="' . $iconFile . '" alt=""></a><a class="delete js-delete" href="?delete=' . $file->ID . '">löschen</a></li>';
+					$fileTitle = $file->getName() . ' (' . $file->getType() . ', ' . number_format(round($file->getSize()/1024,2),2) . ' KB)';
+					$html .= '<li><a href="/files/' . $fileType . '/' . $file->getNameSys() . '/' . $file->getName() .'" class="img js-open" title="' . $fileTitle . '"><img src="' . $iconFile . '" alt=""></a><a class="delete js-delete" href="?delete=' . $file->getID() . '">löschen</a></li>';
 				}
 			}
 			
@@ -200,10 +200,10 @@ class FileManager
 				/*if($filter['keyword'] !== null && strpos($file->filename, $filter['keyword']) === false)
 					continue;
 				*/
-				if($types !== null && !in_array($file->filetype, $types))
+				if($types !== null && !in_array($file->getType(), $types))
 					continue;
 
-				$html .= '<li class="clearfix"><span><a href="/files/' . $this->fileManager->getDirForMimeType($file->filetype) . '/' . $file->filenamesys . '/' . $file->filename .'" class="file-link js-open">' . $file->filename . '</a> <em class="file-type">' . $file->filetype . ', ' . number_format(round($file->filesize/1024,2),2) . ' KB</em></span> <a class="delete js-delete" href="?delete=' . $file->ID . '">löschen</a></li>';
+				$html .= '<li class="clearfix"><span><a href="/files/' . $this->fileManager->getDirForMimeType($file->getType()) . '/' . $file->getNameSys() . '/' . $file->getName() .'" class="file-link js-open">' . $file->getName() . '</a> <em class="file-type">' . $file->getType() . ', ' . number_format(round($file->getSize()/1024,2),2) . ' KB</em></span> <a class="delete js-delete" href="?delete=' . $file->getID() . '">löschen</a></li>';
 			}
 			
 			$html .= '</ul>';
