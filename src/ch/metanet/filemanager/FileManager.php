@@ -122,7 +122,7 @@ class FileManager
 	public function getFileList($view, array $filter = array('types' => null, 'keyword' => null))
 	{
 		// Create type array
-		$typesAvailable = $this->fileManager->getFileTypes(); 
+		$typesAvailable = $this->fileManager->getFileCategories(); 
 		$types = null;
 		
 		if($filter['types'] !== null) {
@@ -143,7 +143,7 @@ class FileManager
 		$files = $this->fileManager->getAllFiles(
 			array('column' => 'filename', 'sort' => 'ASC'), 
 			$filter['keyword'], 
-			array_keys($this->fileManager->getFileTypes())
+			array_keys($this->fileManager->getFileCategories())
 		);
 		
 		if(count($files) === 0)

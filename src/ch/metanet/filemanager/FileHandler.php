@@ -14,7 +14,7 @@ class FileHandler
 {
 	private $db;
 	private $savePath;
-	private $fileTypes;
+	private $fileCategories;
 	private $logger;
 
 	public function __construct(DB $db, $savePath)
@@ -24,7 +24,7 @@ class FileHandler
 		$this->db = $db;
 		$this->savePath = $savePath;
 
-		$this->fileTypes = array(
+		$this->fileCategories = array(
 			'image' => array(
 				'types' => array(
 					'image/jpeg', 'image/jpx', 'image/jp2', 'image/jpm',
@@ -106,12 +106,14 @@ class FileHandler
 		);
 
 		$tmpArr = $this->db->select($stmntAllFiles, $params);
-
+		$files = array();
+		
 		foreach($tmpArr as $f) {
 			$f->filepath = $this->savePath . $f->filenamesys . DIRECTORY_SEPARATOR . $f->filename;
+			$files[] = $this->createFileFromData($f);
 		}
 
-		return $tmpArr;
+		return $files;
 	}
 
 	public function getFileByID($fileID)
@@ -129,7 +131,7 @@ class FileHandler
 
 		$resFile[0]->filepath = $this->savePath . $resFile[0]->filenamesys . DIRECTORY_SEPARATOR  . $resFile[0]->filename;
 
-		return $resFile[0];
+		return $this->createFileFromData($resFile[0]);
 	}
 
 	/**
@@ -171,7 +173,7 @@ class FileHandler
 			$otherInfo = $imgInfo[0] . ';' . $imgInfo[1];
 		}
 
-		$send = isset($this->fileTypes[$subDir]) ? $this->fileTypes[$subDir]['send'] : 1;
+		$send = isset($this->fileCategories[$subDir]) ? $this->fileCategories[$subDir]['send'] : 1;
 		
 		$fileID = $this->db->insert($stmntInsertFile, array(
 			$fileNameSys,
@@ -227,7 +229,7 @@ class FileHandler
 
 	public function getDirForMimeType($mimeType)
 	{
-		foreach($this->fileTypes as $dir => $ft) {
+		foreach($this->fileCategories as $dir => $ft) {
 			if(in_array($mimeType, $ft['types']))
 				return $dir;
 		}
@@ -237,7 +239,7 @@ class FileHandler
 
 	public function hasFileType($mimeType, $expectedFileType)
 	{
-		foreach($this->fileTypes as $ft => $data) {
+		foreach($this->fileCategories as $ft => $data) {
 			if(in_array($mimeType, $data['types']) && $expectedFileType === $ft)
 				return true;
 		}
@@ -245,9 +247,31 @@ class FileHandler
 		return false;
 	}
 
-	public function getFileTypes()
+	public function getFileCategories()
 	{
-		return $this->fileTypes;
+		return $this->fileCategories;
+	}
+
+	/**
+	 * @param \stdClass $data
+	 *
+	 * @return File
+	 */
+	protected function createFileFromData(\stdClass $data)
+	{
+		$file = new File();
+
+		ReflectionUtils::setLockedProperty($file, 'ID', $data->ID);
+		
+		$file->setName($data->filename);
+		$file->setNameSys($data->filenamesys);
+		$file->setSend($data->send);
+		$file->setType($data->filetype);
+		$file->setCategory($data->category);
+		$file->setOtherInfo($data->otherinfo);
+		$file->setSize($data->filesize);
+		
+		return $file;
 	}
 }
 
