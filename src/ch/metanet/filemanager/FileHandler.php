@@ -1,16 +1,15 @@
 <?php
 
-/**
- * @author Pascal Muenst <entwicklung@metanet.ch>
- * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
- */
-
 namespace ch\metanet\filemanager;
 
 use ch\timesplinter\core\FrameworkLoggerFactory;
+use timesplinter\tsfw\common\ReflectionUtils;
 use timesplinter\tsfw\db\DB;
 
+/**
+ * @author Pascal Muenst <entwicklung@metanet.ch>
+ * @copyright Copyright (c) 2013, METANET AG
+ */
 class FileHandler
 {
 	private $db;
@@ -115,7 +114,8 @@ class FileHandler
 		return $tmpArr;
 	}
 
-	public function getFileByID($fileID) {
+	public function getFileByID($fileID)
+	{
 		$stmntFile = $this->db->prepare("
 			SELECT ID, filenamesys, filename, filetype, filesize, send, otherinfo, category
 			FROM file
@@ -132,13 +132,19 @@ class FileHandler
 		return $resFile[0];
 	}
 
-	public function storeFile($fileInfo) {
+	/**
+	 * @param array $fileInfo
+	 *
+	 * @return File
+	 */
+	public function storeFile(array $fileInfo)
+	{
 		$stmntInsertFile = $this->db->prepare("
 			INSERT INTO file SET filenamesys = ?, filename = ?, filetype = ?, filesize = ?, send = ?, otherinfo = ?, category = ?
 		");
 
 		$fileNameSys = uniqid();
-		$subDir = isset($fileInfo['collection'])?$fileInfo['collection']:$this->getDirForMimeType($fileInfo['type']);
+		$subDir = isset($fileInfo['collection']) ? $fileInfo['collection'] : $this->getDirForMimeType($fileInfo['type']);
 
 		if(is_dir($this->savePath . $subDir) === false)
 			mkdir($this->savePath . $subDir);
@@ -165,20 +171,35 @@ class FileHandler
 			$otherInfo = $imgInfo[0] . ';' . $imgInfo[1];
 		}
 
+		$send = isset($this->fileTypes[$subDir]) ? $this->fileTypes[$subDir]['send'] : 1;
+		
 		$fileID = $this->db->insert($stmntInsertFile, array(
 			$fileNameSys,
 			$fileInfo['name'],
 			$fileInfo['type'],
 			$fileInfo['size'],
-			isset($this->fileTypes[$subDir])?$this->fileTypes[$subDir]['send']:1,
+			$send,
 			$otherInfo,
 			$subDir
 		));
 
-		return $fileID;
+		$file = new File();
+		
+		ReflectionUtils::setLockedProperty($file, 'ID', $fileID);
+		
+		$file->setName($fileInfo['name']);
+		$file->setNameSys($fileNameSys);
+		$file->setSend($send);
+		$file->setType($fileInfo['type']);
+		$file->setCategory($subDir);
+		$file->setOtherInfo($otherInfo);
+		$file->setSize($fileInfo['size']);
+		
+		return $file;
 	}
 
-	public function deleteFile($fileID) {
+	public function deleteFile($fileID)
+	{
 		try {
 			$stmntFile = $this->db->prepare("SELECT filenamesys, category FROM file WHERE ID = ?");
 			$resFile = $this->db->select($stmntFile, array($fileID));

@@ -54,7 +54,7 @@ class FileManagerController extends BackendController implements BackendControll
 			
 			$html = $browser->getFileList($_SESSION['view'], $_SESSION['filter']);
 		} elseif(isset($_GET['delete'])) {
-			$html = $browser->deleteFile($_GET['delete']);
+			$browser->deleteFile($_GET['delete']);
 		} else {
 			$html = $browser->getBrowserWindow($_SESSION['view'], $_SESSION['filter']);
 		}
@@ -83,15 +83,18 @@ class FileManagerController extends BackendController implements BackendControll
 					'size' => $_FILES['files']['size'][$i]
 				);
 
-				$fileManager = new FileHandler($this->db, $this->core->getSiteRoot() . 'data/');
-				$fileManager->storeFile($file);
-				//move_uploaded_file($file['tmp_name'], $options['upload_dir'] . $file['name']);
+				$savePath = $this->core->getSiteRoot() . 'data' . DIRECTORY_SEPARATOR;
+				
+				$fileManager = new FileHandler($this->db, $savePath);
+				$fileObj = $fileManager->storeFile($file);
 
+				$subDir = ($fileObj->getCategory() !== null) ? $fileObj->getCategory() . '/' : null;
+				
 				$fileResponse = new \stdClass();
 				$fileResponse->name = $file['name'];
 				$fileResponse->size = $file['size'];
 				$fileResponse->type = $file['type'];
-				$fileResponse->url = 'http://www.google.com/robots.txt';
+				$fileResponse->url = '/files/' . $subDir . $fileObj->getNameSys() . DIRECTORY_SEPARATOR . $fileObj->getName();
 				$fileResponse->delete_type = 'DELETE';
 
 				$filesResponse[] = $fileResponse;
@@ -99,9 +102,7 @@ class FileManagerController extends BackendController implements BackendControll
 
 			$response = new \stdClass();
 			$response->files = $filesResponse;
-
-	//echo '{"files":[{"name":"special.csv (2).php","size":5300,"type":"application\/octet-stream","url":"http:\/\/henauer-kaffee.ch.metdev.ch\/upload\/special.csv%20%282%29.php","delete_url":"http:\/\/henauer-kaffee.ch.metdev.ch\/?file=special.csv%20%282%29.php","delete_type":"DELETE"}]}';
-
+			
 			header_remove();
 
 			if(!isset($_GET['nojs'])) {
