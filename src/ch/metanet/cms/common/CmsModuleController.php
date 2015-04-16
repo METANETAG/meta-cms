@@ -4,7 +4,6 @@ namespace ch\metanet\cms\common;
 
 use ch\metanet\cms\controller\common\CmsController;
 use ch\metanet\cms\model\ModuleModel;
-use timesplinter\tsfw\common\StringUtils;
 use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpResponse;
 
@@ -99,7 +98,7 @@ abstract class CmsModuleController
 
 	/**
 	 * Renders the module content and add module specific information to the template
-	 * 
+	 *
 	 * @param string $tplFile The template file to render
 	 * @param array $tplVars The template variables
 	 * @return CmsModuleResponse
@@ -108,7 +107,7 @@ abstract class CmsModuleController
 
 	/**
 	 * Returns the modules base URI to generate new relative URIs on that base
-	 * 
+	 *
 	 * @return string Modules base URI as string
 	 */
 	protected abstract function getBaseURI();
