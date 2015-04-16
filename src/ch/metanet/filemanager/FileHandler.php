@@ -117,7 +117,7 @@ class FileHandler
 		
 		foreach($tmpArr as $f) {
 			$f->filepath = $this->savePath . $f->filenamesys . DIRECTORY_SEPARATOR . $f->filename;
-			$files[] = $this->createFileFromData($f);
+			$files[] = self::createFileFromData($f);
 		}
 
 		return $files;
@@ -143,7 +143,7 @@ class FileHandler
 
 		$resFile[0]->filepath = $this->savePath . $resFile[0]->filenamesys . DIRECTORY_SEPARATOR  . $resFile[0]->filename;
 
-		return $this->createFileFromData($resFile[0]);
+		return self::createFileFromData($resFile[0]);
 	}
 
 	/**
@@ -269,7 +269,7 @@ class FileHandler
 	 *
 	 * @return File
 	 */
-	protected function createFileFromData(\stdClass $data)
+	public static function createFileFromData(\stdClass $data)
 	{
 		$file = new File();
 
@@ -277,11 +277,11 @@ class FileHandler
 		
 		$file->setName($data->filename);
 		$file->setNameSys($data->filenamesys);
-		$file->setSend($data->send);
+		$file->setSend($data->send == 1);
 		$file->setType($data->filetype);
 		$file->setCategory($data->category);
 		$file->setOtherInfo($data->otherinfo);
-		$file->setSize($data->filesize);
+		$file->setSize((int)$data->filesize);
 		
 		return $file;
 	}
