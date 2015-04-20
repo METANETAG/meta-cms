@@ -82,10 +82,12 @@ class NavigationModel extends Model
 				ne.external_link,
 				nhe.hidden,
 				nhe.navigation_IDFK,
-				r.pattern
+				r.pattern,
+				cma.name module_name
 			FROM navigation_has_entry nhe
 			LEFT JOIN navigation_entry ne ON ne.ID = nhe.navigation_entry_IDFK
 			LEFT JOIN route r ON r.ID = ne.route_IDFK
+			LEFT JOIN cms_mod_available cma ON cma.ID = r.mod_IDFK
 			WHERE nhe.navigation_IDFK = ?" . $cond . "
 			ORDER BY nhe.sort
 		");
