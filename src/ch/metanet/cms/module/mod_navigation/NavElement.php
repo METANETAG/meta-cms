@@ -12,16 +12,17 @@ use timesplinter\tsfw\db\DB;
 use \stdClass;
 
 /**
- * The navigation module shows a cms navigation with the choosen display settings.
+ * The navigation module shows a cms navigation with the chosen display settings.
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
-class NavElement extends CmsElementSettingsLoadable {
-	private $activeRoutes;
+class NavElement extends CmsElementSettingsLoadable
+{
+	protected $activeRoutes;
 	protected $modes;
 
-	public function __construct($ID, $pageID) {
+	public function __construct($ID, $pageID)
+	{
 		parent::__construct($ID, $pageID, 'element_nav');
 
 		$this->activeRoutes = array();
@@ -105,8 +106,8 @@ class NavElement extends CmsElementSettingsLoadable {
 			// Call HOOK HERE!
 			$n->subNav = array();
 
-			$subNavLoadedEvent = new SubNavLoadedEvent($n, in_array($n->route_IDFK, $this->activeRoutes), $this->activeRoutes);
-			
+			$subNavLoadedEvent = new SubNavLoadedEvent($n, in_array($n->route_IDFK, $this->activeRoutes), $this->activeRoutes, $this->settings);
+
 			$fec->getEventDispatcher()->dispatch($this->identifier . '.beforeSubNavLoaded', $subNavLoadedEvent);
 
 			$n->subNav += $this->generateNavigationReal($fec, $navEntries, $activeRouteID, $n->ID);
@@ -206,7 +207,8 @@ class NavElement extends CmsElementSettingsLoadable {
 	 * @param bool $showActiveStagesOnly Show only navigation stages which have at least one active navigation entry
 	 * @return null|string The navigation as HTML structure
 	 */
-	private function getNavigationAsHtml(FrontendController $fec, $navStruct, $levelTo, $currentRouteID, $showActiveStagesOnly, $levelCounter = 1, $parentID = null) {
+	private function getNavigationAsHtml(FrontendController $fec, $navStruct, $levelTo, $currentRouteID, $showActiveStagesOnly, $levelCounter = 1, $parentID = null)
+	{
 		if(!is_array($navStruct) || ($navCount = count($navStruct)) === 0)
 			return null;
 
@@ -248,11 +250,11 @@ class NavElement extends CmsElementSettingsLoadable {
 			// Prepare pattern with defaults
 			// @TODO default param replacement needs enhancement
 			$pattern = ($nav->route_IDFK !== null)?$nav->pattern:$nav->external_link;
-			
+
 			if(isset($nav->default_params) === false || $nav->default_params === null) {
 				$pattern = preg_replace('@\(.+?\)\??@', null, $pattern);
 			}
-			
+
 			if(isset($nav->hidden) === false || $nav->hidden == 0) {
 				$navHtml .= str_repeat("\t", $levelCounter) . '<li' . $classAttr . '><a href="' . $pattern . '"' . $activeClass . '>' . $nav->title . '</a>';
 
@@ -281,7 +283,8 @@ class NavElement extends CmsElementSettingsLoadable {
 		return (!$showActiveStagesOnly || $isOneActive || $currentRouteID == $parentID || $levelCounter == 1)?$navHtml:null;
 	}
 
-	private function getNavigationAsBreadcrumb(FrontendController $fec, $navStruct, $levelTo, $levelCounter = 1) {
+	private function getNavigationAsBreadcrumb(FrontendController $fec, $navStruct, $levelTo, $levelCounter = 1)
+	{
 		if(!is_array($navStruct))
 			return null;
 
@@ -311,7 +314,8 @@ class NavElement extends CmsElementSettingsLoadable {
 		return null;
 	}
 
-	private function getLevelFromArray($array, $levelFrom, $levelCount = 1) {
+	private function getLevelFromArray($array, $levelFrom, $levelCount = 1)
+	{
 		$arrayCount = count($array);
 
 		for($i = 0; $i < $arrayCount; ++$i) {
@@ -331,7 +335,8 @@ class NavElement extends CmsElementSettingsLoadable {
 		return $array;
 	}
 
-	protected function getNavigations(BackendController $backendController) {
+	protected function getNavigations(BackendController $backendController)
+	{
 		$stmntNavs = $backendController->getDB()->prepare("
 			SELECT ID, name FROM navigation ORDER BY name
 		");

@@ -13,12 +13,14 @@ class SubNavLoadedEvent extends Event
 	protected $currentEntry;
 	protected $isActive;
 	protected $activeRouteIds;
-	
-	public function __construct($currentEntry, $isActive, $activeRouteIds)
+	protected $elementSettings;
+
+	public function __construct($currentEntry, $isActive, $activeRouteIds, $elementSettings)
 	{
 		$this->currentEntry = $currentEntry;
 		$this->isActive = $isActive;
 		$this->activeRouteIds = $activeRouteIds;
+		$this->elementSettings = $elementSettings;
 	}
 
 	/**
@@ -47,6 +49,16 @@ class SubNavLoadedEvent extends Event
 	{
 		return $this->isActive;
 	}
+
+	/**
+	 * Current navigation elements settings
+	 *
+	 * @return \stdClass
+	 */
+	public function getElementSettings()
+	{
+		return $this->elementSettings;
+	}
 }
 
-/* EOF */ 
+/* EOF */

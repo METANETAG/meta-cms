@@ -285,6 +285,11 @@ class FileHandler
 		
 		return $file;
 	}
+	
+	public static function getFileUri(File $file, $prefix = null)
+	{
+		return $prefix . '/' . $file->getType() . '/' . $file->getNameSys() . '/' . $file->getName();
+	}
 }
 
 /* EOF */
