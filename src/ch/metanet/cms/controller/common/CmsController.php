@@ -144,8 +144,8 @@ abstract class CmsController extends FrameworkController
             'area_body' => null,
 			'nav_modules' => array(),
 			'username' => $username,
-			'js_revision' => isset($this->core->getSettings()->cms->{$env}->js_revision)?$this->core->getSettings()->cms->{$env}->js_revision:'v1',
-			'css_revision' => isset($this->core->getSettings()->cms->{$env}->css_revision)?$this->core->getSettings()->cms->{$env}->css_revision:'v1',
+			'js_revision' => isset($this->core->getSettings()->cms->{$env}->js_revision)?$this->core->getSettings()->cms->{$env}->js_revision:1,
+			'css_revision' => isset($this->core->getSettings()->cms->{$env}->css_revision)?$this->core->getSettings()->cms->{$env}->css_revision:1,
 			'debug_information' => null
 		);
 
@@ -242,8 +242,8 @@ abstract class CmsController extends FrameworkController
 			'scripts_footer' => null,
 			'admin_bar' => null,
 			'meta_description' => null,
-			'js_revision' => isset($this->core->getSettings()->cms->{$currentEnv}->js_revision)?$this->core->getSettings()->cms->{$currentEnv}->js_revision:'v1',
-			'css_revision' => isset($this->core->getSettings()->cms->{$currentEnv}->css_revision)?$this->core->getSettings()->cms->{$currentEnv}->css_revision:'v1',
+			'js_revision' => isset($this->core->getSettings()->cms->{$currentEnv}->js_revision)?$this->core->getSettings()->cms->{$currentEnv}->js_revision:1,
+			'css_revision' => isset($this->core->getSettings()->cms->{$currentEnv}->css_revision)?$this->core->getSettings()->cms->{$currentEnv}->css_revision:1,
 			'area_head' => null,
 			'area_body' => null,
 			'cms_page' => null
