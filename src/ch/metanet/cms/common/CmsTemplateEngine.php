@@ -22,7 +22,7 @@ class CmsTemplateEngine extends TemplateEngine
 	 */
 	public function __construct(TemplateCacheStrategy $tplCacheInterface, $tplNsPrefix)
 	{
-		parent::__construct($tplCacheInterface, $tplNsPrefix, array(
+		parent::__construct($tplNsPrefix, $tplCacheInterface, array(
 			'formComponent' => '\ch\metanet\customtags\FormComponentTag',
 			'formAddRemove' => '\ch\metanet\customtags\FormAddRemoveTag',
 			'cssFile' => '\ch\metanet\customtags\CssFileTag',

@@ -554,18 +554,18 @@ class BackendPagesController extends CmsModuleBackendController
 			$formData['form_rights'] = array();
 		}
 
-		$optsRightgroups = array(-1 => '- please choose -');
+		$optsRightGroups = array(-1 => '- please choose -');
 
 		foreach($rightGroupModel->getRightGroups() as $g) {
-			if($g->root == 1)
+			if($g->isRoot() === true)
 				continue;
 
-			$optsRightgroups[$g->ID] = $g->groupname;
+			$optsRightGroups[$g->getID()] = $g->getGroupName();
 		}
 
 		$tplVars = array(
 			'siteTitle' => ($rightGroupID === null)?'Add rightgroup access for page #' . $pageID:'Edit access of rightgroup #' . $rightGroupID . ' for page #' . $pageID,
-			'opts_rightgroups' => $optsRightgroups,
+			'opts_rightgroups' => $optsRightGroups,
 			'form_status' => ($this->formHelper !== null && $this->formHelper->hasErrors())?CmsUtils::getErrorsAsHtml($this->formHelper->getErrors()):null,
 			'opt_rights' => array('read' => 'read', 'write' => 'write')
 		);
@@ -604,10 +604,10 @@ class BackendPagesController extends CmsModuleBackendController
 		$optsRightGroups = array();
 
 		foreach($rightGroupModel->getRightGroups() as $g) {
-			if($g->root == 1)
+			if($g->isRoot() === true)
 				continue;
 
-			$optsRightGroups[$g->ID] = $g->groupname;
+			$optsRightGroups[$g->getID()] = $g->getGroupName();
 		}
 
 		$this->formHelper->addField('rightgroup', null, FormHelper::TYPE_OPTION, true, array(
