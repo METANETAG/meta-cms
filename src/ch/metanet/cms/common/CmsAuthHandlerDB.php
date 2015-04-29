@@ -7,6 +7,8 @@ use ch\timesplinter\core\SessionHandler;
 use timesplinter\tsfw\db\DB;
 
 /**
+ * Authenticates users and provides information about their rights
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  */
@@ -14,6 +16,11 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 {
 	protected $cmsRights;
 
+	/**
+	 * @param DB $db
+	 * @param SessionHandler $sessionHandler
+	 * @param array $settings
+	 */
 	public function __construct(DB $db, SessionHandler $sessionHandler, array $settings = array())
 	{
 		parent::__construct($db, $sessionHandler, $settings);
@@ -21,6 +28,13 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 		$this->cmsRights = array();
 	}
 
+	/**
+	 * @param string $username
+	 * @param string $password
+	 * @param null $callbackOnSuccess
+	 *
+	 * @return bool
+	 */
 	public function checkLogin($username, $password, $callbackOnSuccess = null)
 	{
 		if(parent::checkLogin($username, $password, $callbackOnSuccess) === false)
@@ -31,6 +45,9 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 		return true;
 	}
 
+	/**
+	 * 
+	 */
 	protected function loadUserPopo()
 	{
 		parent::loadUserPopo();
@@ -38,6 +55,9 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 		$this->cmsRights = $this->loadCmsRights();
 	}
 
+	/**
+	 * @return string[]
+	 */
 	protected function loadCmsRights()
 	{
 		$rgs = array();
@@ -68,6 +88,11 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 		return $cmsRights;
 	}
 
+	/**
+	 * @param string $right
+	 *
+	 * @return bool
+	 */
 	public function hasCmsRight($right)
 	{
 		if($this->loggedIn === false)
@@ -78,6 +103,9 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 		return ($this->hasRootAccess() || in_array($right, $this->cmsRights));
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getCmsRights()
 	{
 		return $this->cmsRights;

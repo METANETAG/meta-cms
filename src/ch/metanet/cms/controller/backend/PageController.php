@@ -550,7 +550,7 @@ class PageController extends BackendController
 		if($elementToDeleteInstance === null)
 			throw new CMSException('Could not find module to delete: #' . $elementToDeleteID);
 
-		$parentElement = $elementToDeleteInstance->getParentModule();
+		$parentElement = $elementToDeleteInstance->getParentElement();
 
 		try {
 			// Delete element

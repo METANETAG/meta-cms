@@ -6,6 +6,8 @@ use ch\timesplinter\core\HttpRequest;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
+ * Gets dispatched if a resource could not be found
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2014, METANET AG
  */
@@ -14,6 +16,8 @@ class PageNotFoundEvent extends Event
 	protected $httpRequest;
 
 	/**
+	 * The related HTTP request
+	 * 
 	 * @param HttpRequest $httpRequest
 	 */
 	public function __construct(HttpRequest $httpRequest)

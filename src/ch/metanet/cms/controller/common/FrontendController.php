@@ -3,6 +3,7 @@
 namespace ch\metanet\cms\controller\common;
 
 use ch\metanet\cms\common\CMSException;
+use ch\metanet\cms\common\CmsModuleController;
 use ch\metanet\cms\common\CmsModuleFrontendController;
 use ch\metanet\cms\common\CmsRoute;
 use ch\metanet\cms\common\CmsTemplateEngine;
@@ -19,29 +20,37 @@ use ch\timesplinter\core\HttpResponse;
 use ch\timesplinter\core\Route;
 use ch\metanet\cms\common\CmsPage;
 use ch\metanet\cms\common\CmsView;
+use ch\timesplinter\logger\Logger;
 use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\RequestHandler;
 use timesplinter\tsfw\template\DirectoryTemplateCache;
+use timesplinter\tsfw\template\TemplateEngine;
 
 /**
+ * Entry point for frontend requests and services
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
+ * 
+ * @property CmsModuleFrontendController[] $loadedModules
  */
 class FrontendController extends CmsController
 {
-	/** @var CmsPage $cmsPage */
+	/** @var CmsPage|null $cmsPage */
 	protected $cmsPage;
+	/** @var CmsModuleController|null */
 	protected $cmsModule;
-	/** @var  CmsRoute $cmsRoute */
+	/** @var  CmsRoute|null $cmsRoute */
 	protected $cmsRoute;
+	/** @var Logger */
 	protected $logger;
+	/** @var TemplateEngine */
 	protected $templateEngine;
 
 	/**
-	 * @param Core $core
-	 * @param HttpRequest $httpRequest
-	 * @param Route $route
+	 * @param Core $core The framework core instance
+	 * @param HttpRequest $httpRequest Frameworks HTTP request object
+	 * @param Route $route Frameworks route object
 	 */
 	public function __construct(Core $core, HttpRequest $httpRequest, Route $route)
 	{
@@ -65,11 +74,13 @@ class FrontendController extends CmsController
 	}
 
 	/**
-	 * This method generates a CmsPage object according to the given route, renders it and creates the framework
+	 * Generates a CmsPage object according to the given route, renders it and creates the framework
 	 * response for it.
-	 * @throws \ch\timesplinter\core\HttpException
-	 * @throws \ch\timesplinter\core\HttpException|\Exception
-	 * @return HttpResponse
+	 * 
+	 * @return HttpResponse The rendered page with all headers set ready to send back to the client
+	 * @throws CMSException
+	 * @throws HttpException
+	 * @throws \Exception
 	 */
 	public function deliverCMSPage()
 	{
@@ -150,9 +161,10 @@ class FrontendController extends CmsController
 	}
 
 	/**
-	 * This method delivers a page which is only available trough a preview URL
-	 * @return HttpResponse
-	 * @throws \ch\timesplinter\core\HttpException
+	 * Delivers a page which is only available trough a preview URL
+	 * 
+	 * @return HttpResponse The rendered preview CMS page ready to send it to the client
+	 * @throws HttpException if the preview page does not exist or is not accessible for the current user
 	 */
 	public function deliverPreviewCMSPage()
 	{
@@ -170,6 +182,15 @@ class FrontendController extends CmsController
 		return $this->generateCMSPage($pageModel);
 	}
 
+	/**
+	 * Renders the current frontend page into the basic frontend template.html file and adds some useful data to the
+	 * template (e.x. logged in user if there is any, site title, etc.)
+	 * 
+	 * @param PageModel $pageModel
+	 *
+	 * @return HttpResponse The rendered CMS page ready to send it to the client
+	 * @throws HttpException if the page does not exist or is not accessible for the current user
+	 */
 	protected function generateCMSPage(PageModel $pageModel)
 	{
 		if($this->cmsPage === null) {
@@ -323,6 +344,15 @@ class FrontendController extends CmsController
 		return new HttpResponse($httpStatusCode, $html, $responseHeaders);
 	}
 
+	/**
+	 * Calls a service and returns the result of it back to the client. This is needed for API related things which
+	 * should not be handled over the template rendering CMS page part {@see generateCMSPage}. There is also no route
+	 * needed. The services map to whatever you defined to call this method in settings/routes.json.
+	 * E.x. http://example.com/{your_path_to_this_method}/module_name/service_name
+	 * 
+	 * @return HttpResponse With the information which should be sent back to the client
+	 * @throws CMSException if the called service module has no FrontendController defined
+	 */
 	public function callService()
 	{
 		$moduleId = $this->route->getParam(0);
@@ -339,41 +369,54 @@ class FrontendController extends CmsController
 		return $controllerInstance->callServiceByName($serviceName);
 	}
 
+	/**
+	 * Generates a string with all the JS/CSS stored using {@see CmsPage::addJs} and {@see CmsPage::addCss} using the
+	 * target {@see CmsPage::PAGE_AREA_HEAD}
+	 * 
+	 * @param CmsPage $cmsPage The requested CMS page
+	 *
+	 * @return string The HTML for all the JS/CSS which should ne present in the footer of the page
+	 */
 	protected function generateAreaHead(CmsPage $cmsPage)
 	{
-		return '<!-- AREA HEAD -->' . PHP_EOL;
+		$env = $this->currentDomain->environment;
+			
+		return ($this->core->getSettings()->core->environments->{$env}->debug === true) ? '<!-- AREA HEAD -->' . PHP_EOL : null;
 	}
 
+	/**
+	 * Generates a string with all the JS/CSS stored using {@see CmsPage::addJs} using the
+	 * target {@see CmsPage::PAGE_AREA_BODY}
+	 * 
+	 * @param CmsPage $cmsPage The requested CMS page
+	 *
+	 * @return string The HTML for all the JS which should ne present in the footer of the page
+	 */
 	protected function generateAreaBody(CmsPage $cmsPage)
 	{
-		$areaBodyHtml = '';
+		$env = $this->currentDomain->environment;
+		$isDebug = ($this->core->getSettings()->core->environments->{$env}->debug === true);
+			
+		$areaBodyHtml = $isDebug ? '<!-- AREA BODY START -->' . PHP_EOL : null;
 		$jsEntries = $cmsPage->getJs(CmsPage::PAGE_AREA_BODY);
 
 		foreach($jsEntries as $jsGroup) {
 			foreach($jsGroup as $jsEntry)
 				$areaBodyHtml .= $jsEntry . PHP_EOL;
 		}
+		
+		$areaBodyHtml .= $isDebug ? '<!-- AREA BODY STOP -->' . PHP_EOL : null;
 
 		return $areaBodyHtml . PHP_EOL;
 	}
 
-	public function invokeElementHook()
-	{
-		$args = func_get_args();
-		$hookName = array_shift($args);
-
-		if($this->cmsModule === null)
-			return null;
-
-		if(method_exists($this->cmsModule, $hookName) === false)
-			return null;
-
-		$returnValue = call_user_func_array(array($this->cmsModule, $hookName), $args);
-
-		return ($returnValue === false)?null:$returnValue;
-	}
-
-
+	/**
+	 * Generates an error page for a thrown exception which was not caught anywhere else in the code
+	 * 
+	 * @param \Exception $e The uncaught exception
+	 *
+	 * @return HttpResponse The HTTP response for sending back to the client (e.x. a nice styled error message)
+	 */
 	public function generateErrorPage(\Exception $e)
 	{
 		$errorCode = 500;
@@ -399,12 +442,12 @@ class FrontendController extends CmsController
 	}
 
 	/**
-	 * The render method for the frontend. You can also provide some must have vars for the backend with this
+	 * The render method for the frontend
 	 * 
-	 * @param string $tplFile
-	 * @param array $tplVars
+	 * @param string $tplFile The template file to render
+	 * @param array $tplVars The template data to relay on
 	 * 
-	 * @return string
+	 * @return string The rendered content
 	 */
 	protected function renderTemplate($tplFile, array $tplVars = array())
 	{
@@ -414,38 +457,59 @@ class FrontendController extends CmsController
 	}
 
 	/**
-	 * @return CmsPage
+	 * Returns the currently requested CMS page
+	 * 
+	 * @return CmsPage|null The CMS page which currently gets processed
 	 */
-	public function getCmsPage() {
+	public function getCmsPage()
+	{
 		return $this->cmsPage;
 	}
 
 	/**
-	 * @return CmsView
+	 * The view which renders the frontend templates
+	 * 
+	 * @return CmsView The view
 	 */
 	public function getCmsView()
 	{
 		return $this->cmsView;
 	}
 
+	/**
+	 * Sets the currently requested CMS page
+	 * 
+	 * @param CmsPage $cmsPage The CMS page which should get processed
+	 */
 	public function setCmsPage(CmsPage $cmsPage)
 	{
 		$this->cmsPage = $cmsPage;
 	}
 
 	/**
-	 * @return \ch\metanet\cms\common\CmsRoute
+	 * Returns the CMS route which matched against the requested URI
+	 * 
+	 * @return CmsRoute|null The CMS route or null if no route did match
 	 */
 	public function getCmsRoute()
 	{
 		return $this->cmsRoute;
 	}
 
+	/**
+	 * Returns an instance of the module bound to the requested URI
+	 * 
+	 * @return CmsModuleFrontendController|null The module or null if no module is bound
+	 */
 	public function getCmsModule()
 	{
 		return $this->cmsModule;
 	}
 
+	
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function loadNeededModules()
 	{
 		$moduleModel = new ModuleModel($this->db);
@@ -460,7 +524,7 @@ class FrontendController extends CmsController
 			) continue;
 
 			$moduleControllerInstance =  new $module->frontendcontroller($this, $module->name);
-			//var_dump( $module->frontendcontroller); echo '<hr>';
+			
 			$this->eventDispatcher->addSubscriber($moduleControllerInstance);
 			$this->loadedModules[$module->name] = $moduleControllerInstance;
 		}

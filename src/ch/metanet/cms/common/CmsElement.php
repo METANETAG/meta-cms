@@ -18,21 +18,32 @@ use timesplinter\tsfw\db\DB;
  */
 abstract class CmsElement
 {
+	/** @var int Elements instance ID */
 	protected $ID;
+	/** @var int CMS page ID */
 	protected $pageID;
-	protected $parentModuleID;
+	/** @var int Parents element ID */
+	protected $parentElementD;
+	/** @var string */
 	protected $identifier;
 
-	/** @var CmsElement $parentModule */
-	protected $parentModule;
+	/** @var CmsElement $parentElement */
+	protected $parentElement;
+	/** @var ArrayObject */
 	protected $tplVars;
+	/** @var int Creator of this element */
 	protected $creatorID;
+	/** @var string Element revision */
 	protected $revision;
-	protected $domLayer;
-
+	/** @var bool */
 	protected $hidden;
 
-	public function __construct($ID, $pageID, $identifier = null)
+	/**
+	 * @param int $ID Element instance ID
+	 * @param int $pageID CMS page ID
+	 * @param string $identifier
+	 */
+	public function __construct($ID, $pageID, $identifier)
 	{
 		$this->ID = $ID;
 		$this->pageID = $pageID;
@@ -47,7 +58,8 @@ abstract class CmsElement
 
 	/**
 	 * Renders the module with the given template file and TemplateEngine instance
-	 * @param \ch\metanet\cms\controller\common\FrontendController $frontendController
+	 * 
+	 * @param FrontendController $frontendController
 	 * @param CmsView $view
 	 * @return string Returns the rendered html of the module
 	 */
@@ -56,17 +68,34 @@ abstract class CmsElement
 		return $view->render($this->identifier . '.html', (array)$this->tplVars);
 	}
 
+	/**
+	 * @param DB $db
+	 */
 	public function remove(DB $db)
 	{
 		$stmntRemoveMod = $db->prepare("DELETE FROM cms_element_instance WHERE ID = ?");
 		$db->delete($stmntRemoveMod, array($this->ID));
 	}
 
+	/**
+	 * @param DB $db
+	 *
+	 * @return bool
+	 * @throws CMSException
+	 * @throws \Exception
+	 */
 	public function save(DB $db)
 	{
 		return $this->create($db);
 	}
 
+	/**
+	 * @param DB $db
+	 *
+	 * @return bool
+	 * @throws CMSException
+	 * @throws \Exception
+	 */
 	public function create(DB $db)
 	{
 		try {
@@ -84,19 +113,22 @@ abstract class CmsElement
 
 			$this->ID = $db->insert($stmntCreateInstance, array(
 				$resModID[0]->ID,
-				($this->parentModule !== null)?$this->parentModule->getID():null,
+				($this->parentElement !== null)?$this->parentElement->getID():null,
 				$this->creatorID,
 				$this->pageID
 			));
 		} catch(DBException $e) {
 			throw new CMSException('Could not create module cause of DB error: ' . $e->getMessage() . ', Query: ' . $e->getQueryString());
-		} catch(\Exception $e) {
-			throw $e;
 		}
 
 		return true;
 	}
 
+	/**
+	 * @param FrontendController $fec
+	 *
+	 * @return bool
+	 */
 	protected function hasConfig(FrontendController $fec)
 	{
 		$configFilePath = $fec->getCore()->getSiteRoot() . 'settings' . DIRECTORY_SEPARATOR . 'elements' . DIRECTORY_SEPARATOR;
@@ -118,6 +150,12 @@ abstract class CmsElement
 		return true;
 	}
 
+	/**
+	 * @param BackendController $backendController
+	 * @param int $pageID
+	 *
+	 * @return string
+	 */
 	public function generateRevisionBox(BackendController $backendController, $pageID)
 	{
 		$revisionPath = $backendController->getCore()->getSiteRoot() . 'revision' . DIRECTORY_SEPARATOR . $this->identifier . DIRECTORY_SEPARATOR;
@@ -173,6 +211,12 @@ abstract class CmsElement
 		return $html;
 	}
 
+	/**
+	 * @param FrontendController $frontendController
+	 * @param $html
+	 *
+	 * @return null|string
+	 */
 	protected function renderEditable(FrontendController $frontendController, $html)
 	{
 		$pageModel = new PageModel($frontendController->getDB());
@@ -182,7 +226,7 @@ abstract class CmsElement
 
 		// @TODO Move the $this->hidden compare earlier in the code, before the rendering begins or is over to save resources
 		if($pageModel->hasUserWriteAccess($cmsPage, $frontendController->getAuth()) === false)
-			return ($this->hidden === false)?$html:null;
+			return ($this->hidden === false) ? $html : null;
 
 		$modIDStr = 'mod-' . $this->ID . '-' . $frontendController->getCmsPage()->getID();
 
@@ -204,7 +248,7 @@ abstract class CmsElement
 				' . $html . '
 				<div class="edit-area-btn-group">
 					<!--<a class="edit-area-btn edit-area-btn-info ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" href="javascript:alert(\'Element type: ' . $this->identifier . '\');"><span class="ui-button-icon-primary ui-icon ui-icon-info"></span><span class="ui-button-text">Element Info</span></a>-->
-					' . (($this->parentModule instanceof CmsElementSortable)?'<a class="edit-area-btn edit-area-btn-history ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-move" title="move" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrow-4"></span><span class="ui-button-text">move</span></a>':null) . '
+					' . (($this->parentElement instanceof CmsElementSortable)?'<a class="edit-area-btn edit-area-btn-history ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-move" title="move" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrow-4"></span><span class="ui-button-text">move</span></a>':null) . '
 					' . (($this instanceof TextElement)?'<a class="edit-area-btn edit-area-btn-edit ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="edit content" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span><span class="ui-button-text">edit</span></a> ':null) . '
 					' . (($this->hasConfig($frontendController))?'<a class="edit-area-btn edit-area-btn-settings ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" href="/backend/element/' . $this->ID . '-' . $frontendController->getCmsPage()->getID() . '/ajax-settingsbox" role="button" title="Module settings: ' . $modIDStr . ' (' . $this->identifier . ')"><span class="ui-button-icon-primary ui-icon ui-icon-gear"></span><span class="ui-button-text">Settings</span></a> ':null) . '
 					<a class="edit-area-btn edit-area-btn-history ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" href="/backend/element/' . $this->ID . '-' . $frontendController->getCmsPage()->getID() . '/ajax-revision-control" role="button" title="Revision control: ' . $modIDStr . ' (' . $this->identifier . ')"><span class="ui-button-icon-primary ui-icon ui-icon-clock"></span><span class="ui-button-text">Revision control</span></a>';
@@ -229,21 +273,30 @@ abstract class CmsElement
 	 * 
 	 * @return CmsElement
 	 */
-	public function getParentModule()
+	public function getParentElement()
 	{
-		return $this->parentModule;
+		return $this->parentElement;
 	}
 
-	public function setParentModule(CmsElement $parentModule)
+	/**
+	 * @param CmsElement $parentElement
+	 */
+	public function setParentElement(CmsElement $parentElement)
 	{
-		$this->parentModule = $parentModule;
+		$this->parentElement = $parentElement;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getPageID()
 	{
 		return $this->pageID;
 	}
 
+	/**
+	 * @param int $pageID
+	 */
 	public function setPageID($pageID)
 	{
 		$this->pageID = $pageID;
@@ -258,29 +311,36 @@ abstract class CmsElement
 		return $this->identifier;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getID()
 	{
 		return $this->ID;
 	}
 
+	/**
+	 * @param int $creatorID
+	 */
 	public function setCreatorID($creatorID)
 	{
 		$this->creatorID = $creatorID;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getParentElementID()
 	{
-		return $this->parentModuleID;
+		return $this->parentElementD;
 	}
 
-	public function setParentElementID($parentModuleID)
+	/**
+	 * @param int $parentElementID
+	 */
+	public function setParentElementID($parentElementID)
 	{
-		$this->parentModuleID = $parentModuleID;
-	}
-
-	public function setDomLayer($domLayer)
-	{
-		$this->domLayer = $domLayer;
+		$this->parentElementD = $parentElementID;
 	}
 
 	/**

@@ -280,6 +280,11 @@ class PageModel extends Model
 		return false;
 	}
 
+	/**
+	 * @param string $uri
+	 *
+	 * @return CmsRoute|null
+	 */
 	public function getRouteByURI($uri)
 	{
 		$resStaticRoute = $this->db->select($this->stmntStaticRoute, array($uri));

@@ -7,6 +7,7 @@ use ch\metanet\cms\common\CmsElement;
 use ch\metanet\cms\common\CMSException;
 use ch\metanet\cms\common\CmsElementSettingsLoadable;
 use ch\metanet\cms\module\layout\LayoutElement;
+use ch\timesplinter\core\JSONException;
 use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use timesplinter\tsfw\db\DB;
@@ -39,11 +40,11 @@ class ModuleModel extends Model
 	 * Returns a CMSModule instance by it's ID
 	 * 
 	 * @param int $moduleID
-	 * @param \ch\metanet\cms\common\CmsPage $cmsPage
+	 * @param CmsPage $cmsPage
 	 * @param bool $combineSettings
 	 * @param bool $loadSubElements
 	 * 
-	 * @throws \ch\metanet\cms\common\CMSException
+	 * @throws CMSException
 	 * 
 	 * @return CmsElement
 	 */
@@ -88,6 +89,13 @@ class ModuleModel extends Model
 		return $elementInstance;
 	}
 
+	/**
+	 * @param int $parentElementID
+	 * @param CmsPage $cmsPage
+	 *
+	 * @return CmsElement[]
+	 * @throws CMSException
+	 */
 	public function getChildElementInstances($parentElementID, CmsPage $cmsPage/*, CmsElement $parentElement*/)
 	{
 		$elementInstances = array();
@@ -161,7 +169,7 @@ class ModuleModel extends Model
 	 * @param bool $activeOnly
 	 *
 	 * @return \stdClass[]
-	 * @throws \ch\timesplinter\core\JSONException
+	 * @throws JSONException
 	 */
 	public function getAllModules($activeOnly = true) {
 		$stmntMods = $this->db->prepare("
@@ -199,9 +207,9 @@ class ModuleModel extends Model
 	}
 
 	/**
-	 * @param $column
-	 * @param $value
-	 * @param $activeOnly
+	 * @param string $column
+	 * @param mixed $value
+	 * @param bool $activeOnly
 	 *
 	 * @return \stdClass|null
 	 */

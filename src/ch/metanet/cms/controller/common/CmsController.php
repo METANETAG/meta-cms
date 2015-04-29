@@ -4,8 +4,8 @@ namespace ch\metanet\cms\controller\common;
 
 use ch\metanet\cms\common\CmsAuthHandlerDB;
 use ch\metanet\cms\common\BackendNavigationInterface;
+use ch\metanet\cms\common\CmsModuleController;
 use ch\metanet\cms\common\CmsView;
-use ch\metanet\cms\common\PluginManager;
 use ch\metanet\cms\locale\PoParser;
 use ch\metanet\cms\locale\PoWriter;
 use ch\metanet\cms\model\ModuleModel;
@@ -26,33 +26,41 @@ use timesplinter\tsfw\i18n\common\Localizer;
 use timesplinter\tsfw\i18n\gettext\GetTextTranslator;
 
 /**
- * This controller is the very basic controller for the metanet cms. It provides us a db connection and some other
- * stuff very basic for the functionality of the cms.
+ * This controller is the very basic controller for the metaCMS. It provides us a db connection, translator, user 
+ * authenticator and some other stuff very basic for the functionality of the cms.
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  */
 abstract class CmsController extends FrameworkController
 {
+	/** @var string[] */
 	private $activeHtmlIds;
-	
+	/** @var DB */
 	protected $db;
 	/** @var AuthHandlerDB */
 	protected $auth;
 	/** @var Localizer */
 	protected $localizer;
+	/** @var AbstractTranslator */
 	protected $translator;
-	protected $pluginManager;
+	/** @var EventDispatcher */
 	protected $eventDispatcher;
+	/** @var CmsModuleController[] */
 	protected $loadedModules;
 	
+	/** @var ModuleModel */
 	protected $moduleModel;
 
 	/** @var CmsView */
 	protected $cmsView;
+	/** @var \stdClass */
 	protected $cmsSettings;
 
 	/**
-	 * {@inheritdoc}
+	 * @param Core $core
+	 * @param HttpRequest $httpRequest
+	 * @param Route $route
 	 */
 	public function __construct(Core $core, HttpRequest $httpRequest, Route $route)
 	{
@@ -83,7 +91,6 @@ abstract class CmsController extends FrameworkController
 			'login_site' => $this->core->getSettings()->logincontroller->login_page,
 			'session_max_idle_time' => $this->core->getSettings()->logincontroller->session_max_idle_time
 		));
-		$this->pluginManager = new PluginManager($this);
 		
 		$this->moduleModel = new ModuleModel($this->db);
 		$this->loadedModules = array();
@@ -97,13 +104,13 @@ abstract class CmsController extends FrameworkController
 	}
 
 	/**
-	 * Load modules needed for the current request (e.g. Modules which implements the EventSubscriberInterface)
-	 * @return void
+	 * Loads any modules which are needed globally. For example modules which should listen to an event getting
+	 * dispatched and adds them to the subscriber list of those events.
 	 */
 	protected abstract function loadNeededModules();
 
 	/**
-	 * Renders a page with the current routeID as templatefile name. You can provide template variables that can be
+	 * Renders a page with the current routeID as template file name. You can provide template variables that can be
 	 * used in the template file.
 	 * @param array $tplVars Variables that should be accessable in the template files
 	 * @param int $httpStatusCode
@@ -192,16 +199,6 @@ abstract class CmsController extends FrameworkController
 	public function getErrorHandler()
 	{
 		return $this->core->getErrorHandler();
-	}
-
-	/**
-	 * @param $hookName
-	 *
-	 * @return mixed
-	 */
-	public function invokeCmsHook($hookName)
-	{
-		return call_user_func_array(array($this->pluginManager,'invokeHook'), func_get_args());
 	}
 
 	/**

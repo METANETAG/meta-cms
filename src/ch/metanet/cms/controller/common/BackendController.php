@@ -3,6 +3,7 @@
 namespace ch\metanet\cms\controller\common;
 
 use ch\metanet\cms\common\BackendControllerUnprotected;
+use ch\metanet\cms\common\CmsModuleBackendController;
 use ch\metanet\cms\common\CmsTemplateEngine;
 use ch\metanet\cms\model\ModuleModel;
 use ch\timesplinter\core\Core;
@@ -16,8 +17,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use timesplinter\tsfw\template\DirectoryTemplateCache;
 
 /**
+ * Entry point for backend requests
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
+ * 
+ * @property CmsModuleBackendController[] $loadedModules
  */
 class BackendController extends CmsController
 {
@@ -48,7 +53,8 @@ class BackendController extends CmsController
 	}
 
 	/**
-	 * The render method for the backend. You can also provide some must have vars for the backend with this
+	 * The render method for the backend
+	 * 
 	 * @param string $tplFile
 	 * @param array $tplVars
 	 * @return string
@@ -70,6 +76,12 @@ class BackendController extends CmsController
 		));
 	}
 
+	/**
+	 * Checks if a backend controller method is protected and the authenticated user has the needed  
+	 * CMS_BACKEND_ACCESS right
+	 * 
+	 * @return bool
+	 */
 	private function isProtected()
 	{
 		$routeCallback = $this->route->methods[$this->httpRequest->getRequestMethod()];
@@ -88,20 +100,21 @@ class BackendController extends CmsController
 		return (count($unprotectedMethods) > 0 && in_array($controllerMethod, $unprotectedMethods) === false);
 	}
 
-	protected function setCSSActive($m)
+	/**
+	 * Decorates active navigation items with the "active" CSS class
+	 * 
+	 * @param array $m
+	 *
+	 * @return string
+	 */
+	protected function setCSSActive(array $m)
 	{
 		return $m[0] . (($activeHtmlIds = $this->getActiveHtmlIds()) !== null && in_array($m[1], $activeHtmlIds)?' class="active"':null);
 	}
 
-
-	public function displayHttpError(HttpException $e)
-	{
-		return $this->generatePageFromTemplate('backend-http-error', array(
-			'siteTitle' => $e->getCode() . ' ' . HttpResponse::getHttpStatusString($e->getCode()),
-			'error' => $e
-		), $e->getCode());
-	}
-
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function loadNeededModules()
 	{
 		$moduleModel = new ModuleModel($this->db);

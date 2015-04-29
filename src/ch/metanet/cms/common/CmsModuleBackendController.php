@@ -10,6 +10,9 @@ use ch\timesplinter\core\HttpResponse;
 use Zend\Stdlib\Exception\InvalidArgumentException;
 
 /**
+ * The basic controller which should each backend controller from a CMS module extend. This class provides some basic
+ * and fundamental backend features.
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  * 
@@ -17,9 +20,15 @@ use Zend\Stdlib\Exception\InvalidArgumentException;
  */
 abstract class CmsModuleBackendController extends CmsModuleController
 {
+	/** @var string */
 	protected $baseLink;
+	/** @var CmsBackendMessage[] */
 	protected $messages;
 
+	/**
+	 * @param BackendController $moduleController
+	 * @param string $moduleName
+	 */
 	public function __construct(BackendController $moduleController, $moduleName)
 	{
 		parent::__construct($moduleController, $moduleName);
@@ -30,7 +39,8 @@ abstract class CmsModuleBackendController extends CmsModuleController
 
 	/**
 	 * Set the messages for this module which you can render for successfully write to db or warn / inform for some reason
-	 * @return array
+	 * 
+	 * @return CmsBackendMessage[]
 	 */
 	protected function setMessages()
 	{
@@ -42,7 +52,8 @@ abstract class CmsModuleBackendController extends CmsModuleController
 	}
 
 	/**
-	 * Register a new message for this module
+	 * Registers a new message for this module
+	 * 
 	 * @param string|int $key The key of the message
 	 * @param string $text The text of the message
 	 * @param string $type The message type
@@ -54,6 +65,7 @@ abstract class CmsModuleBackendController extends CmsModuleController
 
 	/**
 	 * Sets a key of a message to be displayed on the next page generated. After that the temp key gets reset.
+	 * 
 	 * @param string|int $msgKey The message key for displaying the message content
 	 * @throws \InvalidArgumentException
 	 */
@@ -65,7 +77,11 @@ abstract class CmsModuleBackendController extends CmsModuleController
 		$_SESSION['cms_backend_msg_key'] = $msgKey;
 	}
 
-	protected function setMessageForNextPage(CmsBackendMessage $cmsBackendMessage) {
+	/**
+	 * @param CmsBackendMessage $cmsBackendMessage
+	 */
+	protected function setMessageForNextPage(CmsBackendMessage $cmsBackendMessage)
+	{
 		$_SESSION['cms_backend_msg_key'] = $cmsBackendMessage;
 	}
 
@@ -89,6 +105,11 @@ abstract class CmsModuleBackendController extends CmsModuleController
 		return $this->baseLink;
 	}
 
+	/**
+	 * Returns a unordered HTML list which includes all the pending messages
+	 * 
+	 * @return string|null A unordered list with all pending messages or null if no messages are pending
+	 */
 	protected function renderPendingMessage()
 	{
 		$msgKey = isset($_SESSION['cms_backend_msg_key'])?$_SESSION['cms_backend_msg_key']:null;
@@ -107,9 +128,14 @@ abstract class CmsModuleBackendController extends CmsModuleController
 
 	public function getEditLanguage()
 	{
-		return isset($_SESSION['mod_edit_lang'])?$_SESSION['mod_edit_lang']:$this->cmsController->getCore()->getLocaleHandler()->getLanguage();
+		return isset($_SESSION['mod_edit_lang']) ? $_SESSION['mod_edit_lang'] : $this->cmsController->getCore()->getLocaleHandler()->getLanguage();
 	}
 
+	/**
+	 * Renders a language selector for editing content. The current active language is preselected.
+	 * 
+	 * @return string The preselected select box in a form
+	 */
 	public function getEditLanguageChanger()
 	{
 		$stmntLangs = $this->cmsController->getDB()->prepare("SELECT code, name FROM language ORDER BY name");
@@ -119,7 +145,7 @@ abstract class CmsModuleBackendController extends CmsModuleController
 		$langOptsHtml = '';
 
 		foreach($resLangs as $l) {
-			$selected = (isset($_SESSION['mod_edit_lang']) && $_SESSION['mod_edit_lang'] == $l->code)?' selected':null;
+			$selected = (isset($_SESSION['mod_edit_lang']) && $_SESSION['mod_edit_lang'] == $l->code) ? ' selected' : null;
 			$langOptsHtml .= '<option value="' . $l->code . '"' . $selected . '>' . $l->name . '</option>';
 		}
 
@@ -134,7 +160,7 @@ abstract class CmsModuleBackendController extends CmsModuleController
 	{
 		try {
 
-			if(isset($_GET['nojs'])) {
+			if($this->cmsController->getHttpRequest()->getVar('nojs') !== null) {
 				ob_start();
 			}
 

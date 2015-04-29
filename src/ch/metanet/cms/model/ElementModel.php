@@ -35,7 +35,7 @@ class ElementModel extends Model {
 		$modInstance = new $modClass(null, $pageID);
 		if($modParent !== null) {
 			$modInstance->setParentElementID($modParent);
-			$modInstance->setParentModule($modParent);
+			$modInstance->setParentElement($modParent);
 		}
 
 		$modInstance->setCreatorID($creatorID);
@@ -195,7 +195,7 @@ class ElementModel extends Model {
 			$elementInstance = $elementInstances[$e->ID];
 
 			if($parentElement !== null)
-				$elementInstance->setParentModule($parentElement);
+				$elementInstance->setParentElement($parentElement);
 
 			$elementInstance->setParentElementID(($parentElement != null)?$parentElement->getID():null);
 

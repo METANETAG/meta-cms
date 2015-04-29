@@ -21,7 +21,7 @@ class CmsPage
 	const ROLE_STANDARD = 'page';
 	const ROLE_MODULE = 'module';
 
-	const PAGE_AREA_HEADER = 'header';
+	const PAGE_AREA_HEAD = 'head';
 	const PAGE_AREA_BODY = 'body';
 
 	protected $ID;
