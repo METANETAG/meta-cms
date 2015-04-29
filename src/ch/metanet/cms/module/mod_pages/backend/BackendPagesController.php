@@ -717,7 +717,7 @@ class BackendPagesController extends CmsModuleBackendController
 			/** @var CmsElement $m */
 			$htmlList .= '<li data="icon: \'/images/icon-' . $m->getIdentifier() . '.png\'"><a href="/backend/module-instance/' . $m->getID() . '" title="' . $this->getSettingsAsStr($m) . '">' . $m->getIdentifier() . ' <em>(#' . $m->getID() . $inheritedFrom . ')</em> <a href="" class="delete">delete</a></a> ';
 
-			if($m instanceof LayoutElement && $m->hasModules())
+			if($m instanceof LayoutElement && $m->hasChildElements())
 				$htmlList .= $this->generateElementList($m->getElements(), $pageID);
 
 			$htmlList .= '</li>';
