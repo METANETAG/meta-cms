@@ -53,20 +53,21 @@
         },
         {
             "name": "metanet/form-handler",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/METANETAG/formHandler.git",
-                "reference": "6ff5cffd2448fe20ff7183cce5eadf4a9e42bf3f"
+                "reference": "155d862d8ab324bccbff6d696724b69818fe2f71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/METANETAG/formHandler/zipball/6ff5cffd2448fe20ff7183cce5eadf4a9e42bf3f",
-                "reference": "6ff5cffd2448fe20ff7183cce5eadf4a9e42bf3f",
+                "url": "https://api.github.com/repos/METANETAG/formHandler/zipball/155d862d8ab324bccbff6d696724b69818fe2f71",
+                "reference": "155d862d8ab324bccbff6d696724b69818fe2f71",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3.0",
+                "timesplinter/tsfw-common": "0.1.*"
             },
             "require-dev": {
                 "phpunit/phpunit": "4.2.*"
@@ -95,7 +96,7 @@
                 "form",
                 "form handling"
             ],
-            "time": "2015-03-30 13:52:49"
+            "time": "2015-04-16 14:25:14"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -344,16 +345,16 @@
         },
         {
             "name": "timesplinter/tsfw-template",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-template.git",
-                "reference": "ba248286c2e91a6c5c1c953bdb7b7e76c40345a5"
+                "reference": "dc9f5c532e5d2d3b90948a3f2431930874a9d7b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-template/zipball/ba248286c2e91a6c5c1c953bdb7b7e76c40345a5",
-                "reference": "ba248286c2e91a6c5c1c953bdb7b7e76c40345a5",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-template/zipball/dc9f5c532e5d2d3b90948a3f2431930874a9d7b2",
+                "reference": "dc9f5c532e5d2d3b90948a3f2431930874a9d7b2",
                 "shasum": ""
             },
             "require": {
@@ -361,7 +362,7 @@
                 "timesplinter/tsfw-common": "0.1.*"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.2.*"
+                "phpunit/phpunit": "4.5.*"
             },
             "type": "library",
             "autoload": {
@@ -389,7 +390,7 @@
                 "template engine",
                 "tsfw"
             ],
-            "time": "2015-03-06 14:12:40"
+            "time": "2015-04-29 13:13:40"
         },
         {
             "name": "weotch/phpthumb",
