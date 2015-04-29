@@ -15,9 +15,9 @@ use ZendSearch\Lucene\SearchIndexInterface;
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
-class Indexer {
+class Indexer
+{
 	private $db;
 	private $indexes;
 	private $indexesBasePath;
@@ -28,7 +28,8 @@ class Indexer {
 	 * @param Core $core
 	 * @param string $indexesBasePath
 	 */
-	public function __construct(DB $db, Core $core, $indexesBasePath) {
+	public function __construct(DB $db, Core $core, $indexesBasePath)
+	{
 		$this->db = $db;
 		$this->core = $core;
 		$this->indexesBasePath = $indexesBasePath;
@@ -37,14 +38,15 @@ class Indexer {
 		Analyzer::setDefault(new CaseInsensitive());
 	}
 
-	public function start($indexSettings) {
+	public function start($indexSettings)
+	{
 		set_time_limit(0); // We need a lot of time!
 
 		echo "Truncate the search_data table...\n";
 
 		$this->db->exec("TRUNCATE mod_search_data");
 
-		echo "Start indexing (this will take a long time, thats why we made this damn cronjob)...\n";
+		echo "Start indexing (this will take a long time, that's why we made this as a service)...\n";
 
 		foreach($indexSettings->sections as $section => $plugin) {
 			$className = FrameworkUtils::stringToClassName($plugin, false);
@@ -63,7 +65,8 @@ class Indexer {
 	 * @param string $indexName The name of the index
 	 * @return SearchIndexInterface
 	 */
-	public function getIndex($indexName) {
+	public function getIndex($indexName)
+	{
 		if(isset($this->indexes[$indexName]) === false) {
 			$indexPath = $this->indexesBasePath . $indexName;
 
@@ -77,7 +80,8 @@ class Indexer {
 		return $this->indexes[$indexName];
 	}
 
-	public function __destruct() {
+	public function __destruct()
+	{
 		foreach($this->indexes as $key => $index) {
 			/** @var SearchIndexInterface $index */
 			$index->commit();
@@ -89,14 +93,16 @@ class Indexer {
 		}
 	}
 
-	public function getDB() {
+	public function getDB()
+	{
 		return $this->db;
 	}
 
 	/**
 	 * @return \ch\timesplinter\core\Core
 	 */
-	public function getCore() {
+	public function getCore()
+	{
 		return $this->core;
 	}
 }

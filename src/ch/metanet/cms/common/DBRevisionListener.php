@@ -13,9 +13,9 @@ use ch\metanet\cms\common\CMSException;
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
-class DBRevisionListener extends DBListener {
+class DBRevisionListener extends DBListener
+{
 	private $savePath;
 	private $logger;
 	private $cachedXML;

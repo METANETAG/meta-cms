@@ -7,17 +7,18 @@ use timesplinter\tsfw\template\TemplateCacheStrategy;
 use timesplinter\tsfw\template\TemplateEngine;
 
 /**
+ * An extensions of the basic template engine. Injects some additional custom tags which the CMS needs.
+ * 
+ * @see TemplateEngine
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  */
 class CmsTemplateEngine extends TemplateEngine
 {
 	/**
-	 *
-	 * @param TemplateCacheStrategy $tplCacheInterface The template cache object
+	 * @param TemplateCacheStrategy $tplCacheInterface The template cache strategy
 	 * @param string $tplNsPrefix The prefix for custom tags in the template file
-	 * 
-	 * @return \ch\metanet\cms\common\CmsTemplateEngine A template engine instance to render files
 	 */
 	public function __construct(TemplateCacheStrategy $tplCacheInterface, $tplNsPrefix)
 	{
@@ -29,5 +30,3 @@ class CmsTemplateEngine extends TemplateEngine
 		));
 	}
 }
-
-/* EOF */

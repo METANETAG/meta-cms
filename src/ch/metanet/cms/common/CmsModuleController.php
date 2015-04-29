@@ -8,6 +8,11 @@ use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpResponse;
 
 /**
+ * The basic CMS module controller class which gives both backend and frontend modules some basic features.
+ * 
+ * @see CmsModuleFrontendController
+ * @see CmsModuleBackendController
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2014, METANET AG
  */

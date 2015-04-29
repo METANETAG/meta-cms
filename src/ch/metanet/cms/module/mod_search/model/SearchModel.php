@@ -1,16 +1,13 @@
 <?php
 
-/**
- * @author Pascal Muenst <entwicklung@metanet.ch>
- * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
- */
-
 namespace ch\metanet\cms\module\mod_search\model;
-
 
 use ch\metanet\cms\model\Model;
 
+/**
+ * @author Pascal Muenst <entwicklung@metanet.ch>
+ * @copyright Copyright (c) 2013, METANET AG
+ */
 class SearchModel extends Model {
 	/**
 	 * @param Document $document

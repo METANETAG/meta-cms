@@ -9,6 +9,9 @@ use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpResponse;
 
 /**
+ * The basic controller which should each frontend controller from a CMS module extend. This class provides some basic
+ * and fundamental backend features and make a frontend controller of a module recognizable for the CMS as such.
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  * 

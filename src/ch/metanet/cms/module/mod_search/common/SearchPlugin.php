@@ -1,17 +1,16 @@
 <?php
 
-
 namespace ch\metanet\cms\module\mod_search\common;
-use ZendSearch\Lucene\Index;
 
+use ch\metanet\cms\controller\common\FrontendController;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
 abstract class SearchPlugin
 {
+	/** @var Indexer The pending indexer */
 	protected $indexer;
 
 	public function __construct(Indexer $indexer)
@@ -19,8 +18,20 @@ abstract class SearchPlugin
 		$this->indexer = $indexer;
 	}
 
+	/**
+	 * Adds or updates the documents in the search index
+	 * 
+	 * @see Indexer::getIndex
+	 */
 	public abstract function index();
-	public abstract function renderResults();
-}
 
-/* EOF */
+	/**
+	 * Returns all search result entries as a HTML string
+	 *
+	 * @param \stdClass[] $results
+	 * @param FrontendController $fec
+	 *
+	 * @return string
+	 */
+	public abstract function renderResults(array $results, FrontendController $fec);
+}

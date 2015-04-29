@@ -13,6 +13,9 @@ use timesplinter\tsfw\db\DBException;
 use timesplinter\tsfw\db\DB;
 
 /**
+ * The basic class each CMS module element should extend. This class provides basic operations which are the same for
+ * every CMS element.
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  */
@@ -24,18 +27,17 @@ abstract class CmsElement
 	protected $pageID;
 	/** @var int Parents element ID */
 	protected $parentElementD;
-	/** @var string */
+	/** @var string The actual name of the element */
 	protected $identifier;
-
-	/** @var CmsElement $parentElement */
+	/** @var CmsElement|null $parentElement This elements parent */
 	protected $parentElement;
-	/** @var ArrayObject */
+	/** @var ArrayObject The template data to render the element */
 	protected $tplVars;
 	/** @var int Creator of this element */
 	protected $creatorID;
 	/** @var string Element revision */
 	protected $revision;
-	/** @var bool */
+	/** @var bool Indicator if this element is hidden or not */
 	protected $hidden;
 
 	/**
@@ -69,6 +71,8 @@ abstract class CmsElement
 	}
 
 	/**
+	 * Removes the element and its configuration
+	 * 
 	 * @param DB $db
 	 */
 	public function remove(DB $db)
@@ -90,6 +94,8 @@ abstract class CmsElement
 	}
 
 	/**
+	 * Creates a new element instance and stores its configuration
+	 * 
 	 * @param DB $db
 	 *
 	 * @return bool
@@ -125,9 +131,11 @@ abstract class CmsElement
 	}
 
 	/**
+	 * Checks if the element has settings to configure per element instance
+	 * 
 	 * @param FrontendController $fec
 	 *
-	 * @return bool
+	 * @return bool True if it has settings else false
 	 */
 	protected function hasConfig(FrontendController $fec)
 	{

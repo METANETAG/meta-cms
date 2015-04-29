@@ -1,9 +1,10 @@
 <?php
 
-namespace ch\metanet\cms\searchplugins;
+namespace ch\metanet\cms\search_plugins;
 
 use ch\metanet\cms\common\CmsElement;
 use ch\metanet\cms\common\CmsElementSearchable;
+use ch\metanet\cms\controller\common\FrontendController;
 use ch\metanet\cms\model\ElementModel;
 use ch\metanet\cms\model\PageModel;
 use ch\metanet\cms\module\layout\LayoutElement;
@@ -15,7 +16,6 @@ use ZendSearch\Lucene\Document\Field;
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
 class PageSearchPlugin extends SearchPlugin
 {
@@ -90,11 +90,13 @@ class PageSearchPlugin extends SearchPlugin
 		echo "  Total indexed pages: " . $indexedPages . "\n";
 	}
 
-	public function renderResults() {
-		// TODO: Implement renderResults() method.
+	public function renderResults(array $results, FrontendController $fec)
+	{
+		// We don't use this at the moment
 	}
 
-	private function renderElementTreeRecursive($elementTree, $language) {
+	protected function renderElementTreeRecursive($elementTree, $language)
+	{
 		$pageSearchContent = '';
 
 		foreach($elementTree as $e) {

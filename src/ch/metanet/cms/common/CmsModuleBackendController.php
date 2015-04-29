@@ -11,7 +11,7 @@ use Zend\Stdlib\Exception\InvalidArgumentException;
 
 /**
  * The basic controller which should each backend controller from a CMS module extend. This class provides some basic
- * and fundamental backend features.
+ * and fundamental backend features and make a backend controller of a module recognizable for the CMS as such.
  * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
@@ -78,6 +78,8 @@ abstract class CmsModuleBackendController extends CmsModuleController
 	}
 
 	/**
+	 * Sets a message which will be rendered at the next page view
+	 * 
 	 * @param CmsBackendMessage $cmsBackendMessage
 	 */
 	protected function setMessageForNextPage(CmsBackendMessage $cmsBackendMessage)
@@ -156,6 +158,15 @@ abstract class CmsModuleBackendController extends CmsModuleController
 		</form>';
 	}
 
+	/**
+	 * A method to enable file uploads for backend modules. Well this needs some rewrite later and should not really be
+	 * inside this class anymore.
+	 * 
+	 * @param string $savePath
+	 * @param null $callback
+	 *
+	 * @return HttpResponse
+	 */
 	public function processFileUploads($savePath, $callback = null)
 	{
 		try {

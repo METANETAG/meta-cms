@@ -155,10 +155,10 @@ class ColumnLayoutElement extends LayoutElement implements CmsElementSortable
 		$db->delete($removeStmnt, array($cmsElement->getID(), $cmsElement->getParentElementID()));
 	}
 
-	public function reorderElements(DB $db, CmsElement $movedCmsElement, $dropzoneID, $elementOrder)
+	public function reorderElements(DB $db, CmsElement $movedCmsElement, $dropZoneID, array $elementOrder)
 	{
 		// Remove all from column
-		$colNo = ((int)StringUtils::afterFirst($dropzoneID, 'column-') + 1);
+		$colNo = ((int)StringUtils::afterFirst($dropZoneID, 'column-') + 1);
 
 		$this->logger->debug('-- Reorder module in column: ' . $colNo);
 		

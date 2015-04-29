@@ -16,6 +16,7 @@ abstract class LayoutElement extends CmsElementSettingsLoadable
 {
 	/** @var CmsElement[] */
 	protected $elements;
+	/** @var array[] */
 	protected $dropZones;
 
 	public function __construct($ID, $pageID, $identifier)
@@ -35,14 +36,14 @@ abstract class LayoutElement extends CmsElementSettingsLoadable
 
 	}
 
-	protected function renderDropzone(FrontendController $frontendController, $dropZoneID, $blacklistedElements = array(), $whitelistedElements = array())
+	protected function renderDropzone(FrontendController $frontendController, $dropZoneID, $blackListedElements = array(), $whiteListedElements = array())
 	{
 		if(!$frontendController->getAuth()->isLoggedIn())
 			return null;
 
 		$this->dropZones[$dropZoneID] = array(
-			'whitelist' => $whitelistedElements,
-			'blacklist' => $blacklistedElements
+			'whitelist' => $whiteListedElements,
+			'blacklist' => $blackListedElements
 		);
 
 		return '<div class="dropzone" dropzone="' . $dropZoneID . '"><a href="#">click <b>or</b> drag module here</a></div>' . "\n";
@@ -87,9 +88,12 @@ abstract class LayoutElement extends CmsElementSettingsLoadable
 		return $this->elements;
 	}
 
-	public function setElements(array $modules)
+	/**
+	 * @param CmsElement[] $elements
+	 */
+	public function setElements(array $elements)
 	{
-		$this->elements = $modules;
+		$this->elements = $elements;
 	}
 }
 

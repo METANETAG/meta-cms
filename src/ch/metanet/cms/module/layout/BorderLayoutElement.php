@@ -10,6 +10,7 @@ use stdClass;
 /**
  * A layout module which lets you set five other modules in five different places (north, south, west, east and center).
  * You can also set another LayoutModule in one of this five areas.
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  * @version 1.0.0

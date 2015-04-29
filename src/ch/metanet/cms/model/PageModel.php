@@ -421,7 +421,7 @@ class PageModel extends Model
 	 */
 	protected function createRoute(\stdClass $res)
 	{
-		$redirectRoute = ($res->redirect_route_IDFK === null)?null:$this->getRouteByID($res->redirect_route_IDFK);
+		$redirectRoute = ($res->redirect_route_IDFK === null) ? null:$this->getRouteByID($res->redirect_route_IDFK);
 
 		return new CmsRoute(
 			$res->ID,

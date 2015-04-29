@@ -62,12 +62,10 @@ class FrontendSearchController extends CmsModuleFrontendController
 
 		$cmsResults = $this->getCmsSearchResults($keywords);
 
-		$tplVars = array(
+		return $this->cmsController->getCmsView()->render('mod-search-results.html', array(
 			'keywords' => htmlspecialchars($keywords),
 			'result_sets' => $cmsResults
-		);
-
-		return $this->cmsController->getCmsView()->render('mod-search-results.html', $tplVars);
+		));
 	}
 
 	public function generateIndex()
@@ -107,6 +105,11 @@ class FrontendSearchController extends CmsModuleFrontendController
 		));
 	}
 
+	/**
+	 * @param string $keywords
+	 *
+	 * @return \stdClass[]
+	 */
 	protected function getCmsSearchResults($keywords)
 	{
 		$searchModel = new SearchModel($this->cmsController->getDB());
@@ -134,7 +137,7 @@ class FrontendSearchController extends CmsModuleFrontendController
 		$highlighter = new CmsSearchHighlighter($keywords);
 		//$highlighter = new DefaultHighlighter();
 
-		foreach ($hits as $hit) {
+		foreach($hits as $hit) {
 			/** @var QueryHit $hit */
 			$searchResult = new \stdClass();
 

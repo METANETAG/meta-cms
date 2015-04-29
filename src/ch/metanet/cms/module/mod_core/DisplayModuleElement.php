@@ -3,14 +3,10 @@
 namespace ch\metanet\cms\module\mod_core;
 
 use ch\metanet\cms\common\CmsElement;
-use ch\metanet\cms\common\CmsElementApproachable;
-use ch\metanet\cms\common\CmsElementSettingsLoadable;
 use ch\metanet\cms\common\CmsModuleFrontendController;
 use ch\metanet\cms\common\CmsModuleResponse;
 use ch\metanet\cms\common\CmsView;
 use ch\metanet\cms\controller\common\FrontendController;
-use timesplinter\tsfw\db\DB;
-use \stdClass;
 
 /**
  * This element prints out a rendered page by a module frontend controller

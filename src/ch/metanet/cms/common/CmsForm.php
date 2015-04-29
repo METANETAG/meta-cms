@@ -7,6 +7,11 @@ use ch\metanet\formHandler\component\Component;
 use ch\metanet\formHandler\field\Field;
 
 /**
+ * An extension of the form handler form component to make it suitable for the CMS. Concrete it overrides the default
+ * field renderer with a basic CMS form component renderer.
+ * 
+ * @see Form
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2014, METANET AG
  */
@@ -29,5 +34,3 @@ class CmsForm extends Form
 		parent::addComponent($component);
 	}
 }
-
-/* EOF */

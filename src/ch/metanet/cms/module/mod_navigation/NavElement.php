@@ -137,17 +137,8 @@ class NavElement extends CmsElementSettingsLoadable
 		$this->settings->show_active_stages_only = 0;
 	}
 
-	public function remove(DB $db)
+	public function update(DB $db, stdClass $newSettings, $pageID)
 	{
-		parent::remove($db);
-
-		// Do all the things do cleanly remove the module (e.x. delete something in db, clean up cached files etc)
-		$stmntRemoveSettings = $db->prepare("DELETE FROM element_nav WHERE element_instance_IDFK = ? AND page_IDFK = ?");
-		$db->delete($stmntRemoveSettings, array($this->ID, $this->pageID));
-	}
-
-
-	public function update(DB $db, stdClass $newSettings, $pageID) {
 		$stmntUpdate = $db->prepare("
 			REPLACE INTO element_nav
 			SET element_instance_IDFK = ?, page_IDFK = ?, navigation_IDFK = ?, level_from = ?, level_to = ?, mode = ?, class_name = ?, show_active_stages_only = ?

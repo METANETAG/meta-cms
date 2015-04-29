@@ -6,7 +6,6 @@ use ch\metanet\cms\common\BackendControllerUnprotected;
 use ch\metanet\cms\common\CMSException;
 use ch\metanet\cms\common\CmsUtils;
 use ch\metanet\cms\controller\common\BackendController;
-use ch\metanet\cms\common\Utils;
 use ch\timesplinter\core\Core;
 use ch\timesplinter\core\HttpRequest;
 use ch\timesplinter\core\HttpResponse;
@@ -104,7 +103,7 @@ class LoginController extends BackendController implements BackendControllerUnpr
 		return $this->generatePageFromTemplate('backend-signup', array(
 			'siteTitle' => 'Sign up',
 			'formData' => ($this->formHelper !== null)?$this->formHelper->getAllValues():array(),
-			'status' => ($this->formHelper !== null)?Utils::getErrorsAsList($this->formHelper->getErrors()): null
+			'status' => ($this->formHelper !== null)?CmsUtils::getErrorsAsHtml($this->formHelper->getErrors()): null
 		));
 	}
 	
@@ -157,7 +156,7 @@ class LoginController extends BackendController implements BackendControllerUnpr
 		}
 		
 		$tplVars = array(
-			'form_status' => (count($errors) > 0) ? Utils::getErrorsAsList($errors): null,
+			'form_status' => (count($errors) > 0) ? CmsUtils::getErrorsAsHtml($errors): null,
 			'form_username' => null,
 			'siteTitle' => 'Login'
 		);
@@ -247,7 +246,7 @@ class LoginController extends BackendController implements BackendControllerUnpr
 
 		return $this->generatePage(array(
 			'siteTitle' => 'Restore password',
-			'status' => ($this->formHelper !== null && $this->formHelper->hasErrors())?Utils::getErrorsAsList($this->formHelper->getErrors()): $statusHtml
+			'status' => ($this->formHelper !== null && $this->formHelper->hasErrors())?CmsUtils::getErrorsAsHtml($this->formHelper->getErrors()): $statusHtml
 		));
 	}
 

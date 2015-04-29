@@ -8,6 +8,8 @@ use timesplinter\tsfw\common\StringUtils;
 use timesplinter\tsfw\db\DB;
 
 /**
+ * Enables a CMS element to have element specific settings and load and store them on a per page basis.
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  */
@@ -52,16 +54,25 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 	}
 
 	/**
-	 * Sets module default settings if no settings in the DB exists, class this method
+	 * Sets module default settings if no settings in the DB exists
 	 */
 	public function setDefaultSettings()
 	{
 		$this->settings = new \stdClass();
 	}
 
+	/**
+	 * Stores the new settings for this element
+	 * 
+	 * @param DB $db
+	 * @param \stdClass $newSettings
+	 * @param int $pageID
+	 */
 	public abstract function update(DB $db, \stdClass $newSettings, $pageID);
 
 	/**
+	 * Deletes the setting of itself for the current page
+	 * 
 	 * @param DB $db
 	 * @param int $pageID
 	 */
@@ -73,10 +84,12 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 	}
 
 	/**
+	 * Generates the HTML config form for the element
+	 * 
 	 * @param BackendController $backendController
-	 * @param int $pageID
+	 * @param int $pageID The current pages ID
 	 *
-	 * @return string The config box HTML
+	 * @return string The config box as HTML
 	 * @throws CMSException
 	 * @throws \Exception
 	 */
@@ -218,10 +231,12 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 			</dl>';
 
 		if($this->settingsSelf) {
-			$boxHtml .= '<dl><dt>Delete</dt>
-					<dd><ul>
-						<li><label><input name="delete_settings" type="checkbox" value="1">Delete specific element settings on this page</label></li>
-					</ul></dd></dl>';
+			$boxHtml .= '<dl>
+				<dt>Delete</dt>
+				<dd><ul>
+					<li><label><input name="delete_settings" type="checkbox" value="1">Delete specific element settings on this page</label></li>
+				</ul></dd>
+			</dl>';
 		}
 
 		$boxHtml .= '</fieldset></form>
@@ -234,7 +249,9 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 	}
 
 	/**
-	 * @return \stdClass
+	 * Returns the settings for this element
+	 * 
+	 * @return \stdClass The settings
 	 */
 	public function getSettings()
 	{
@@ -242,7 +259,9 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 	}
 
 	/**
-	 * @param \stdClass $settings
+	 * Set settings for this element
+	 * 
+	 * @param \stdClass $settings The settings to set
 	 */
 	public function setSettings(\stdClass $settings)
 	{
@@ -252,7 +271,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 	}
 
 	/**
-	 * 
+	 * Delete the current settings
 	 */
 	public function resetSettingsFound()
 	{
@@ -260,6 +279,8 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 	}
 
 	/**
+	 * Checks if the element has settings already defined
+	 * 
 	 * @return bool
 	 */
 	public function hasSettings()
@@ -276,21 +297,19 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 	}
 
 	/**
-	 * @param $selector
+	 * @param string $selector
 	 * @param BackendController $backendController
 	 *
 	 * @return mixed
 	 */
-	private function getValues($selector, BackendController $backendController)
+	protected function getValues($selector, BackendController $backendController)
 	{
 		if(is_string($selector) === true) {
 			return StringUtils::endsWith($selector, '()')
-				?call_user_func(array($this,StringUtils::beforeLast($selector, '()')),$backendController)
+				?call_user_func(array($this,StringUtils::beforeLast($selector, '()')), $backendController)
 				:$this->$selector;
 		}
 
 		return $selector;
 	}
 }
-
-/* EOF */

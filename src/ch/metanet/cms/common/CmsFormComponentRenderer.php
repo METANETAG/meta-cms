@@ -6,6 +6,10 @@ use ch\metanet\formHandler\field\Field;
 use ch\metanet\formHandler\renderer\FieldComponentRenderer;
 
 /**
+ * The basic form component renderer used by the cms specific form component
+ * 
+ * @see CmsForm
+ * 
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2015, METANET AG
  */

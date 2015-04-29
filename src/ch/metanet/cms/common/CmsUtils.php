@@ -7,7 +7,6 @@ use timesplinter\tsfw\db\DB;
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
 class CmsUtils
 {
@@ -44,17 +43,28 @@ class CmsUtils
 		return bindec($read . $write);
 	}
 
+	/**
+	 * @param string|array $errors
+	 *
+	 * @return null|string
+	 */
 	public static function getErrorsAsHtml($errors)
 	{
 		return self::renderMessage($errors, 'error');
 	}
 
+	/**
+	 * @param string|array $msg
+	 * @param string $type
+	 *
+	 * @return null|string
+	 */
 	public static function renderMessage($msg, $type)
 	{
 		if($msg === null || (is_string($msg) && strlen($msg) === 0) || (is_array($msg) && count($msg) <= 0))
 			return null;
 
-		$msgStr = (is_array($msg) === true)?'<ul class="msg-' . $type . '"><li>' . implode('</li><li>', $msg) . '</li></ul>':'<div class="msg-' . $type . '">' . $msg . '</div>';
+		$msgStr = is_array($msg) ? '<ul class="msg-' . $type . '"><li>' . implode('</li><li>', $msg) . '</li></ul>' : '<div class="msg-' . $type . '">' . $msg . '</div>';
 
 		return  $msgStr;
 	}

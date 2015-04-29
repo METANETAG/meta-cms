@@ -1,34 +1,36 @@
 <?php
 
-
 namespace ch\metanet\cms\common;
+
 use timesplinter\tsfw\common\SimpleXMLUtils;
 use timesplinter\tsfw\db\DB;
 use sqlparser\PHPSQLParser;
 
-
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
-class RevisionControl {
+class RevisionControl
+{
 	private $db;
 	private $revisionPath;
 
-	public function __construct(DB $db) {
+	public function __construct(DB $db)
+	{
 		$this->db = $db;
 		$this->revisionPath = SITE_ROOT . 'revision' . DIRECTORY_SEPARATOR;
 	}
 
-	public function restoreFromFile($filePath) {
+	public function restoreFromFile($filePath)
+	{
 		$xmlContent = simplexml_load_file($this->revisionPath . $filePath);
 
 		foreach($xmlContent->table as $t)
 			$this->createQueryFromTable($t);
 	}
 
-	private function createQueryFromTable(\SimpleXMLElement $table) {
+	private function createQueryFromTable(\SimpleXMLElement $table)
+	{
 		$tableAttrs = $table->attributes();
 
 

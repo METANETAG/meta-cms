@@ -1,118 +1,129 @@
 <?php
 
-
 namespace ch\metanet\cms\module\mod_search\model;
-
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
-class Document {
-	private $ID;
-	private $internalID;
-	private $type;
-	private $title;
-	private $description;
-	private $path;
-	private $language;
+class Document
+{
+	protected $ID;
+	protected $internalID;
+	protected $type;
+	protected $title;
+	protected $description;
+	protected $path;
+	protected $language;
 
 	/**
-	 * @param mixed $ID
+	 * @param int $ID
 	 */
-	public function setID($ID) {
+	public function setID($ID)
+	{
 		$this->ID = $ID;
 	}
 
 	/**
-	 * @return mixed
+	 * @return int
 	 */
-	public function getID() {
+	public function getID()
+	{
 		return $this->ID;
 	}
 
 	/**
-	 * @param mixed $description
+	 * @param string $description
 	 */
-	public function setDescription($description) {
+	public function setDescription($description)
+	{
 		$this->description = $description;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getDescription() {
+	public function getDescription()
+	{
 		return $this->description;
 	}
 
 	/**
 	 * @param string $language
 	 */
-	public function setLanguage($language) {
+	public function setLanguage($language)
+	{
 		$this->language = $language;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getLanguage() {
+	public function getLanguage()
+	{
 		return $this->language;
 	}
 
 	/**
-	 * @param mixed $path
+	 * @param string $path
 	 */
-	public function setPath($path) {
+	public function setPath($path)
+	{
 		$this->path = $path;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getPath() {
+	public function getPath()
+	{
 		return $this->path;
 	}
 
 	/**
-	 * @param mixed $title
+	 * @param string $title
 	 */
-	public function setTitle($title) {
+	public function setTitle($title)
+	{
 		$this->title = $title;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle()
+	{
 		return $this->title;
 	}
 
 	/**
-	 * @param mixed $type
+	 * @param string $type
 	 */
 	public function setType($type) {
 		$this->type = $type;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getType() {
+	public function getType()
+	{
 		return $this->type;
 	}
 
 	/**
-	 * @param mixed $internalID
+	 * @param int $internalID
 	 */
-	public function setInternalID($internalID) {
+	public function setInternalID($internalID)
+	{
 		$this->internalID = $internalID;
 	}
 
 	/**
-	 * @return mixed
+	 * @return int
 	 */
-	public function getInternalID() {
+	public function getInternalID()
+	{
 		return $this->internalID;
 	}
 }
