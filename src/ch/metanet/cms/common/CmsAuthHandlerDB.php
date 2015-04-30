@@ -53,7 +53,7 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 		parent::loadUserPopo();
 
 		$stmntUser = $this->db->prepare("
-			SELECT username FROM user WHERE ID = ?
+			SELECT username FROM " . $this->settings['db_login_table'] . " WHERE ID = ?
 		");
 
 		$resUser = $this->db->select($stmntUser, array($this->loginPopo->ID));
