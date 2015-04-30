@@ -349,12 +349,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsfw-template.git",
-                "reference": "dc9f5c532e5d2d3b90948a3f2431930874a9d7b2"
+                "reference": "11ff7979f617c23a18be85f7937fc70a37651969"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-template/zipball/dc9f5c532e5d2d3b90948a3f2431930874a9d7b2",
-                "reference": "dc9f5c532e5d2d3b90948a3f2431930874a9d7b2",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsfw-template/zipball/11ff7979f617c23a18be85f7937fc70a37651969",
+                "reference": "11ff7979f617c23a18be85f7937fc70a37651969",
                 "shasum": ""
             },
             "require": {
@@ -362,7 +362,7 @@
                 "timesplinter/tsfw-common": "0.1.*"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.5.*"
+                "phpunit/phpunit": "4.2.*"
             },
             "type": "library",
             "autoload": {
@@ -390,7 +390,7 @@
                 "template engine",
                 "tsfw"
             ],
-            "time": "2015-04-29 13:13:40"
+            "time": "2015-04-30 05:52:51"
         },
         {
             "name": "weotch/phpthumb",
