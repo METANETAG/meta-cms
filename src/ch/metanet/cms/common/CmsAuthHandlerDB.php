@@ -158,6 +158,32 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 
 		return $this->db->select($stmntLoginGroups, array($userID));
 	}
+
+	/**
+	 * If a group as "root" set to "1" then it's admin and has every right group
+	 * @param string $userGroup Key of the user group
+	 * @return bool
+	 */
+	public function hasRightGroup($userGroup)
+	{
+		if($this->loginPopo === null)
+			return ($userGroup == 'visitor');
+
+		if($userGroup == 'user' && $this->loggedIn === true)
+			return true;
+
+		$groupEntries = $this->loginPopo->rightgroups;
+
+		if($userGroup === 'visitor' && count($groupEntries) === 0)
+			return true;
+
+		foreach($groupEntries as $rg) {
+			if($userGroup === $rg->groupkey || $rg->root == 1)
+				return true;
+		}
+
+		return false;
+	}
 }
 
 /* EOF */
