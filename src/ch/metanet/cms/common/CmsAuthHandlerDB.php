@@ -52,6 +52,18 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 	{
 		parent::loadUserPopo();
 
+		$stmntUser = $this->db->prepare("
+			SELECT username FROM user WHERE ID = ?
+		");
+
+		$resUser = $this->db->select($stmntUser, array($this->loginPopo->ID));
+
+		if(count($resUser) === 1) {
+			$userData = $resUser[0];
+			
+			$this->loginPopo->username = $userData->username;
+		}
+
 		$this->loginPopo->rightgroups = $this->loadRightGroups($this->loginPopo->ID);
 		$this->cmsRights = $this->loadCmsRights();
 	}
