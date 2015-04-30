@@ -61,7 +61,7 @@ class CmsPage
 	/** @var int Should the page inherit rights from its parent page (1) or not (0) */
 	protected $inheritRights;
 	/** @var null Cache mode (not in use atm) */
-	protected $cacheMode;
+	protected $cacheMode = self::CACHE_MODE_NONE;
 	/** @var string[] JS code to include in this page (inline or as <script src="..." /> */
 	protected $javascript;
 	/** @var string[] CSS code to include in this page (inline or as <link href="...">) */
