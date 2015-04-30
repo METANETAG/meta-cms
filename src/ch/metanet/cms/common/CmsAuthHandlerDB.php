@@ -52,6 +52,7 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 	{
 		parent::loadUserPopo();
 
+		$this->loginPopo->rightgroups = $this->loadRightGroups($this->loginPopo->ID);
 		$this->cmsRights = $this->loadCmsRights();
 	}
 
@@ -109,6 +110,41 @@ class CmsAuthHandlerDB extends AuthHandlerDB
 	public function getCmsRights()
 	{
 		return $this->cmsRights;
+	}
+
+
+	public function hasRootAccess()
+	{
+		if($this->loginPopo === null)
+			return false;
+
+		foreach($this->loginPopo->rightgroups as $rg) {
+			if($rg->root == 1)
+				return true;
+		}
+
+		return false;
+	}
+
+	protected function loadRightGroups($userID)
+	{
+		// Load grps
+		$stmntLoginGroups = $this->db->prepare("
+                        SELECT loginIDFK
+                                   ,rightgroupIDFK
+                                   ,datefrom
+                                   ,dateto
+                                   ,groupkey
+                                   ,groupname
+                                   ,root
+                        FROM login_has_rightgroup lr
+                        LEFT JOIN rightgroup r ON r.ID = lr.rightgroupIDFK
+                        WHERE loginIDFK = ?
+                       	  AND datefrom <= NOW()
+                          AND (dateto >= NOW() OR dateto IS NULL)
+                ");
+
+		return $this->db->select($stmntLoginGroups, array($userID));
 	}
 }
 
