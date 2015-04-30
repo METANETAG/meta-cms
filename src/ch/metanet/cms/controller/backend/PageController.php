@@ -134,7 +134,7 @@ class PageController extends BackendController
 		try {
 			$revDate = date('YmdHis');
 
-			if(isset($_POST['parent_module'])) {
+			if($this->core->getHttpRequest()->getVar('parent_module') !== null) {
 				list($parentElementType, $parentElementID, $parentElementPageID) = explode('-',  $this->core->getHttpRequest()->getVar('parent_module'));
 
 				$cmsPage = $this->pageModel->getPageByID($parentElementPageID);
@@ -153,13 +153,15 @@ class PageController extends BackendController
 				$httpRequestFrontend->setRequestMethod('GET');
 
 				$matchedRoutes = RouteUtils::matchRoutesAgainstPath($this->core->getSettings()->core->routes, $httpRequestFrontend);
-				$matchedRoute = $matchedRoutes[$httpRequestFrontend->getRequestMethod()];
+				$filteredRoutes = RouteUtils::filterRoutesByMethod($matchedRoutes, $httpRequestFrontend->getRequestMethod());
 
-				$frontendController = new FrontendController($this->core, $httpRequestFrontend, $matchedRoute);
+				$route = $filteredRoutes[key($filteredRoutes)];
+				
+				$frontendController = new FrontendController($this->core, $httpRequestFrontend, $route);
 
 				// Check if you use the site in preview mode or real
-				if($matchedRoute->id == 'cms-site-preview') {
-					preg_match($matchedRoute->pattern, $referrerPath, $res);
+				if($route->id == 'cms-site-preview') {
+					preg_match($route->pattern, $referrerPath, $res);
 
 					$frontendController->getRoute()->setParams(array(0 => $res[1]));
 

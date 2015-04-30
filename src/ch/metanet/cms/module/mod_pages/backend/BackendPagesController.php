@@ -311,7 +311,8 @@ class BackendPagesController extends CmsModuleBackendController
 		return $this->renderModuleContent('mod-pages-page-edit', $tplVars);
 	}
 
-	public function postPageEdit($params) {
+	public function postPageEdit($params)
+	{
 		$this->cmsController->abortIfUserHasNotRights('MOD_PAGES_EDIT');
 
 		$pageID = null;
