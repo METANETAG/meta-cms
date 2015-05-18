@@ -35,6 +35,7 @@ class FormHelper {
 	const TYPE_YOUTUBE = 16;
 	const TYPE_VIDEO = 17;
 	const TYPE_RADIO = 18;
+	const TYPE_CSV = 19
 
 	private $logger;
 	private $name;
@@ -148,6 +149,10 @@ class FormHelper {
 
 				case self::TYPE_PDF:
 					self::validatePDF($fieldName);
+					break;
+					
+				case self::TYPE_CSV:
+					self::validateCSV($fieldName);
 					break;
 
 				case self::TYPE_YOUTUBE:
@@ -428,6 +433,51 @@ class FormHelper {
 						$value['sessionFieldName'] = $sessionFieldName;
 						$_SESSION[$sessionFieldName] = $value;
 					}
+				}
+			}
+		}
+
+		$this->setFieldValue($fieldName, $value);
+	}
+	
+	private function validateCSV($fieldName) {
+		
+		$fieldData = $this->fields[$fieldName];
+		$required = ($fieldData['required'] === true) ? true : false;
+		
+		$missingError = (isset($fieldData['options']['missingError'])) ? $fieldData['options']['missingError'] : "missingError for field {$fieldName} not defined";
+		$invalidError = (isset($fieldData['options']['invalidError'])) ? $fieldData['options']['invalidError'] : "invalidError for field {$fieldName} not defined";
+		
+		$value = isset($_FILES[$fieldName]) ? $_FILES[$fieldName] : array('name' => '');
+
+		$sessionFieldName = 'formData_' . $this->name . '_' . $fieldName;
+
+		if(isset($_FILES[$fieldName]) && isset($_FILES[$fieldName]['name']) && $_FILES[$fieldName]['name'] != '') {
+			$value = $_FILES[$fieldName];
+			$value['uploaded'] = false;
+		} elseif(isset($_SESSION[$sessionFieldName])) {
+			$value = $_SESSION[$sessionFieldName];
+		}
+
+		if($required === true && $value['name'] == '') {
+			$this->addError($fieldName, $missingError);
+		}
+
+		if($value['name'] != '') {
+			$extension = strtolower(substr($value['name'], strrpos($value['name'], '.') + 1));
+			if($extension != 'csv') {
+				$this->addError($fieldName, $invalidError);
+			} else {
+				if($value['uploaded'] === false) {
+					if(isset($_SESSION[$sessionFieldName]) && file_exists($_SESSION[$sessionFieldName]['tmp_name'])) {
+						unlink($_SESSION[$sessionFieldName]['tmp_name']);
+					}
+					$newPath = sys_get_temp_dir() . uniqid();
+					move_uploaded_file($value['tmp_name'], $newPath);
+					$value['uploaded'] = true;
+					$value['tmp_name'] = $newPath;
+					$value['sessionFieldName'] = $sessionFieldName;
+					$_SESSION[$sessionFieldName] = $value;
 				}
 			}
 		}
