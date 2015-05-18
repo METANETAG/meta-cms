@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "f18b046de5ededc092569c0d034c6fac",
@@ -157,16 +157,16 @@
         },
         {
             "name": "timesplinter/ts-framework",
-            "version": "v0.2.2",
+            "version": "v0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TiMESPLiNTER/tsFramework.git",
-                "reference": "fbf064e0efcf84ed38e551648f193c41199f3d5d"
+                "reference": "c3674ce396a8ad02f9e0a09be78b24debacb954f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/fbf064e0efcf84ed38e551648f193c41199f3d5d",
-                "reference": "fbf064e0efcf84ed38e551648f193c41199f3d5d",
+                "url": "https://api.github.com/repos/TiMESPLiNTER/tsFramework/zipball/c3674ce396a8ad02f9e0a09be78b24debacb954f",
+                "reference": "c3674ce396a8ad02f9e0a09be78b24debacb954f",
                 "shasum": ""
             },
             "require": {
@@ -202,7 +202,7 @@
                 "tsFramework",
                 "tsfw"
             ],
-            "time": "2015-04-30 07:35:02"
+            "time": "2015-05-18 10:24:06"
         },
         {
             "name": "timesplinter/tsfw-common",
@@ -394,16 +394,16 @@
         },
         {
             "name": "weotch/phpthumb",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/weotch/PHPThumb.git",
-                "reference": "316a472b9a00fb33450d46f463de62c0eadb876a"
+                "reference": "f5c1d2ef2e9de3bded7483778618bf8cac2511c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/weotch/PHPThumb/zipball/316a472b9a00fb33450d46f463de62c0eadb876a",
-                "reference": "316a472b9a00fb33450d46f463de62c0eadb876a",
+                "url": "https://api.github.com/repos/weotch/PHPThumb/zipball/f5c1d2ef2e9de3bded7483778618bf8cac2511c3",
+                "reference": "f5c1d2ef2e9de3bded7483778618bf8cac2511c3",
                 "shasum": ""
             },
             "replace": {
@@ -425,7 +425,7 @@
                 }
             ],
             "description": "Fork of PHPThumb that adds auto-image rotation based on EXIF data and composer support",
-            "time": "2013-04-08 22:11:00"
+            "time": "2015-05-12 22:56:19"
         },
         {
             "name": "wikimedia/composer-merge-plugin",
@@ -470,22 +470,25 @@
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "2.4.0",
+            "version": "2.4.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zendframework/Component_ZendStdlib.git",
-                "reference": "eab586f4c18af3fa63c977611939f1f4a3cf1030"
+                "url": "https://github.com/zendframework/zend-stdlib.git",
+                "reference": "a5dd7fd2ba6e8f6c6ea5a12db0605d3aa48af1e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/Component_ZendStdlib/zipball/eab586f4c18af3fa63c977611939f1f4a3cf1030",
-                "reference": "eab586f4c18af3fa63c977611939f1f4a3cf1030",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/a5dd7fd2ba6e8f6c6ea5a12db0605d3aa48af1e7",
+                "reference": "a5dd7fd2ba6e8f6c6ea5a12db0605d3aa48af1e7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.23"
             },
             "require-dev": {
+                "fabpot/php-cs-fixer": "1.7.*",
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "dev-master",
                 "zendframework/zend-eventmanager": "self.version",
                 "zendframework/zend-filter": "self.version",
                 "zendframework/zend-serializer": "self.version",
@@ -500,25 +503,25 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev",
-                    "dev-develop": "2.4-dev"
+                    "dev-master": "2.4-dev",
+                    "dev-develop": "2.5-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Zend\\Stdlib\\": ""
+                    "Zend\\Stdlib\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
-            "homepage": "https://github.com/zendframework/zf2",
+            "homepage": "https://github.com/zendframework/zend-stdlib",
             "keywords": [
                 "stdlib",
                 "zf2"
             ],
-            "time": "2015-04-01 18:09:29"
+            "time": "2015-05-07 14:55:31"
         },
         {
             "name": "zendframework/zendsearch",
@@ -1307,17 +1310,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.6.6",
+            "version": "v2.6.7",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "174f009ed36379a801109955fc5a71a49fe62dd4"
+                "reference": "f157ab074e453ecd4c0fa775f721f6e67a99d9e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/174f009ed36379a801109955fc5a71a49fe62dd4",
-                "reference": "174f009ed36379a801109955fc5a71a49fe62dd4",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/f157ab074e453ecd4c0fa775f721f6e67a99d9e2",
+                "reference": "f157ab074e453ecd4c0fa775f721f6e67a99d9e2",
                 "shasum": ""
             },
             "require": {
@@ -1343,17 +1346,17 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "Symfony Yaml Component",
-            "homepage": "http://symfony.com",
-            "time": "2015-03-30 15:54:10"
+            "homepage": "https://symfony.com",
+            "time": "2015-05-02 15:18:45"
         }
     ],
     "aliases": [],
