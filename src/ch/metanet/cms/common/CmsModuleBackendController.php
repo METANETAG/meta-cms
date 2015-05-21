@@ -12,10 +12,10 @@ use Zend\Stdlib\Exception\InvalidArgumentException;
 /**
  * The basic controller which should each backend controller from a CMS module extend. This class provides some basic
  * and fundamental backend features and make a backend controller of a module recognizable for the CMS as such.
- * 
+ *
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * 
+ *
  * @property BackendController $cmsController
  */
 abstract class CmsModuleBackendController extends CmsModuleController
@@ -39,7 +39,7 @@ abstract class CmsModuleBackendController extends CmsModuleController
 
 	/**
 	 * Set the messages for this module which you can render for successfully write to db or warn / inform for some reason
-	 * 
+	 *
 	 * @return CmsBackendMessage[]
 	 */
 	protected function setMessages()
@@ -53,7 +53,7 @@ abstract class CmsModuleBackendController extends CmsModuleController
 
 	/**
 	 * Registers a new message for this module
-	 * 
+	 *
 	 * @param string|int $key The key of the message
 	 * @param string $text The text of the message
 	 * @param string $type The message type
@@ -65,7 +65,7 @@ abstract class CmsModuleBackendController extends CmsModuleController
 
 	/**
 	 * Sets a key of a message to be displayed on the next page generated. After that the temp key gets reset.
-	 * 
+	 *
 	 * @param string|int $msgKey The message key for displaying the message content
 	 * @throws \InvalidArgumentException
 	 */
@@ -74,17 +74,17 @@ abstract class CmsModuleBackendController extends CmsModuleController
 		if(isset($this->messages[$msgKey]) === false)
 			throw new \InvalidArgumentException('The message with the key ' . $msgKey . ' is not registered for this module.');
 
-		$_SESSION['cms_backend_msg_key'] = $msgKey;
+		$_SESSION['cms_backend_msg_key'][] = $msgKey;
 	}
 
 	/**
 	 * Sets a message which will be rendered at the next page view
-	 * 
+	 *
 	 * @param CmsBackendMessage $cmsBackendMessage
 	 */
 	protected function setMessageForNextPage(CmsBackendMessage $cmsBackendMessage)
 	{
-		$_SESSION['cms_backend_msg_key'] = $cmsBackendMessage;
+		$_SESSION['cms_backend_msg_key'][] = $cmsBackendMessage;
 	}
 
 	/**
@@ -95,7 +95,7 @@ abstract class CmsModuleBackendController extends CmsModuleController
 		$tplVars['message'] = $this->renderPendingMessage();
 		$tplVars['module_settings'] = $this->moduleSettings;
 		$tplVars['base_link'] = $this->baseLink;
-		
+
 		return new CmsModuleResponse($tplFile . '.html', $tplVars);
 	}
 
@@ -109,23 +109,29 @@ abstract class CmsModuleBackendController extends CmsModuleController
 
 	/**
 	 * Returns a unordered HTML list which includes all the pending messages
-	 * 
+	 *
 	 * @return string|null A unordered list with all pending messages or null if no messages are pending
 	 */
 	protected function renderPendingMessage()
 	{
-		$msgKey = isset($_SESSION['cms_backend_msg_key'])?$_SESSION['cms_backend_msg_key']:null;
-
-		if($msgKey === null || (($msgKey instanceof CmsBackendMessage) === false && isset($this->messages[$msgKey]) === false))
+		if(isset($_SESSION['cms_backend_msg_key']) === false || is_array($_SESSION['cms_backend_msg_key']) === false)
 			return null;
 
-		/** @var CmsBackendMessage $msgObj */
-		$msgObj = ($msgKey instanceof CmsBackendMessage)?$msgKey:$this->messages[$msgKey];
+		$messageHtml = '';
 
-		// reset message key
-		$_SESSION['cms_backend_msg_key'] = null;
+		foreach($_SESSION['cms_backend_msg_key'] as $msg) {
+			if($msg instanceof CmsBackendMessage === false && isset($this->messages[$msg]) === false)
+				continue;
 
-		return CmsUtils::renderMessage($msgObj->getMessage(), $msgObj->getType());
+			/** @var CmsBackendMessage $msgObj */
+			$msgObj = ($msg instanceof CmsBackendMessage) ? $msg : $this->messages[$msg];
+
+			$messageHtml .= CmsUtils::renderMessage($msgObj->getMessage(), $msgObj->getType());
+		}
+
+		$_SESSION['cms_backend_msg_key'] = array();
+
+		return $messageHtml;
 	}
 
 	public function getEditLanguage()
@@ -135,7 +141,7 @@ abstract class CmsModuleBackendController extends CmsModuleController
 
 	/**
 	 * Renders a language selector for editing content. The current active language is preselected.
-	 * 
+	 *
 	 * @return string The preselected select box in a form
 	 */
 	public function getEditLanguageChanger()
@@ -161,7 +167,7 @@ abstract class CmsModuleBackendController extends CmsModuleController
 	/**
 	 * A method to enable file uploads for backend modules. Well this needs some rewrite later and should not really be
 	 * inside this class anymore.
-	 * 
+	 *
 	 * @param string $savePath
 	 * @param null $callback
 	 *
