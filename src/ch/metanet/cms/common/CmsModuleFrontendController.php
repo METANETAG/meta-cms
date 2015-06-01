@@ -84,7 +84,7 @@ abstract class CmsModuleFrontendController extends CmsModuleController
 	 */
 	protected function getBaseURI()
 	{
-		return $this->cmsController->getCmsRoute()->getPattern();
+		return ($this->cmsController->getCmsRoute() instanceof CmsRoute) ? $this->cmsController->getCmsRoute()->getPattern() : null;
 	}
 
 	protected function registerService($name, $methodName)
