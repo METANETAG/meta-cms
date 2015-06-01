@@ -92,10 +92,15 @@ abstract class CmsModuleController
 		$this->currentResponse = null;
 
 		foreach($methodsToCall as $m) {
-			if(method_exists($this, $m) === false)
-				throw new CMSException('The callback method ' . $m . ' does not exist in ' . get_class($this));
+			if(is_array($m) === false)
+				$callable = array($this, $m);
+			else
+				$callable = $m;
 
-			$this->currentResponse = call_user_func(array($this, $m), $params);
+			if(is_callable($callable) === false)
+				throw new CMSException('The callback method ' . get_class($callable[0]) . '::' . $callable[1] . ' does not exist in ' . get_class($this));
+
+			$this->currentResponse = call_user_func($callable, $params);
 		}
 
 		return $this->currentResponse;
