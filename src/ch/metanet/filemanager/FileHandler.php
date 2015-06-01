@@ -106,7 +106,7 @@ class FileHandler
 		}
 		
 		$stmntAllFiles = $this->db->prepare("
-			SELECT ID, filenamesys, filename, filetype, filesize, send, otherinfo
+			SELECT ID, filenamesys, filename, filetype, filesize, send, otherinfo, category
 			FROM file
 			" . ( count($condStr) > 0 ? ' WHERE ' . implode(' AND ', $condStr) : null) . "
 			ORDER BY " . $order['column'] . " " . $order['sort']
