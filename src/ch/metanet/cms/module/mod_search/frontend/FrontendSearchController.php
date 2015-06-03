@@ -55,7 +55,7 @@ class FrontendSearchController extends CmsModuleFrontendController
 		if($keywords === null)
 			return $this->cmsController->getCmsView()->render('mod-search-results.html');
 
-		$cmsResults = $this->getCmsSearchResults($keywords);
+		$cmsResults = $this->getCmsSearchResults($keywords, $this->cmsController->getCmsPage()->getLanguage());
 
 		return $this->cmsController->getCmsView()->render('mod-search-results.html', array(
 			'keywords' => htmlspecialchars($keywords),
@@ -102,24 +102,23 @@ class FrontendSearchController extends CmsModuleFrontendController
 
 	/**
 	 * @param string $keywords
+	 * @param string $language
 	 *
 	 * @return \stdClass[]
 	 */
-	protected function getCmsSearchResults($keywords)
+	protected function getCmsSearchResults($keywords, $language)
 	{
 		$searchModel = new SearchModel($this->cmsController->getDB());
 
-		$pageLang = $this->cmsController->getCmsPage()->getLanguage();
-
-		$searchIndex = Lucene::open($this->cmsController->getCore()->getSiteRoot() . 'index' . DIRECTORY_SEPARATOR . $pageLang);
+		$searchIndex = Lucene::open($this->cmsController->getCore()->getSiteRoot() . 'index' . DIRECTORY_SEPARATOR . $language);
 		/*$query = new Boolean(); // new Fuzzy()
 		$query->addSubquery(QueryParser::parse(
 			$keywords
 		), true);*/
 		QueryParser::suppressQueryParsingExceptions();
-		
+
 		$query = QueryParser::parse(
-			/*QueryParser::escape(*/$keywords//)
+		/*QueryParser::escape(*/$keywords//)
 		);
 
 
@@ -170,8 +169,8 @@ class FrontendSearchController extends CmsModuleFrontendController
 					try {
 						$manifestObj = JsonUtils::decode($resModName[0]->manifest_content);
 
-						if(isset($manifestObj->name->$pageLang))
-							$displayName = $manifestObj->name->$pageLang;
+						if(isset($manifestObj->name->$language))
+							$displayName = $manifestObj->name->$language;
 						elseif(isset($manifestObj->name->en))
 							$displayName = $manifestObj->name->en;
 					} catch(\Exception $e) {
