@@ -21,7 +21,6 @@ use ZendSearch\Lucene\Search\QueryParser;
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
- * @version 1.0.0
  */
 class FrontendSearchController extends CmsModuleFrontendController
 {
