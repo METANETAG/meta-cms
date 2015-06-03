@@ -3,9 +3,7 @@
 namespace ch\metanet\cms\module\mod_search\frontend;
 
 use ch\metanet\cms\common\CmsModuleFrontendController;
-use ch\metanet\cms\common\CmsView;
 use ch\metanet\cms\controller\common\FrontendController;
-use ch\metanet\cms\module\mod_news\model\NewsModel;
 use ch\metanet\cms\module\mod_search\common\CmsSearchHighlighter;
 use ch\metanet\cms\module\mod_search\common\Indexer;
 use ch\metanet\cms\module\mod_search\model\SearchModel;
@@ -13,12 +11,10 @@ use timesplinter\tsfw\common\JsonUtils;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpResponse;
-use ch\timesplinter\logger\LoggerFactory;
 use ZendSearch\Lucene\Analysis\Analyzer\Analyzer;
 use ZendSearch\Lucene\Analysis\Analyzer\Common\Utf8\CaseInsensitive;
 use ZendSearch\Lucene\Document;
 use ZendSearch\Lucene\Lucene;
-use ZendSearch\Lucene\Search\Query\Boolean;
 use ZendSearch\Lucene\Search\QueryHit;
 use ZendSearch\Lucene\Search\QueryParser;
 
