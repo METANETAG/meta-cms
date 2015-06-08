@@ -285,7 +285,7 @@ class PageController extends BackendController
 		$httpRequestFrontend->setRequestMethod('GET');
 
 		$matchedRoutes = RouteUtils::matchRoutesAgainstPath($this->core->getSettings()->core->routes, $httpRequestFrontend);
-		$matchedRoute = $matchedRoutes[$httpRequestFrontend->getRequestMethod()];
+		$matchedRoute = current($matchedRoutes);
 
 		$frontendController = new FrontendController($this->core, $httpRequestFrontend, $matchedRoute);
 
