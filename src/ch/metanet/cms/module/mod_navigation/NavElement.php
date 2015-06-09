@@ -332,10 +332,7 @@ class NavElement extends CmsElementSettingsLoadable
 			SELECT ID, name FROM navigation ORDER BY name
 		");
 
-		$resNavs = $backendController->getDB()->select($stmntNavs, array(
-			$this->ID,
-			$backendController->getLocaleHandler()->getLanguage()
-		));
+		$resNavs = $backendController->getDB()->select($stmntNavs);
 
 		$catsArr = array();
 
