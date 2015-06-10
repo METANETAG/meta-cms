@@ -300,6 +300,28 @@ class PageModel extends Model
 		return null;
 	}
 
+	/**
+	 * @param string $moduleName
+	 *
+	 * @return CmsRoute|null
+	 */
+	public function getRouteByModule($moduleName)
+	{
+		$stmntRoute = $this->db->prepare("
+			SELECT r.ID, pattern, page_IDFK, robots, external_source, redirect_route_IDFK, mod_IDFK, regex, ssl_required, ssl_forbidden
+			FROM route r
+			LEFT JOIN cms_mod_available ma ON ma.ID = r.mod_IDFK
+			WHERE r.regex = 0 AND ma.name = ?
+		");
+
+		$resRoutes = $this->db->select($stmntRoute, array($moduleName));
+
+		if(count($resRoutes) !== 1)
+			return null;
+
+		return $this->createRoute($resRoutes[0]);
+	}
+
 	public function getAllPages($role = null)
 	{
 		$condStr = null;

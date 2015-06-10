@@ -4,6 +4,7 @@ namespace ch\metanet\cms\common;
 
 use ch\metanet\cms\controller\common\CmsController;
 use ch\metanet\cms\model\ModuleModel;
+use ch\metanet\cms\model\PageModel;
 use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpResponse;
 
@@ -27,6 +28,9 @@ abstract class CmsModuleController
 
 	protected $currentResponse;
 
+	/** @var CmsRoute|null */
+	protected $moduleRoute;
+
 	/**
 	 * @param CmsController $cmsController
 	 * @param string $moduleName
@@ -38,8 +42,11 @@ abstract class CmsModuleController
 		$this->moduleSettings = $cmsController->getModuleSettings($moduleName);
 		
 		$this->moduleModel = new ModuleModel($this->cmsController->getDB());
+		$this->pageModel = new PageModel($this->cmsController->getDB());
 
 		$this->controllerRoutes = array();
+
+		$this->moduleRoute = $this->pageModel->getRouteByModule($moduleName);
 	}
 
 	/**
@@ -114,13 +121,6 @@ abstract class CmsModuleController
 	 * @return CmsModuleResponse
 	 */
 	protected abstract function renderModuleContent($tplFile, array $tplVars = array());
-
-	/**
-	 * Returns the modules base URI to generate new relative URIs on that base
-	 *
-	 * @return string Modules base URI as string
-	 */
-	protected abstract function getBaseURI();
 	
 	/**
 	 * @param string $moduleIdentifier

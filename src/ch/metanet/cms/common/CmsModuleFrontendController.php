@@ -74,17 +74,9 @@ abstract class CmsModuleFrontendController extends CmsModuleController
 	protected function renderModuleContent($tplFile, array $tplVars = array())
 	{
 		$tplVars['module_settings'] = $this->moduleSettings;
-		$tplVars['base_link'] = $this->getBaseURI();
+		$tplVars['base_link'] = $this->moduleRoute->getPattern();
 
 		return new CmsModuleResponse($tplFile, $tplVars);
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getBaseURI()
-	{
-		return ($this->cmsController->getCmsRoute() instanceof CmsRoute) ? $this->cmsController->getCmsRoute()->getPattern() : null;
 	}
 
 	protected function registerService($name, $methodName)
