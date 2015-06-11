@@ -47,6 +47,12 @@ class FormHelper {
 	private $totalRequired;
 	private $sentVar;
 
+	/**
+	 * @param string $method
+	 * @param array $sentVar
+	 *
+	 * @deprecated Use FormHandler (metanet/form-handler) instead
+	 */
 	public function __construct($method, $sentVar = array(self::METHOD_GET, 'send')/*, $name = null*/) {
 		$this->logger = FrameworkLoggerFactory::getLogger($this);
 		
