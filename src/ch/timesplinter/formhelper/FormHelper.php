@@ -11,6 +11,8 @@ use \DateTime;
  * @author Pascal Münst <entwicklung@metanet.ch>
  * @copyright (c) 2012, METANET AG, www.metanet.ch
  * @version 1.0
+ * 
+ * @deprecated Use FormHandler (metanet/form-handler) instead
  */
 class FormHelper {
 
