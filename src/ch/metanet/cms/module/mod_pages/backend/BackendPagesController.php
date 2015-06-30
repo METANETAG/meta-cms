@@ -36,8 +36,8 @@ class BackendPagesController extends CmsModuleBackendController
 {
 	/** @var  FormHelper */
 	private $formHelper;
-	private $pageModel;
 	private $routeModel;
+	protected $pageModel;
 
 	public function __construct(BackendController $moduleController, $moduleName)
 	{

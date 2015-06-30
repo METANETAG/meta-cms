@@ -79,6 +79,11 @@ abstract class CmsModuleFrontendController extends CmsModuleController
 		return new CmsModuleResponse($tplFile, $tplVars);
 	}
 
+	protected function getBaseURI()
+	{
+		return ($this->cmsController->getCmsRoute() instanceof CmsRoute) ? $this->cmsController->getCmsRoute()->getPattern() : null;
+	}
+
 	protected function registerService($name, $methodName)
 	{
 		$this->services[$name] = $methodName;
