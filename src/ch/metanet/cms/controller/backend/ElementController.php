@@ -56,9 +56,9 @@ class ElementController extends BackendController
 			$modRef = new \ReflectionClass($mod->class);
 			$resDoc = PHPDocParser::parse($modRef->getDocComment());
 			$mod->description = $resDoc->comment;
-			$mod->author = $resDoc->author;
-			$mod->version = isset($resDoc->version)?$resDoc->version:'n/a';
-			$mod->active_link = ($mod->active == 1)?'yes [<a href="?deactivate=' . $mod->ID . '">deactivate</a>]':'no [<a href="?activate=' . $mod->ID . '">activate</a>]';
+			$mod->author = isset($resDoc->author) ? $resDoc->author : 'unknown';
+			$mod->version = isset($resDoc->version) ? $resDoc->version : 'n/a';
+			$mod->active_link = ($mod->active == 1) ? 'yes [<a href="?deactivate=' . $mod->ID . '">deactivate</a>]' : 'no [<a href="?activate=' . $mod->ID . '">activate</a>]';
 		}
 
 		$tplVars = array(
