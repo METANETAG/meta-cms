@@ -39,6 +39,8 @@ abstract class CmsElement
 	protected $revision;
 	/** @var bool Indicator if this element is hidden or not */
 	protected $hidden;
+	/** @var bool Indicator if this element is WYSIWIG editable in the backend */
+	protected $editable;
 
 	/**
 	 * @param int $ID Element instance ID
@@ -251,25 +253,32 @@ abstract class CmsElement
 		if($this->hidden === true)
 			$hiddenClass = 'element-hidden ';
 
-		$editableHtml = '<div id="' . $modIDStr . '" class="element-editable ' . $hiddenClass . $sortableClass . str_replace('_','-', $this->identifier). ' clearfix">
+		$editableHtml = '
+		<div id="' . $modIDStr . '" class="element-editable ' . $hiddenClass . $sortableClass . str_replace('_','-', $this->identifier). ' clearfix">
 			<div id="' . $modIDStr . '-content" class="' . $layerClass . ' edit-area clearfix">
 				' . $html . '
 				<div class="edit-area-btn-group">
+					<!-- element info -->
 					<!--<a class="edit-area-btn edit-area-btn-info ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" href="javascript:alert(\'Element type: ' . $this->identifier . '\');"><span class="ui-button-icon-primary ui-icon ui-icon-info"></span><span class="ui-button-text">Element Info</span></a>-->
+					<!-- move -->
 					' . (($this->parentElement instanceof CmsElementSortable)?'<a class="edit-area-btn edit-area-btn-history ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-move" title="move" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-arrow-4"></span><span class="ui-button-text">move</span></a>':null) . '
-					' . (($this instanceof TextElement)?'<a class="edit-area-btn edit-area-btn-edit ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="edit content" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span><span class="ui-button-text">edit</span></a> ':null) . '
+					<!-- edit -->
+					' . (($this instanceof TextElement && $this->isEditable())?'<a class="edit-area-btn edit-area-btn-edit ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="edit content" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span><span class="ui-button-text">edit</span></a> ':null) . '
+					<!-- settings -->
 					' . (($this->hasConfig($frontendController))?'<a class="edit-area-btn edit-area-btn-settings ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" href="/backend/element/' . $this->ID . '-' . $frontendController->getCmsPage()->getID() . '/ajax-settingsbox" role="button" title="Module settings: ' . $modIDStr . ' (' . $this->identifier . ')"><span class="ui-button-icon-primary ui-icon ui-icon-gear"></span><span class="ui-button-text">Settings</span></a> ':null) . '
+					<!-- revision control -->
 					<a class="edit-area-btn edit-area-btn-history ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" href="/backend/element/' . $this->ID . '-' . $frontendController->getCmsPage()->getID() . '/ajax-revision-control" role="button" title="Revision control: ' . $modIDStr . ' (' . $this->identifier . ')"><span class="ui-button-icon-primary ui-icon ui-icon-clock"></span><span class="ui-button-text">Revision control</span></a>';
 
-					if($this->pageID == $frontendController->getCmsPage()->getID()) {
-						$editableHtml .= '<a class="edit-area-btn edit-area-btn-delete ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="delete" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-trash"></span><span class="ui-button-text">delete</span></a>';
-					} else {
-						$editableHtml .= ($this->hidden === false)?
-							'<a class="edit-area-btn edit-area-btn-hide ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="hide" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">hide</span></a>':
-							'<a class="edit-area-btn edit-area-btn-reveal ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="show" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">show</span></a>';
-					}
+		if($this->pageID == $frontendController->getCmsPage()->getID()) {
+			// delete element
+			$editableHtml .= '<a class="edit-area-btn edit-area-btn-delete ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="delete" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-trash"></span><span class="ui-button-text">delete</span></a>';
+		} else {
+			$editableHtml .= ($this->hidden === false)?
+				'<a class="edit-area-btn edit-area-btn-hide ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="hide" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">hide</span></a>':
+				'<a class="edit-area-btn edit-area-btn-reveal ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" title="show" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">show</span></a>';
+		}
 
-					$editableHtml .= '</div>
+		$editableHtml .= '</div>
 			</div>
 		</div>';
 
@@ -385,6 +394,16 @@ abstract class CmsElement
 	public function setHidden($hidden)
 	{
 		$this->hidden = $hidden;
+	}
+
+	public function isEditable()
+	{
+		return $this->editable;
+	}
+
+	public function setEditable($editable)
+	{
+		$this->editable = $editable;
 	}
 }
 
