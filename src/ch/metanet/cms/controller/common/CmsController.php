@@ -342,7 +342,7 @@ abstract class CmsController extends FrameworkController
 				$renderedEntries[] = '<li><a href="' . $baseModuleLink . $entry['target'] . '">' . $entry['label'] . '</a></li>';
 		}
 		
-		return count($renderedEntries) > 0 ? '<ul class="nav-module">' . implode(PHP_EOL, $renderedEntries) . '</ul>' : null;
+		return count($renderedEntries) > 0 ? '<ul class="nav-tab">' . implode(PHP_EOL, $renderedEntries) . '</ul>' : null;
 	}
 
 	public function getSettings($settingsName, $componentType = null)
