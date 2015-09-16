@@ -102,7 +102,7 @@ class ElementModel extends Model {
 		);*/
 
 		$stmntElements = $this->db->prepare("
-			SELECT ei.ID, ei.mod_IDFK element_ID, ei.page_IDFK page_ID, parent_mod_IDFK parent_element_ID, ea.class, ea.name, ei.revision, editable,
+			SELECT ei.ID, ei.mod_IDFK element_ID, ei.page_IDFK page_ID, parent_mod_IDFK parent_element_ID, ea.class, ea.name, ei.revision, ei.editable,
 			IF(ih.element_instance_IDFK IS NULL, 0, 1) hidden
 			FROM cms_element_instance ei
 			LEFT JOIN cms_element_available ea ON ea.ID = ei.mod_IDFK
@@ -127,7 +127,7 @@ class ElementModel extends Model {
 				$elementInstance->setRevision($e->revision);
 
 			$elementInstance->setHidden($e->hidden == 1);
-			$elementInstance->setEditable($e->editable == 1);
+			$elementInstance->setEditable($e->editable);
 
 			$elementInstances[$e->ID] = $elementInstance;
 			$elementTypes[$e->class][] = $e->ID;
@@ -148,7 +148,7 @@ class ElementModel extends Model {
 				$elementInstances[$key]->setSettings($settingsEntry);
 			}
 		}
-		
+
 		$cachedTree = new \ArrayObject($this->createTree($resElements, $elementInstances));
 
 		if($useCache === true) {

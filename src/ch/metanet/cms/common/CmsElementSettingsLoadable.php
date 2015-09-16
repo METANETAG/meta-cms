@@ -9,7 +9,7 @@ use timesplinter\tsfw\db\DB;
 
 /**
  * Enables a CMS element to have element specific settings and load and store them on a per page basis.
- * 
+ *
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  */
@@ -27,7 +27,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 		$this->settingsSelf = false;
 
 		$this->setDefaultSettings();
-		
+
 		$this->tplVars->offsetSet('settings', $this->settings);
 	}
 
@@ -63,7 +63,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 
 	/**
 	 * Stores the new settings for this element
-	 * 
+	 *
 	 * @param DB $db
 	 * @param \stdClass $newSettings
 	 * @param int $pageID
@@ -72,7 +72,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 
 	/**
 	 * Deletes the setting of itself for the current page
-	 * 
+	 *
 	 * @param DB $db
 	 * @param int $pageID
 	 */
@@ -85,7 +85,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 
 	/**
 	 * Generates the HTML config form for the element
-	 * 
+	 *
 	 * @param BackendController $backendController
 	 * @param int $pageID The current pages ID
 	 *
@@ -229,7 +229,17 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 					<li><label><input type="checkbox" value="1">Override children\'s settings</label></li>
 				</ul></dd>
 			</dl>';
-
+		$editable = $this->getEditeble($backendController->getDB(), $this->ID);
+		$checker = '';
+		if($editable[0]->editable === 1){
+			$checker = 'checked';
+		}
+		$boxHtml .= '<dl>
+						<dt>Iline editing</dt>
+						<dd><ul>
+							<li><label><input name="editable" type="checkbox" value="1"'.$checker.'>Should module be editable</label></li>
+						</ul></dd>
+					</dl>';
 		if($this->settingsSelf) {
 			$boxHtml .= '<dl>
 				<dt>Delete</dt>
@@ -250,7 +260,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 
 	/**
 	 * Returns the settings for this element
-	 * 
+	 *
 	 * @return \stdClass The settings
 	 */
 	public function getSettings()
@@ -260,7 +270,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 
 	/**
 	 * Set settings for this element
-	 * 
+	 *
 	 * @param \stdClass $settings The settings to set
 	 */
 	public function setSettings(\stdClass $settings)
@@ -280,7 +290,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 
 	/**
 	 * Checks if the element has settings already defined
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function hasSettings()
@@ -311,5 +321,13 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 		}
 
 		return $selector;
+	}
+
+	protected function getEditeble(DB $db, $modID)
+	{
+		$query = $db->prepare("SELECT ei.editable FROM cms_element_instance ei WHERE ei.ID = ?");
+		$res = $db->select($query, array($modID));
+
+		return $res;
 	}
 }

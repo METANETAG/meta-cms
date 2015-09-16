@@ -41,6 +41,7 @@ use ch\metanet\cms\common\CmsView;
 use ch\metanet\cms\common\CmsUtils;
 use timesplinter\tsfw\template\DirectoryTemplateCache;
 use \DateTime;
+use Exception;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
@@ -108,7 +109,7 @@ class PageController extends BackendController
 			$this->updatePage($this->pageModel->getPageByID($parentElementPageID));
 
 			$this->db->commit();
-		} catch(\Exception $e) {
+		} catch(Exception $e) {
 			$this->logger->error('Could not reorder elements', $e);
 
 			$this->db->rollBack();
@@ -156,7 +157,7 @@ class PageController extends BackendController
 				$filteredRoutes = RouteUtils::filterRoutesByMethod($matchedRoutes, $httpRequestFrontend->getRequestMethod());
 
 				$route = $filteredRoutes[key($filteredRoutes)];
-				
+
 				$frontendController = new FrontendController($this->core, $httpRequestFrontend, $route);
 
 				// Check if you use the site in preview mode or real
@@ -169,7 +170,7 @@ class PageController extends BackendController
 				} else {
 					$frontendController->deliverCMSPage();
 				}
-				
+
 				if($this->isAllowedElement($dropZoneID, $elementInstance, $newModInstance) === false)
 					throw new CMSException('This module type is not allowed in dropzone with ID ' . $dropZoneID);
 
@@ -217,7 +218,7 @@ class PageController extends BackendController
 				'Content-Type' => 'text/html; charset=utf-8',
 				'Content-Language' => $this->getLocaleHandler()->getLanguage()
 			));
-		} catch(\Exception $e) {
+		} catch(Exception $e) {
 			//$this->db->rollBack();
 			$this->logger->error('Could not create module', $e);
 
@@ -275,10 +276,10 @@ class PageController extends BackendController
 	public function deleteModuleAjax()
 	{
 		list($elementType, $elementID, $pageID) = explode('-',  $this->httpRequest->getVar('module'));
-		
+
 		$referrerPath = StringUtils::beforeFirst($this->httpRequest->getVar('referrer', 'strip_tags'), '?');
 		$html = null;
-		
+
 		/** @var HttpRequest $httpRequestFrontend */
 		$httpRequestFrontend = clone $this->httpRequest;
 		$httpRequestFrontend->setPath($referrerPath);
@@ -303,7 +304,7 @@ class PageController extends BackendController
 		$cmsPage = $this->pageModel->getPageByID($pageID);
 
 		$frontendController->setCmsPage($cmsPage);
-		
+
 		$elementModel = new ElementModel($this->db);
 		$pageElements = $elementModel->getElementTree($cmsPage);
 
@@ -319,7 +320,7 @@ class PageController extends BackendController
 			$this->db->beginTransaction($elementToDeleteInstance->getIdentifier() . '.' . $elementToDeleteInstance->getID() . '-' . $elementToDeleteInstance->getPageID() . '.' . date('YmdHis') . '.delete');
 
 			$elementToDeleteInstance->remove($this->db);
-			
+
 			if($parentElement instanceof LayoutElement)
 				$parentElement->removedChildElement($this->db, $elementToDeleteInstance, $pageID);
 
@@ -333,7 +334,7 @@ class PageController extends BackendController
 			$html = $parentElement->render($frontendController, $this->moduleView);
 
 			$this->db->commit();
-		} catch(\Exception $e) {
+		} catch(Exception $e) {
 			$this->db->rollBack();
 			$this->logger->error('Could not delete module', $e);
 
@@ -358,20 +359,20 @@ class PageController extends BackendController
 						SET element_instance_IDFK = ?, page_IDFK = ?, login_IDFK = ?
 				");
 
-					$this->db->insert($stmntHideElement, array(
-						$elementID, $pageID, $this->auth->getUserID()
-					));
-				} else {
-					$stmntHideElement = $this->db->prepare("
+				$this->db->insert($stmntHideElement, array(
+					$elementID, $pageID, $this->auth->getUserID()
+				));
+			} else {
+				$stmntHideElement = $this->db->prepare("
 						DELETE FROM cms_element_instance_hidden
 							WHERE element_instance_IDFK = ? AND page_IDFK = ?
 					");
 
-					$this->db->delete($stmntHideElement, array(
-						$elementID, $pageID
-					));
-				}
-		} catch(\Exception $e) {
+				$this->db->delete($stmntHideElement, array(
+					$elementID, $pageID
+				));
+			}
+		} catch(Exception $e) {
 			$msg = ($hide ? 'Could not hide element' : 'Could not reveal element') . ': ' . $e->getMessage();
 
 			return new HttpResponse(500, $msg, array(
@@ -381,7 +382,7 @@ class PageController extends BackendController
 		}
 
 		$cmsPage = $this->pageModel->getPageByID($pageID);
-		
+
 		$this->updatePage($cmsPage);
 
 		$moduleModel = new ModuleModel($this->db);
@@ -424,7 +425,7 @@ class PageController extends BackendController
 	 * @return HttpResponse
 	 * @throws CMSException
 	 * @throws HttpException
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function updateModuleAjax()
 	{
@@ -434,15 +435,11 @@ class PageController extends BackendController
 			$updateMethod = 'update';
 
 		$cmsPage = $this->pageModel->getPageByID($elementPageID);
-
 		$moduleModel = new ModuleModel($this->db);
 		$modInstance = $moduleModel->getElementInstanceByID($elementID, $cmsPage);
-
 		if($modInstance instanceof CmsElementSettingsLoadable === false)
-			return new HttpResponse(500, 'This element has not settings which could be updated');
-
+			return new HttpResponse(500, 'This element has no settings which could be updated');
 		/** @var CmsElementSettingsLoadable $modInstance */
-		
 		try {
 			$revDate = date('YmdHis');
 			$this->db->beginTransaction($modInstance->getIdentifier() . '.' . $modInstance->getID() . '-' . $modInstance->getPageID() . '.' . $revDate . '.update');
@@ -455,12 +452,12 @@ class PageController extends BackendController
 			} else {
 				$modInstance->deleteSettingsSelf($this->db, $cmsPage->getID());
 			}
-
+			$this->updateInlineEditble(intval($elementID));
 			$this->updateElementRevision($modInstance, $revDate);
 			$this->updatePage($cmsPage);
 
 			$this->db->commit();
-		} catch(\Exception $e) {
+		} catch(Exception $e) {
 			$this->db->rollBack();
 			$this->logger->error('Could not update element', $e);
 			return new HttpResponse(500, 'Could not update element: ' . $e->getMessage());
@@ -473,15 +470,27 @@ class PageController extends BackendController
 		}
 
 		$referrerPath = StringUtils::beforeFirst($this->httpRequest->getVar('referrer', 'strip_tags'), '?');
-
 		$httpRequestFrontend = clone $this->httpRequest;
 		$httpRequestFrontend->setPath($referrerPath);
 		$httpRequestFrontend->setRequestMethod('GET');
 		$frontendController = new FrontendController($this->core, $httpRequestFrontend, $this->route);
 
 		$frontendController->deliverCMSPage();
-
 		return new HttpResponse(200, $modInstance->render($frontendController, $this->moduleView));
+	}
+
+	/**
+	 * @param $id
+	 */
+	private function updateInlineEditble($id)
+	{
+		$editQuery = $this->db->prepare("SELECT ei.editable FROM cms_element_instance ei WHERE ei.ID = ?");
+		$editRes = $this->db->select($editQuery, array($id));
+		$postEdit = $this->core->getHttpRequest()->getVar('editable');
+		if($postEdit != $editRes) {
+			$updateQry = $this->db->prepare("UPDATE cms_element_instance SET editable = ? WHERE ID = ?");
+			$this->db->update($updateQry, array($postEdit ,$id));
+		}
 	}
 
 	/**
@@ -507,7 +516,7 @@ class PageController extends BackendController
 	 * @return HttpResponse
 	 * @throws CMSException
 	 * @throws HttpException
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function restoreElementAjax()
 	{
@@ -533,7 +542,7 @@ class PageController extends BackendController
 
 			$this->db->commit();
 			$this->db->setListenersMute(false);
-		} catch(\Exception $e) {
+		} catch(Exception $e) {
 			$this->db->setListenersMute(false);
 			$this->db->rollBack();
 
@@ -564,20 +573,20 @@ class PageController extends BackendController
 
 	/**
 	 * Sets the last modified time to now and the last modifier to the authenticated user
-	 * 
+	 *
 	 * @param CmsPage $cmsPage The CMS page to update
 	 */
 	protected function updatePage(CmsPage $cmsPage)
 	{
 		$stmntUpdatePage = $this->db->prepare("UPDATE page SET last_modified = NOW(), modifier_IDFK = ? WHERE ID = ?");
-		
+
 		$this->db->update($stmntUpdatePage, array(
 			$this->auth->getUserID(),
 			$cmsPage->getID()
 		));
 
 		$this->eventDispatcher->dispatch(
-			'mod_core.pageModified', 
+			'mod_core.pageModified',
 			new PageEvent($cmsPage)
 		);
 	}

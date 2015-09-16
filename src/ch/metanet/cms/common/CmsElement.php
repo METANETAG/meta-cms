@@ -15,7 +15,7 @@ use timesplinter\tsfw\db\DB;
 /**
  * The basic class each CMS module element should extend. This class provides basic operations which are the same for
  * every CMS element.
- * 
+ *
  * @author Pascal Muenst <entwicklung@metanet.ch>
  * @copyright Copyright (c) 2013, METANET AG
  */
@@ -62,7 +62,7 @@ abstract class CmsElement
 
 	/**
 	 * Renders the module with the given template file and TemplateEngine instance
-	 * 
+	 *
 	 * @param FrontendController $frontendController
 	 * @param CmsView $view
 	 * @return string Returns the rendered html of the module
@@ -74,7 +74,7 @@ abstract class CmsElement
 
 	/**
 	 * Removes the element and its configuration
-	 * 
+	 *
 	 * @param DB $db
 	 */
 	public function remove(DB $db)
@@ -97,7 +97,7 @@ abstract class CmsElement
 
 	/**
 	 * Creates a new element instance and stores its configuration
-	 * 
+	 *
 	 * @param DB $db
 	 *
 	 * @return bool
@@ -134,7 +134,7 @@ abstract class CmsElement
 
 	/**
 	 * Checks if the element has settings to configure per element instance
-	 * 
+	 *
 	 * @param FrontendController $fec
 	 *
 	 * @return bool True if it has settings else false
@@ -287,7 +287,7 @@ abstract class CmsElement
 
 	/**
 	 * Returns the parent module of this one
-	 * 
+	 *
 	 * @return CmsElement
 	 */
 	public function getParentElement()
@@ -378,7 +378,7 @@ abstract class CmsElement
 
 	/**
 	 * Returns true if the element is hidden or false if its not
-	 * 
+	 *
 	 * @return boolean The hidden state of the element
 	 */
 	public function isHidden()
@@ -388,7 +388,7 @@ abstract class CmsElement
 
 	/**
 	 * Sets the hidden state of the element
-	 * 
+	 *
 	 * @param boolean $hidden Hidden state
 	 */
 	public function setHidden($hidden)
