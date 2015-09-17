@@ -10,38 +10,26 @@ use ch\metanet\cms\common\CmsTemplateEngine;
 use ch\metanet\cms\common\RevisionControl;
 use ch\metanet\cms\controller\common\BackendController;
 use ch\metanet\cms\controller\common\FrontendController;
-use ch\metanet\cms\model\CoreModel;
 use ch\metanet\cms\model\ElementModel;
 use ch\metanet\cms\model\ModuleModel;
 use ch\metanet\cms\model\PageModel;
 use ch\metanet\cms\common\CmsElement;
 use ch\metanet\cms\common\CmsElementSettingsLoadable;
-use ch\metanet\cms\model\RightGroupModel;
 use ch\metanet\cms\module\layout\LayoutElement;
 use ch\metanet\cms\module\mod_core\events\PageEvent;
-use ch\metanet\cms\tablerenderer\BooleanColumnDecorator;
-use ch\metanet\cms\tablerenderer\CallbackColumnDecorator;
-use ch\metanet\cms\tablerenderer\Column;
-use ch\metanet\cms\tablerenderer\DateColumnDecorator;
-use ch\metanet\cms\tablerenderer\LinkColumnDecorator;
-use ch\metanet\cms\tablerenderer\RewriteColumnDecorator;
-use ch\metanet\cms\tablerenderer\TableRenderer;
 use ch\timesplinter\core\Core;
 use ch\timesplinter\core\FrameworkLoggerFactory;
 use ch\timesplinter\core\HttpException;
 use ch\timesplinter\core\HttpRequest;
 use ch\timesplinter\core\HttpResponse;
-use ch\timesplinter\core\RequestHandler;
 use ch\timesplinter\core\Route;
 use ch\timesplinter\core\RouteUtils;
 use timesplinter\tsfw\db\DBException;
 use ch\timesplinter\formhelper\FormHelper;
 use timesplinter\tsfw\common\StringUtils;
 use ch\metanet\cms\common\CmsView;
-use ch\metanet\cms\common\CmsUtils;
 use timesplinter\tsfw\template\DirectoryTemplateCache;
-use \DateTime;
-use Exception;
+use \Exception;
 
 /**
  * @author Pascal Muenst <entwicklung@metanet.ch>
@@ -452,7 +440,7 @@ class PageController extends BackendController
 			} else {
 				$modInstance->deleteSettingsSelf($this->db, $cmsPage->getID());
 			}
-			$this->updateInlineEditble(intval($elementID));
+			$this->updateInlineEditable(intval($elementID));
 			$this->updateElementRevision($modInstance, $revDate);
 			$this->updatePage($cmsPage);
 
@@ -482,12 +470,12 @@ class PageController extends BackendController
 	/**
 	 * @param $id
 	 */
-	private function updateInlineEditble($id)
+	private function updateInlineEditable($id)
 	{
 		$editQuery = $this->db->prepare("SELECT ei.editable FROM cms_element_instance ei WHERE ei.ID = ?");
 		$editRes = $this->db->select($editQuery, array($id));
-		$postEdit = $this->core->getHttpRequest()->getVar('editable');
-		if($postEdit != $editRes) {
+		$postEdit = (int)$this->core->getHttpRequest()->getVar('editable');
+		if($postEdit != $editRes[0]->editable) {
 			$updateQry = $this->db->prepare("UPDATE cms_element_instance SET editable = ? WHERE ID = ?");
 			$this->db->update($updateQry, array($postEdit ,$id));
 		}

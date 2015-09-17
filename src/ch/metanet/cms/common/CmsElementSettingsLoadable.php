@@ -114,7 +114,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 
 		$modIDStr = 'mod-' . $this->ID . '-' . $pageID;
 
-		$boxHtml = '<form method="post" class="mod-config-form" element="' . $modIDStr . '"><fieldset><legend>Element specific</legend>';
+		$boxHtml = '<form method="post" class="mod-config-form" element="' . $modIDStr . '"><fieldset><legend>Elementeinstellungen für diese Seite</legend>';
 
 		foreach($jsonConfig->settings as $key => $entry) {
 			$fld = null;
@@ -223,28 +223,28 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 			$boxHtml .= $fld;
 		}
 
-		$boxHtml .= '</fieldset><fieldset><legend>General</legend>
-			<dl><dt>Pass on</dt>
+		$boxHtml .= '</fieldset><fieldset><legend>Allgemein</legend>
+			<dl><dt>Überlagerung</dt>
 				<dd><ul>
-					<li><label><input type="checkbox" value="1">Override children\'s settings</label></li>
+					<li><label><input type="checkbox" value="1">Kindeinstellungen überschreiben</label></li>
 				</ul></dd>
 			</dl>';
-		$editable = $this->getEditeble($backendController->getDB(), $this->ID);
+		$editable = $this->getEditable($backendController->getDB(), $this->ID);
 		$checker = '';
 		if($editable[0]->editable === 1){
 			$checker = 'checked';
 		}
 		$boxHtml .= '<dl>
-						<dt>Iline editing</dt>
+						<dt>Inline-Bearbeitung</dt>
 						<dd><ul>
-							<li><label><input name="editable" type="checkbox" value="1"'.$checker.'>Should module be editable</label></li>
+							<li><label><input name="editable" type="checkbox" value="1"'.$checker.'>WYSIWYG-Editor aktivieren</label></li>
 						</ul></dd>
 					</dl>';
 		if($this->settingsSelf) {
 			$boxHtml .= '<dl>
-				<dt>Delete</dt>
+				<dt>Löschen</dt>
 				<dd><ul>
-					<li><label><input name="delete_settings" type="checkbox" value="1">Delete specific element settings on this page</label></li>
+					<li><label><input name="delete_settings" type="checkbox" value="1">Elementeinstellungen für diese Seite entfernen</label></li>
 				</ul></dd>
 			</dl>';
 		}
@@ -323,7 +323,7 @@ abstract class CmsElementSettingsLoadable extends CmsElement
 		return $selector;
 	}
 
-	protected function getEditeble(DB $db, $modID)
+	protected function getEditable(DB $db, $modID)
 	{
 		$query = $db->prepare("SELECT ei.editable FROM cms_element_instance ei WHERE ei.ID = ?");
 		$res = $db->select($query, array($modID));

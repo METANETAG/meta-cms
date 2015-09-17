@@ -127,7 +127,7 @@ class ElementModel extends Model {
 				$elementInstance->setRevision($e->revision);
 
 			$elementInstance->setHidden($e->hidden == 1);
-			$elementInstance->setEditable($e->editable);
+			$elementInstance->setEditable($e->editable == 1);
 
 			$elementInstances[$e->ID] = $elementInstance;
 			$elementTypes[$e->class][] = $e->ID;
